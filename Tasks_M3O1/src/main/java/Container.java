@@ -30,10 +30,12 @@ public class Container {
 		this.pressure = pressure;
 	}
 	
-	public modifyData update(String dataChoice, int updateData) {
+	public UpdateData update(String dataChoice, int updateData) {
+		UpdateData modifyData = null;
 		if (dataChoice.equals("temperature")) {this.setTemperature(updateData);}
 		else if (dataChoice.equals("humidity")) {this.setHumidity(updateData);}
 		else if (dataChoice.equals("pressure")) {this.setPressure(updateData);}
+		return modifyData;
 	}
 	
 	public void historyInternalStatus(int temperature, int humidity, int pressure) {

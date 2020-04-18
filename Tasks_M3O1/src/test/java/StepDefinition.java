@@ -23,7 +23,7 @@ public class StepDefinition {
 	
 	@When("the logistic company {string} wants to add measurements to the internal status")
 	public void the_logistic_company_wants_to_add_measurements_to_the_internal_status(String company) {
-		modifyData = currentInternalStatus.update(measurement);
+		modifyData = currentStatus.UpdateData(measurement);
 	}
 	
 	@Then ("the system sets the internal status to the latests measurements") {

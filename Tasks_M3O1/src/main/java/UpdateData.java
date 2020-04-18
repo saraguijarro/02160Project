@@ -7,7 +7,7 @@ public class UpdateData {
 		return measurement;
 	}
 
-	public modifyData(int measurement) {
+	public UpdateData(int measurement) {
 		this.measurement = measurement;
 	}
 }
