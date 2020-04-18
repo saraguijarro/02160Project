@@ -1,6 +1,6 @@
 
-public class modifyData {
-	
+public class UpdateData {
+
 	int measurement;
 	
 	public int getMeasurement() {

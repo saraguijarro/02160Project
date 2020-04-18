@@ -11,6 +11,7 @@ public class StepDefinition {
 	LogisticCompany company;
 	currentInternalStatus currentStatus;
 	Container container = new Container();
+	UpdateData modifyData;
 	
 	
 	//Scenario: Update measurements about the container’s internal status
