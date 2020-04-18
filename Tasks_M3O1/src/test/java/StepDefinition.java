@@ -26,7 +26,30 @@ public class StepDefinition {
 		modifyData = currentStatus.UpdateData(measurement);
 	}
 	
-	@Then ("the system sets the internal status to the latests measurements") {
-		assertEquals("Measurement succesfully updated.",modifyData.getMeasurement());
+	@Then ("the system sets the internal status to the latests measurements") 
+	public void the_system_sets_the_internal_status_to_the_latests_measurements() {
+		assertEquals("Measurement succesfully added.",modifyData.getMeasurement());
+	}
+	
+//Feature: Retrieve measurements about the container’s internal status
+	
+	//Scenario: Retrieve measurements from the system
+	
+	@Given a journey id "JO002160" exists for the corresponding container
+	
+	
+	@Given("the container corresponds to the client {string}")
+	public void the_container_corresponds_to_the_client(String client) {
+		
+	}
+	
+	@When ("a client {string} wants to retrieve measurements from the internal status")
+	public void a_client_wants_to_retrieve_measurements_from_the_internal_status(String client) {
+		
+	}
+	
+	@Then ("these measurements are retrieved from the internal status")
+	public void these_measurements_are_retrieved_from_the_internal_status() {
+		assertEquals("Measurement succesfully retrieved.",modifyData.getMeasurement());
 	}
 }
