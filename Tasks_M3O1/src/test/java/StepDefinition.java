@@ -35,7 +35,7 @@ public class StepDefinition {
 	
 	//Scenario: Retrieve measurements from the system
 	
-	@Given a journey id "JO002160" exists for the corresponding container
+	/* @Given a journey id "JO002160" exists for the corresponding container *///////////////////////////////////////////////
 	
 	
 	@Given("the container corresponds to the client {string}")
@@ -45,7 +45,7 @@ public class StepDefinition {
 	
 	@When ("a client {string} wants to retrieve measurements from the internal status")
 	public void a_client_wants_to_retrieve_measurements_from_the_internal_status(String client) {
-		
+		modifyData = currentStatus.RetrieveData(measurement);
 	}
 	
 	@Then ("these measurements are retrieved from the internal status")
