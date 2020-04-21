@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="CucumberTest" time="0.3" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="pro.CucumberTest" time="0.579" errors="0" skipped="7">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="13.0.2+8"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-13.0.2\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\test\git\02160Project\Version_1"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\test\git\02160Project\pro"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\test\git\02160Project\Version_1"/>
+    <property name="user.dir" value="C:\Users\test\git\02160Project\pro"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="13.0.2+8"/>
     <property name="os.arch" value="amd64"/>
@@ -25,7 +25,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\test\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf274287827535128858.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\test\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1523406030436942379.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk-13.0.2\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-13.0.2/bin/server;C:/Program Files/Java/jdk-13.0.2/bin;C:\ProgramData\watcom-1.3\binnt;C:\ProgramData\watcom-1.3\binw;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\test;C:\Users\test\Downloads\jdk-13.0.2_windows-x64_bin\jdk-13.0.2\bin;C:\Users\test\AppData\Local\Microsoft\WindowsApps;C:\Users\test\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\test\Downloads\jdk-13.0.2_windows-x64_bin.zip\jdk-13.0.2\bin;;C:\Users\test\Desktop;;."/>
     <property name="jdk.debug" value="release"/>
@@ -48,7 +48,7 @@
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="java.version" value="13.0.2"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\test\git\02160Project\Version_1\EMBEDDED"/>
+    <property name="maven.home" value="C:\Users\test\git\02160Project\pro\EMBEDDED"/>
     <property name="file.separator" value="\"/>
     <property name="java.version.date" value="2020-01-14"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
@@ -56,12 +56,30 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Client updates client information" name="The client updates an information that can be changed" time="0.256"/>
-  <testcase classname="Company find client" name="The company uses the criteria from an existing client without filter" time="0.003"/>
-  <testcase classname="Company find client" name="The company uses criteria that do not exist, without filter" time="0.007"/>
-  <testcase classname="Company find client" name="The company uses the criteria from an existing client with a filter" time="0.004"/>
-  <testcase classname="Company registers new clients" name="The company gives all information about the client" time="0.005"/>
-  <testcase classname="Company registers new clients" name="The company does not give all information about the client" time="0.006"/>
-  <testcase classname="Company registers new clients" name="The company does not give the name of the client" time="0.004"/>
-  <testcase classname="Company registers new clients" name="The company registers an already registered client" time="0.015"/>
+  <testcase classname="Client Find Journey" name="The company uses the criteria from an existing client without filter" time="0.523">
+    <skipped/>
+    <system-err>Apr 20, 2020 2:20:04 PM io.cucumber.junit.Cucumber &lt;init&gt;
+WARNING: By default Cucumber is running in --non-strict mode.
+This default will change to --strict and --non-strict will be removed.
+You can use --strict or @CucumberOptions(strict = true) to suppress this warning
+</system-err>
+  </testcase>
+  <testcase classname="User registers containers" name="The user gives all information about the container&apos;s journey." time="0.016">
+    <skipped/>
+  </testcase>
+  <testcase classname="User registers containers" name="The client does not give the content of the container&apos;s journey" time="0.014">
+    <skipped/>
+  </testcase>
+  <testcase classname="Company updates journey information" name="The company updates an information that can be changed" time="0.009">
+    <skipped/>
+  </testcase>
+  <testcase classname="Title of your feature" name="Title of your scenario" time="0.008">
+    <skipped/>
+  </testcase>
+  <testcase classname="Title of your feature" name="Title of your scenario outline" time="0.005">
+    <skipped/>
+  </testcase>
+  <testcase classname="Title of your feature" name="Title of your scenario outline" time="0.004">
+    <skipped/>
+  </testcase>
 </testsuite>
