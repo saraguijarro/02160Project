@@ -25,6 +25,7 @@ public class Client {
 	String email;
 	String clientID;
 	Boolean hasID;
+	journeyDB journeyDB;
 	
 //------all the setters and getters----------
 	public String getClientID() {
