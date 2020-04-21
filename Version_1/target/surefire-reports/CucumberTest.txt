@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: CucumberTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.28 sec
+=======
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.543 sec
+>>>>>>> branch 'master' of https://github.com/saraguijarro/02160Project.git
