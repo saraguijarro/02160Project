@@ -1,7 +1,7 @@
 
-package dao;
+package com.project.dto.dao;
 
-import config.PROP;
+import com.project.dto.config.PROP;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

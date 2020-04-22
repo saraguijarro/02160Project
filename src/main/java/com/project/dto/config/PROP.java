@@ -1,4 +1,4 @@
-package config;
+package com.project.dto.config;
 
 import org.apache.log4j.Logger;
 
@@ -10,7 +10,7 @@ import java.util.Properties;
  */
 public class PROP
 {
-    final static Logger log = Logger.getLogger(config.PROP.class);
+    final static Logger log = Logger.getLogger(com.project.dto.config.PROP.class);
 
     private static Properties properties;
 
@@ -36,7 +36,7 @@ public class PROP
                 properties = new Properties();
 
                 // load  app.properties :
-                properties.load(config.PROP.class.getClassLoader().getResourceAsStream("app.properties"));
+                properties.load(com.project.dto.config.PROP.class.getClassLoader().getResourceAsStream("app.properties"));
                 log.debug("Success add app.properties file.");
 
             } catch (IOException e)
@@ -57,7 +57,7 @@ public class PROP
      */
     public static String getProperty(String key)
     {
-        return config.PROP.getInstance().getProperty(key);
+        return com.project.dto.config.PROP.getInstance().getProperty(key);
     }
 
     /**
@@ -65,6 +65,6 @@ public class PROP
      */
     public static void init()
     {
-        config.PROP.getInstance();
+        com.project.dto.config.PROP.getInstance();
     }
 }
