@@ -353,9 +353,7 @@ public class StepDefinition {
 //Feature: Add measurements about the container’s internal status
 	ContainerCurrent currentStatus;
 	Container container = new Container();
-	String dataChoice;
 	int updateData;
-	UpdateData modifyData;
 		
 	//Scenario: Update measurements about the container’s internal status
 		
@@ -363,25 +361,26 @@ public class StepDefinition {
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	}
-		
+	
+	/*
 	@Given("an update choice {string}")
 	public void an_update_choice(String Choice) {
 	    dataChoice = Choice;
-	}
+	}*/
 		
-	@When("the logistic company {string} wants to add measurements to the internal status")
-	public void the_logistic_company_wants_to_add_measurements_to_the_internal_status(String company) {
-		modifyData = company.update(dataChoice,updateData);
+	@When("updating the internal status")
+	public void updating_the_internal_status(String company) {
+		updateResponse = container.update(updateChoice,updateData);
 	}
 		
 	@Then ("the system sets the internal status to the latests measurements") 
 	public void the_system_sets_the_internal_status_to_the_latests_measurements() {
-		assertEquals("Measurement succesfully added.",modifyData);
+		assertEquals("Measurement succesfully added.",updateResponse.message);
 	}
 		
 		
-//Feature: Retrieve measurements about the container’s internal status
-	UpdateData retrieveData;
+//Feature: Retrieve measurements about the container internal status
+	UpdateData retrieveData; //change this bcs UpdateData will not be used
 	Client client3 = new Client();
 		
 	//Scenario: Retrieve measurements from the system
@@ -394,15 +393,20 @@ public class StepDefinition {
 	public void the_container_corresponds_to_the_client(String client) {
 		containerDatabase = /////////////////////////////////////////////////////////////////////////WORK ON THIS WITH THOMAS
 	}
+	
+	@Given("a container with temperature {double} humidity {double} pressure {double}")
+	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
 		
-	@When ("a client {string} wants to retrieve measurements from the internal status")
-	public void a_client_wants_to_retrieve_measurements_from_the_internal_status(String client) {
-		retrieveData = client.retrieve(dataChoice);
 	}
-		
-	@Then ("these measurements are retrieved from the internal status")
-	public void these_measurements_are_retrieved_from_the_internal_status() {
-		assertEquals("Measurement succesfully retrieved.",retrieveData);
+
+	@When ("a client retrieves measurements from the internal status")
+	public void a_client_retrieves_measurements_from_the_internal_status() {
+		retrieveData = container.getMeasurements();
+	}
+	
+	@Then ("the measurements temperature {double} humidity {double} pressure {double} are retrieved")
+	public void the_measurements_temperature_humidity_pressure_are_retrieved(double temp,double hum,double press) {
+		assertEquals("Measurement succesfully retrieved.",retrieveData); //to modify, match it w/ measurements
 	}
 		
 		
@@ -415,6 +419,7 @@ public class StepDefinition {
 	//Scenario: Tracking the internal status
 	
 	/* @Given ("a journey id {string} exists for the corresponding container") *////////////////////////////////////////////
+	
 	@Given("a database exists for the measures of the container’s internal status")
 	public void a_database_exists_for_the_measures_of_the_container_internal_status() {
 		
@@ -422,7 +427,7 @@ public class StepDefinition {
 		
 	@When("the system measures the internal status facts")
 	public void the_system_measures_the_internal_facts() {
-		trackData = internalStatus.track(dataChoice);
+		trackData = internalStatus.track(updateChoice);
 	}
 		
 	@Then("the system adds the data given to the internal status’ database")
@@ -434,7 +439,7 @@ public class StepDefinition {
 	
 	/* @Given ("a journey id {string} exists for the corresponding container") *////////////////////////////////////////////
 		
-	@Given("a database exists for the container’s journeys")
+	@Given("a database exists for the container journeys")
 	public void a_database_exists_for_the_container_journeys() {
 		
 	}
@@ -451,7 +456,7 @@ public class StepDefinition {
 			
 	//Scenario: There is no journey id for the tracked container
 			
-	@Given("the journey id {string} doesn’t exist for the corresponding container")
+	@Given("the journey id {string} does not exist for the corresponding container")
 	public void the_journey_id_does_not_exist_for_the_coresponding_container(String journeyID) {
 		
 	}

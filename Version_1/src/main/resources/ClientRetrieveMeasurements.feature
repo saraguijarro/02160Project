@@ -17,13 +17,13 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Retrieve measurements about the container’s internal status
+Feature: Retrieve measurements about the container internal status
   Retrieve the collected measurements from the system
 
   @tag1
   Scenario: Retrieve measurements from the system
 		Given a journey id "JO002160" exists for the corresponding container
-		And an update choice "humidity"
+		And a container with temperature 15 humidity 10 pressure 0.4
 		And the container corresponds to the client "Alberto"
-		When a client "Alberto" wants to retrieve measurements from the internal status
-		Then these measurements are retrieved from the internal status
+		When a client retrieves measurements from the internal status
+		Then the measurements temperature 15 humidity 10 pressure 0.4 are retrieved

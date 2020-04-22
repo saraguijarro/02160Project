@@ -23,19 +23,19 @@ Feature: Track each container
   @tag1
   Scenario: Tracking the internal status
     Given a journey id "JO002160" exists for the corresponding container
-		And a database exists for the measures of the container’s internal status
+		And a database exists for the measures of the container internal status
 		When the system measures the internal status facts
-		Then the system adds the data given to the internal status’ database
+		Then the system adds the data given to the internal status database
 
   @tag2
   Scenario: Tracking the journey
 		Given a journey id "JO002160" exists for the corresponding container
-		And a database exists for the container’s journeys
+		And a database exists for the container journeys
 		When the system determines the location of the container
-		Then the system add the location found to the journey’s database
+		Then the system add the location found to the journey database
 
   @tag3
   Scenario: There is no journey id for the tracked container
-		Given the journey id "JO002160" doesn’t exist for the corresponding container
+		Given the journey id "JO002160" does not exist for the corresponding container
 		When trying to obtain information about the internal status or the journey evolution
 		Then the search is unsuccessful
