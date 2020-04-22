@@ -323,6 +323,157 @@ public class StepDefinition {
 	    throw new io.cucumber.java.PendingException();
 	}
 	
+
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//Mandatory 3 and Optional 1 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+//Feature: Add measurements about the container’s internal status
+	ContainerCurrent currentStatus;
+	Container container = new Container();
+	int updateData;
+		
+	//Scenario: Update measurements about the container’s internal status
+		
+	@Given("a journey id {string} exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+		assertEquals(container.hasId(container),true);
+	}
+	
+	/*
+	@Given("an update choice {string}")
+	public void an_update_choice(String Choice) {
+	    dataChoice = Choice;
+	}*/
+		
+	@When("updating the internal status")
+	public void updating_the_internal_status(String company) {
+		updateResponse = container.update(updateChoice,updateData);
+	}
+		
+	@Then ("the system sets the internal status to the latests measurements") 
+	public void the_system_sets_the_internal_status_to_the_latests_measurements() {
+		assertEquals("Measurement succesfully added.",updateResponse.message);
+	}
+		
+		
+//Feature: Retrieve measurements about the container internal status
+	UpdateData retrieveData; //change this bcs UpdateData will not be used
+	Client client3 = new Client();
+		
+	//Scenario: Retrieve measurements from the system
+	
+	/* @Given("a journey id {string} exists for the corresponding container") *///////////////////////////////////////////////
+		
+	/* @Given("an update choice {string}") */////////////////////////////////////////////////////////////////////////
+		
+	@Given("the container corresponds to the client {string}")
+	public void the_container_corresponds_to_the_client(String client) {
+		containerDatabase = /////////////////////////////////////////////////////////////////////////WORK ON THIS WITH THOMAS
+	}
+	
+	@Given("a container with temperature {double} humidity {double} pressure {double}")
+	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
+		
+	}
+
+	@When ("a client retrieves measurements from the internal status")
+	public void a_client_retrieves_measurements_from_the_internal_status() {
+		retrieveData = container.getMeasurements();
+	}
+	
+	@Then ("the measurements temperature {double} humidity {double} pressure {double} are retrieved")
+	public void the_measurements_temperature_humidity_pressure_are_retrieved(double temp,double hum,double press) {
+		assertEquals("Measurement succesfully retrieved.",retrieveData); //to modify, match it w/ measurements
+	}
+		
+		
+//Feature: Track each container
+	ContainerHistory internalStatus;
+	ContainerHistory containerLocation;
+	UpdateData trackData;
+	UpdateData locateContainer;
+		
+	//Scenario: Tracking the internal status
+	
+	/* @Given ("a journey id {string} exists for the corresponding container") *////////////////////////////////////////////
+	
+	@Given("a database exists for the measures of the container’s internal status")
+	public void a_database_exists_for_the_measures_of_the_container_internal_status() {
+		
+	}
+		
+	@When("the system measures the internal status facts")
+	public void the_system_measures_the_internal_facts() {
+		trackData = internalStatus.track(updateChoice);
+	}
+		
+	@Then("the system adds the data given to the internal status’ database")
+	public void the_system_adds_the_data_given_to_the_internal_status_database() {
+		assertEquals("Tracked internal status.",trackData);
+	}
+		
+	//Scenario: Tracking the journey
+	
+	/* @Given ("a journey id {string} exists for the corresponding container") *////////////////////////////////////////////
+		
+	@Given("a database exists for the container journeys")
+	public void a_database_exists_for_the_container_journeys() {
+		
+	}
+		
+	@When("the system determines the location of the container")
+	public void the_system_determines_the_location_of_the_container() {
+		locateContainer = containerLocation.locate(container);
+	}
+		
+	@Then("the system add the location found to the journey’s database")
+	public void the_system_add_the_location_found_to_the_journey_database() {
+		assertEquals("Tracked location.",containerLocation);
+	}
+			
+	//Scenario: There is no journey id for the tracked container
+			
+	@Given("the journey id {string} does not exist for the corresponding container")
+	public void the_journey_id_does_not_exist_for_the_coresponding_container(String journeyID) {
+		
+	}
+		
+	@When("trying to obtain information about the internal status or the journey evolution")
+	public void trying_to_obtain_information_about_the_internal_status_or_the_journey_evolution() {
+		assertEquals("No journey id has been found for the corresponding container.",container.getMessage());
+	}
+		
+	@Then("the search is unsuccessful")
+	public void the_search_is_unsuccessful() {
+		assertEquals("Thus the research is unsuccessful.",container.getMessage());
+	}
+
+//Feature: Retrieve info about each container
+		
+
+
 	
 }

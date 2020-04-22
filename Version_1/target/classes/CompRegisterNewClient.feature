@@ -32,15 +32,15 @@ Feature: Company registers new clients
     And a valid address: "Denmark", "Lyngby", "2800", "Fysikvej", "315"
     And a valid reference person "Suzan"
     And a valid email "s184468@student.dtu.dk"
-    When Registering
-    Then the system displays a message confirming the registration
+    When Registering in "client database"
+    Then the system displays a message confirming the registration of client
     And a new client id is automaticly generated
     
    @tag2
    Scenario: The company does not give all information about the client
 	  Given a valid client name "Miguel"
 	  And a valid email "s184468@student.dtu.dk"
-	  When Registering
+	  When Registering in "client database"
 	  Then the system displays a message confirming the registration and indicating the missing fields
 	  And a new client id is automaticly generated
 	  
@@ -48,7 +48,7 @@ Feature: Company registers new clients
    Scenario: The company does not give the name of the client
 	  Given a valid reference person "Suzan"
 	  And a valid email "s184468@student.dtu.dk"
-	  When Registering
+	  When Registering in "client database"
 	  Then the system displays a message telling that the client needs a name
 	   
 	 @tag4
@@ -58,5 +58,5 @@ Feature: Company registers new clients
     And a valid reference person "Suzan"
     And a valid email "s184468@student.dtu.dk"
     And a client database with the client "Miguel"
-    When Registering
+    When Registering in "client database"
     Then the system displays a message telling that the client is already registered
