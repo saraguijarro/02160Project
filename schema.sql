@@ -5,7 +5,7 @@ CREATE TABLE client(
                     Address VARCHAR(255),Person VARCHAR(255),Email VARCHAR(255));
 
 CREATE TABLE users(
-                      id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                      id VARCHAR(40) PRIMARY KEY NOT NULL default UUID(),
                       user_type ENUM('CLIENT', 'LOGISTIC_COMPANY') NOT NULL,
                       email VARCHAR(100) UNIQUE NOT NULL,
                       password VARCHAR(100) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE actions(
-                        id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                        id VARCHAR(40) PRIMARY KEY NOT NULL DEFAULT UUID(),
                         action_type VARCHAR(100) NOT NULL,
                         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -25,9 +25,9 @@ INSERT INTO actions(action_type) VALUES
 
 
 CREATE TABLE user_actions(
-                             id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                             user_id INT NOT NULL,
-                             action_id INT NOT NULL,
+                             id VARCHAR(40) PRIMARY KEY NOT NULL DEFAULT UUID(),
+                             user_id VARCHAR(40) NOT NULL,
+                             action_id VARCHAR(40) NOT NULL,
                              started TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                              ended TIMESTAMP NOT NULL,
                              FOREIGN KEY (user_id) REFERENCES users(id),
@@ -35,42 +35,31 @@ CREATE TABLE user_actions(
 );
                                                                            
 CREATE TABLE journeys(
-                         id VARCHAR(255) PRIMARY KEY NOT NULL,
-                         port_of_origin VARCHAR(255)NOT NULL,
+                         id VARCHAR(40) PRIMARY KEY NOT NULL DEFAULT UUID(),
+                         origin VARCHAR(255) NOT NULL,
                          destination VARCHAR (255) NOT NULL,
                          container_id VARCHAR (255) NOT NULL,
-                         content VARCHAR (255) NOT NULL,
+                         description VARCHAR (255) NOT NULL,
                          company VARCHAR (255) NOT NULL,
-                         container_position VARCHAR (255),
                          created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                          FOREIGN KEY (container_id) REFERENCES containers(id)
 );
 
-create unique index journeys_container_id_uindex
-    on journeys (container_id);
+CREATE TABLE container_status(
+  id VARCHAR(40) PRIMARY KEY NOT NULL default UUID(),
+  temperature NUMERIC not null,
+  humidity NUMERIC not null,
+  pressure NUMERIC not null,
+  journey_id VARCHAR(40) NOT NULL,
+  container_id VARCHAR(40) NOT NULL,
+  FOREIGN KEY (container_id) REFERENCES containers(id),
+  FOREIGN KEY (journey_id) REFERENCES journeys(id)
+);
 
 
 create table containers
 (
-    id VARCHAR(255) not null
+    id VARCHAR(40) PRIMARY KEY NOT NULL DEFAULT UUID(),
+    name VARCHAR(255) NOT NULL,
+    description  VARCHAR(255) NOT NULL
 );
-
-create unique index containers_id_uindex
-    on containers (id);
-
-alter table containers
-    add constraint containers_pk
-        primary key (id);
-
-CREATE TABLE competed_journeys(
-                                  id VARCHAR(255) PRIMARY KEY NOT NULL,
-                                  port_of_origin VARCHAR(255)NOT NULL,
-                                  destination VARCHAR (255) NOT NULL,
-                                  container_id VARCHAR (255) NOT NULL,
-                                  content VARCHAR (255) NOT NULL,
-                                  company VARCHAR (255) NOT NULL,
-                                  container_position VARCHAR (255),
-                                  FOREIGN KEY (container_id) REFERENCES containers(id)
-);
-INSERT INTO competed_journeys SELECT * FROM journeys WHERE id = ?;
-DELETE FROM journeys WHERE id = ?;
