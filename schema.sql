@@ -1,5 +1,8 @@
 #you can use this queries to create tables in the database to try to run the program
 
+CREATE TABLE client(
+                    ID INT PRIMARY KEY AUTO_INCREMENT,Name VARCHAR(255),
+                    Address VARCHAR(255),Person VARCHAR(255),Email VARCHAR(255));
 
 CREATE TABLE users(
                       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
