@@ -33,3 +33,44 @@ CREATE TABLE user_actions(
                              FOREIGN KEY (user_id) REFERENCES users(id),
                              FOREIGN KEY (action_id) REFERENCES actions(id)
 );
+                                                                           
+CREATE TABLE journeys(
+                         id VARCHAR(255) PRIMARY KEY NOT NULL,
+                         port_of_origin VARCHAR(255)NOT NULL,
+                         destination VARCHAR (255) NOT NULL,
+                         container_id VARCHAR (255) NOT NULL,
+                         content VARCHAR (255) NOT NULL,
+                         company VARCHAR (255) NOT NULL,
+                         container_position VARCHAR (255),
+                         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                         FOREIGN KEY (container_id) REFERENCES containers(id)
+);
+
+create unique index journeys_container_id_uindex
+    on journeys (container_id);
+
+
+create table containers
+(
+    id VARCHAR(255) not null
+);
+
+create unique index containers_id_uindex
+    on containers (id);
+
+alter table containers
+    add constraint containers_pk
+        primary key (id);
+
+CREATE TABLE competed_journeys(
+                                  id VARCHAR(255) PRIMARY KEY NOT NULL,
+                                  port_of_origin VARCHAR(255)NOT NULL,
+                                  destination VARCHAR (255) NOT NULL,
+                                  container_id VARCHAR (255) NOT NULL,
+                                  content VARCHAR (255) NOT NULL,
+                                  company VARCHAR (255) NOT NULL,
+                                  container_position VARCHAR (255),
+                                  FOREIGN KEY (container_id) REFERENCES containers(id)
+);
+INSERT INTO competed_journeys SELECT * FROM journeys WHERE id = ?;
+DELETE FROM journeys WHERE id = ?;
