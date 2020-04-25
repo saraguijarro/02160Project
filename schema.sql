@@ -6,7 +6,8 @@ CREATE TABLE client(
 
 CREATE TABLE users(
                       id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                      email VARCHAR(100) NOT NULL,
+                      user_type ENUM('CLIENT', 'LOGISTIC_COMPANY') NOT NULL,
+                      email VARCHAR(100) UNIQUE NOT NULL,
                       password VARCHAR(100) NOT NULL,
                       created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -21,6 +22,7 @@ INSERT INTO actions(action_type) VALUES
 ('ADD_CONTAINER'),
 ('CONTAINER_HISTORY'),
 ('FIND_JOURNEY');
+
 
 CREATE TABLE user_actions(
                              id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
