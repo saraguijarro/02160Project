@@ -59,7 +59,7 @@ CREATE TABLE container_status(
 
 create table containers
 (
-    id VARCHAR(40) PRIMARY KEY NOT NULL,
+    id VARCHAR(40) PRIMARY KEY NOT NULL DEFAULT UUID(),
     name VARCHAR(255) NOT NULL,
     description  VARCHAR(255) NOT NULL
 );
