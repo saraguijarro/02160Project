@@ -18,7 +18,7 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
     final static Logger log = Logger.getLogger(ContainerStatusEntity.class);
 
     @Override
-    public ContainerStatusEntity find(long id) {
+    public ContainerStatusEntity find(String id) {
         log.debug("Start method...");
 
         ContainerStatusEntity obj = null;
@@ -26,7 +26,7 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
                     "SELECT * FROM container_status WHERE id=?");
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
             ResultSet result = prepared.executeQuery();
 
             if (result.first()) {
@@ -87,7 +87,7 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
 
 
     @Override
-    public int delete(long id) {
+    public int delete(String id) {
         log.debug("Start method...");
         int affectedRows = 0;
         try {
@@ -95,7 +95,7 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
                     " DELETE FROM container_status "
                     + " WHERE id=? ");
 
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
 
             // execute query and get the affected rows number :
             affectedRows = prepared.executeUpdate();

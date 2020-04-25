@@ -18,7 +18,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
     final static Logger log = Logger.getLogger(JourneyEntity.class);
 
     @Override
-    public JourneyEntity find(long id) {
+    public JourneyEntity find(String id) {
         log.debug("Start method...");
 
         JourneyEntity obj = null;
@@ -26,7 +26,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
                     "SELECT * FROM journeys WHERE id=?");
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
             ResultSet result = prepared.executeQuery();
 
             if (result.first()) {
@@ -87,7 +87,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
 
 
     @Override
-    public int delete(long id) {
+    public int delete(String id) {
         log.debug("Start method...");
         int affectedRows = 0;
         try {
@@ -95,7 +95,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
                     " DELETE FROM journey "
                     + " WHERE id=? ");
 
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
 
             // execute query and get the affected rows number :
             affectedRows = prepared.executeUpdate();

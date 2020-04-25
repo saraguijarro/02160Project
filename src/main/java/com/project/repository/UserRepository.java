@@ -25,7 +25,7 @@ public class UserRepository implements Repository<UserEntity> {
     final static Logger log = Logger.getLogger(UserEntity.class);
 
     @Override
-    public UserEntity find(long id) {
+    public UserEntity find(String id) {
         log.debug("Start method...");
 
         UserEntity obj = null;
@@ -33,7 +33,7 @@ public class UserRepository implements Repository<UserEntity> {
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
                     "SELECT * FROM users WHERE id=?");
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
             ResultSet result = prepared.executeQuery();
 
             if (result.first()) {
@@ -98,7 +98,6 @@ public class UserRepository implements Repository<UserEntity> {
     public UserEntity create(UserEntity obj) {
         log.debug("Start method...");
 
-        UserEntity objectToReturn = null;
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
                     " INSERT INTO users (email, password, user_type) "
@@ -108,22 +107,12 @@ public class UserRepository implements Repository<UserEntity> {
             prepared.setString(2, hashString(obj.getPassword()));
             prepared.setString(3, obj.getUserType().getUrl());
 
-            // execute query and get the affected rows number :
-            int affectedRows = prepared.executeUpdate();
-            if (affectedRows != 0) {
-                // get the latest inserted id :
-                ResultSet generatedKeys = prepared.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    log.debug("Inserted id : " + generatedKeys.getLong(1));
-                    objectToReturn = this.find(generatedKeys.getLong(1));
-                }
-            }
         } catch (SQLException e) {
             log.error("Error creating new user : " + e);
         }
 
         log.debug("End method.");
-        return objectToReturn;
+        return obj;
     }
 
     private String hashString(String string) {
@@ -134,7 +123,7 @@ public class UserRepository implements Repository<UserEntity> {
 
 
     @Override
-    public int delete(long id) {
+    public int delete(String id) {
         log.debug("Start method...");
 
         int affectedRows = 0;
@@ -144,7 +133,7 @@ public class UserRepository implements Repository<UserEntity> {
                     " DELETE FROM users "
                     + " WHERE id=? ");
 
-            prepared.setLong(1, id);
+            prepared.setString(1, id);
 
             // execute query and get the affected rows number :
             affectedRows = prepared.executeUpdate();
