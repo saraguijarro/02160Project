@@ -85,6 +85,40 @@ public class JourneyRepository implements Repository<JourneyEntity> {
     }
 
 
+    @Override
+    public JourneyEntity update(JourneyEntity obj)
+    {
+        log.debug("Start method...");
+
+        obj = null;
+
+        try
+        {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    " UPDATE journeys "
+                            + " SET origin =?, "
+                            + " destination=?, "
+                            + " description=?, "
+                            + "company=?"
+                            + " WHERE ID=? ");
+
+            prepared.setString(1, obj.getOrigin());
+            prepared.setString(2, obj.getDestination());
+            prepared.setString(3, obj.getDescription());
+            prepared.setString(4, obj.getOrigin());
+            prepared.setString(5, obj.getId());
+
+
+        } catch (SQLException e)
+        {
+            log.error("Error updating client : " + e);
+        }
+
+        log.debug("End method.");
+
+        return obj;
+    }
+
 
     @Override
     public int delete(String id) {
@@ -92,7 +126,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
         int affectedRows = 0;
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM journey "
+                    " DELETE FROM journeys "
                     + " WHERE id=? ");
 
             prepared.setString(1, id);
