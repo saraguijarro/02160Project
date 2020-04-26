@@ -5,7 +5,7 @@ CREATE TABLE client(
                        Address VARCHAR(255),Person VARCHAR(255),Email VARCHAR(255));
 
 CREATE TABLE users(
-                      id VARCHAR(40) PRIMARY KEY NOT NULL,
+                      id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
                       user_type ENUM('CLIENT', 'LOGISTIC_COMPANY') NOT NULL,
                       email VARCHAR(100) UNIQUE NOT NULL,
                       password VARCHAR(100) NOT NULL,
