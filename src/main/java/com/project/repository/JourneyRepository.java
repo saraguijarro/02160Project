@@ -1,6 +1,5 @@
 package com.project.repository;
 
-import com.project.dto.Client;
 import com.project.dto.JourneyEntity;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
