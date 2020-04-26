@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The ContainerEntity repository implementation.
@@ -66,11 +67,12 @@ public class ContainerRepository implements Repository<ContainerEntity> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO containers (name, description) "
-                    + " VALUES(?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO containers (id, name, description) "
+                    + " VALUES(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, obj.getName());
-            prepared.setString(2, obj.getDescription());
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getName());
+            prepared.setString(3, obj.getDescription());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
@@ -80,6 +82,10 @@ public class ContainerRepository implements Repository<ContainerEntity> {
         return obj;
     }
 
+    @Override
+    public ContainerEntity update(ContainerEntity obj) {
+        throw new UnsupportedOperationException();
+    }
 
 
     @Override

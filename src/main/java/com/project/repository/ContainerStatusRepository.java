@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The ContainerStatusEntity repository implementation.
@@ -67,14 +68,14 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO container_status (temperature, humidity, pressure, journey_id, container_id) "
-                    + " VALUES(?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
-
-            prepared.setString(1, obj.getTemperature());
-            prepared.setString(2, obj.getHumidity());
-            prepared.setString(3, obj.getPressure());
-            prepared.setString(4, obj.getJourneyId());
-            prepared.setString(5, obj.getContainerId());
+                    " INSERT INTO container_status (id, temperature, humidity, pressure, journey_id, container_id) "
+                    + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getTemperature());
+            prepared.setString(3, obj.getHumidity());
+            prepared.setString(4, obj.getPressure());
+            prepared.setString(5, obj.getJourneyId());
+            prepared.setString(6, obj.getContainerId());
 
         } catch (SQLException e) {
             log.error("Error creating new container status : " + e);
@@ -84,6 +85,11 @@ public class ContainerStatusRepository implements Repository<ContainerStatusEnti
         return obj;
     }
 
+    @Override
+    public ContainerStatusEntity update(ContainerStatusEntity obj) {
+        throw new UnsupportedOperationException();
+
+    }
 
 
     @Override

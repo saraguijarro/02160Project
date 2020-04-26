@@ -1,22 +1,19 @@
 package com.project.repository;
 
 import com.google.common.hash.Hashing;
-import com.google.common.io.BaseEncoding;
 import com.project.dto.UserEntity;
 import com.project.dto.UserType;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The UserEntity repository implementation.
@@ -100,12 +97,13 @@ public class UserRepository implements Repository<UserEntity> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO users (email, password, user_type) "
-                    + " VALUES(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO users (id, email, password, user_type) "
+                    + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, obj.getEmail());
-            prepared.setString(2, hashString(obj.getPassword()));
-            prepared.setString(3, obj.getUserType().getUrl());
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getEmail());
+            prepared.setString(3, hashString(obj.getPassword()));
+            prepared.setString(4, obj.getUserType().getUrl());
 
         } catch (SQLException e) {
             log.error("Error creating new user : " + e);
@@ -113,6 +111,11 @@ public class UserRepository implements Repository<UserEntity> {
 
         log.debug("End method.");
         return obj;
+    }
+
+    @Override
+    public UserEntity update(UserEntity obj) {
+        throw new UnsupportedOperationException();
     }
 
     private String hashString(String string) {
