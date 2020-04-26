@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The JourneyEntity repository implementation.
@@ -67,14 +68,15 @@ public class JourneyRepository implements Repository<JourneyEntity> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO journeys (origin, destination, container_id, company, description) "
-                    + " VALUES(?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO journeys (id, origin, destination, container_id, company, description) "
+                    + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, obj.getOrigin());
-            prepared.setString(2, obj.getDestination());
-            prepared.setString(3, obj.getContainerId());
-            prepared.setString(4, obj.getCompany());
-            prepared.setString(5, obj.getDescription());
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getOrigin());
+            prepared.setString(3, obj.getDestination());
+            prepared.setString(4, obj.getContainerId());
+            prepared.setString(5, obj.getCompany());
+            prepared.setString(6, obj.getDescription());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
