@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The Client repository implementation.
@@ -89,17 +90,16 @@ public class ClientRepository implements Repository<Client>
     {
         log.debug("Start method...");
 
-        Client objectToReturn = null;
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO client (Name, Address, Reference_person, Email) "
-                    + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
-
-            prepared.setString(1, obj.getName());
-            prepared.setString(2, String.valueOf(obj.getAddress()));
-            prepared.setString(3, obj.getReferencePerson());
-            prepared.setString(4, obj.getEmail());
+                    " INSERT INTO client (ID, Name, Address, Reference_person, Email) "
+                    + " VALUES(?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getName());
+            prepared.setString(3, String.valueOf(obj.getAddress()));
+            prepared.setString(4, obj.getReferencePerson());
+            prepared.setString(5, obj.getEmail());
 
 
         } catch (SQLException e)
@@ -118,7 +118,6 @@ public class ClientRepository implements Repository<Client>
     {
         log.debug("Start method...");
 
-        obj = null;
 
         try
         {
@@ -181,9 +180,6 @@ public class ClientRepository implements Repository<Client>
     /**
      * Map the current row of the given ResultSet to an Object.
      *
-     * @param resultSet
-     * @return The mapped Object from the current row of the given ResultSet.
-     * @throws SQLException If something fails at database level.
      */
     private static Client map(ResultSet resultSet) throws SQLException
     {

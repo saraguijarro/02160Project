@@ -68,8 +68,8 @@ public class JourneyRepository implements Repository<JourneyEntity> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO journeys (id, origin, destination, container_id, company, description) "
-                    + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO journeys (id, origin, destination, container_id, company, description) " +
+                            " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, UUID.randomUUID().toString());
             prepared.setString(2, obj.getOrigin());
@@ -92,8 +92,6 @@ public class JourneyRepository implements Repository<JourneyEntity> {
     {
         log.debug("Start method...");
 
-        obj = null;
-
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
@@ -101,7 +99,7 @@ public class JourneyRepository implements Repository<JourneyEntity> {
                             + " SET origin =?, "
                             + " destination=?, "
                             + " description=?, "
-                            + "company=?"
+                            + " company=?"
                             + " WHERE ID=? ");
 
             prepared.setString(1, obj.getOrigin());

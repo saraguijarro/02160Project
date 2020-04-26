@@ -1,7 +1,7 @@
 #you can use this queries to create tables in the database to try to run the program
 
 CREATE TABLE client(
-                       ID INT PRIMARY KEY AUTO_INCREMENT,Name VARCHAR(255),
+                       ID VARCHAR(255) PRIMARY KEY NOT NULL ,Name VARCHAR(255),
                        Address VARCHAR(255),Person VARCHAR(255),Email VARCHAR(255));
 
 CREATE TABLE users(
@@ -12,26 +12,13 @@ CREATE TABLE users(
                       created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE actions(
-                        id VARCHAR(40) PRIMARY KEY NOT NULL,
-                        action_type VARCHAR(100) NOT NULL,
-                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO actions(id, action_type) VALUES
-(uuid(), 'ADD_CONTAINER'),
-(uuid(), 'CONTAINER_HISTORY'),
-(uuid(),'FIND_JOURNEY');
-
-
 CREATE TABLE user_actions(
-                             id VARCHAR(40) PRIMARY KEY NOT NULL ,
-                             user_id VARCHAR(40) NOT NULL,
-                             action_id VARCHAR(40) NOT NULL,
+                             id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                             user_id INT NOT NULL,
+                             action ENUM('ADD_CONTAINER', 'CONTAINER_HISTORY', 'FIND_JOURNEY') NOT NULL,
                              started TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                              ended TIMESTAMP NOT NULL,
-                             FOREIGN KEY (user_id) REFERENCES users(id),
-                             FOREIGN KEY (action_id) REFERENCES actions(id)
+                             FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 create table containers
