@@ -110,6 +110,7 @@ public class StepDefinition {
 		Client c= new Client();
 	    c.setName(name);
 
+
 	    CD.registering(c);
 	}
 
@@ -406,6 +407,7 @@ public class StepDefinition {
 	public void an_update_choice(String Choice) {
 	    dataChoice = Choice;
 	}*/
+
 
 	@Given("the container corresponds to the client {string}")
 	public void the_container_corresponds_to_the_client(String client) {

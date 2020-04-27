@@ -1,8 +1,9 @@
 /target/
 .classpath
 .project
-Version_1/src/main/resources/app.properties
+
 *.log
 *.iml
 .idea
 
+app.properties
