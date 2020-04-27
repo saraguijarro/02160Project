@@ -1,0 +1,10 @@
+/target/
+.classpath
+.project
+
+*.log
+*.iml
+.idea
+
+app.properties
+
