@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class View {
 
-} //think it is connected wth the wrong one
+} 
 class logInScreen {
 	
 	public void goToLogIn(String type) {
