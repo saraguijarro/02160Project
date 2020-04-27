@@ -60,7 +60,6 @@ public class Jou {
 	public void setContainer(ArrayList<String> container) {
 		Container = container;
 	}
-	
 
 	
 }
