@@ -23,7 +23,7 @@ Feature: Retrieve info about each container
   @tag1
   Scenario: Retrieve data about the internal status
     Given a journey id "JO002160" exists for the corresponding container
-		And a database exists for the measures of the container internal status
+		And a database exists for the measures of the container internal status temperature [14.2,13.5] humidity [6.6,45.3] and pressure [1000.4,3.3]
 		When the system decides to retrieve the internal status facts
 		Then the system retrieves the data from the database
 
@@ -31,5 +31,5 @@ Feature: Retrieve info about each container
   Scenario: Retrieve data from the journey evolution
 		Given a journey id "JO002160" exists for the corresponding container
 		And a database exists for the container journeys
-		When the system decides to retrieve a location from the database
+		When the system decides to retrieve a location "Denmark" from the database
 		Then the system retrieves the data from the journey database
