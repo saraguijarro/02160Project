@@ -43,7 +43,7 @@ public class Container {
 		this.pressure = pressure;
 	}
 	
-	public ResponseObject update(String updateChoice, int updateData) {
+	/*public ResponseObject update(String updateChoice, int updateData) {
 		
 		ResponseObject modifyData = null;
 		int code = 311;
@@ -59,7 +59,7 @@ public class Container {
 		}
 		return updateResponse;
 	}
-	
+	*/
 	
 //Code regarding the historical status of the container, track throughout time
 	
@@ -92,9 +92,7 @@ public class Container {
 		else if (updateChoice.equals("humidity")) {AirHumidity.add(humidity);}
 		else if (updateChoice.equals("pressure")) {AtmosphericPressure.add(pressure);}
 		return trackData;
-		
-		if (code != 314) {updateResponse = new ResponseObject(code, "Tracked internal status.");}
-		return updateResponse;
+
 	}
 		
 	public ResponseObject locate(String journeyID) {
@@ -103,9 +101,7 @@ public class Container {
 		int code = 317;
 		historyLocation.add(location);
 		return locateContainer;
-		
-		if (code != 317) {updateResponse = new ResponseObject(code, "Tracked location.");}
-		return updateResponse;
+
 	}
 	
 	

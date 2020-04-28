@@ -21,17 +21,10 @@ Feature: Company updates journey information
   
   Background: 
 		Given a logistic company "Maersk"
-		And a container database with the container ID "CON0004"
+		And a client database with the client "Thomas"
 		
   @tag1
-  Scenario: The company updates the current position"
-    Given a container in a journey
-    When Update current position
-    Then the current position is updated
-    
-    @tag2
-  Scenario: The company updates the current position
+  Scenario: The company updates an information that can be changed
     Given an update choice "current position"
-    And a container in a journey
-    When Update current position
-    Then the current position is updated
+    When Update journey information
+    Then the journey information is updated

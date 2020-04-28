@@ -17,21 +17,14 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Company updates journey information
+Feature: Client updates client information
   
   Background: 
 		Given a logistic company "Maersk"
-		And a container database with the container ID "CON0004"
+		And a client database with the client "Thomas"
 		
   @tag1
-  Scenario: The company updates the current position"
-    Given a container in a journey
-    When Update current position
-    Then the current position is updated
-    
-    @tag2
-  Scenario: The company updates the current position
-    Given an update choice "current position"
-    And a container in a journey
-    When Update current position
-    Then the current position is updated
+  Scenario: The client updates an information that can be changed
+    Given an update choice "email"
+    When Update client information
+    Then the client information is updated

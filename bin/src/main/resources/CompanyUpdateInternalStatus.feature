@@ -17,21 +17,13 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Company updates journey information
-  
-  Background: 
-		Given a logistic company "Maersk"
-		And a container database with the container ID "CON0004"
-		
+Feature: Add measurements about the container’s internal status
+  Add the collected measurements to the system
+
   @tag1
-  Scenario: The company updates the current position"
-    Given a container in a journey
-    When Update current position
-    Then the current position is updated
-    
-    @tag2
-  Scenario: The company updates the current position
-    Given an update choice "current position"
-    And a container in a journey
-    When Update current position
-    Then the current position is updated
+  Scenario: Update measurements about the container’s internal status
+		Given a journey id "JO002160" exists for the corresponding container
+		And a logistic company "Maersk"
+		And an update choice "humidity"
+		When updating the internal status
+		Then the system sets the internal status to the latests measurements
