@@ -1,4 +1,4 @@
-v#Author: your.email@your.domain.com
+#Author: your.email@your.domain.com
 #Keywords Summary :
 #Feature: List of scenarios.
 #Scenario: Business rule through list of steps with arguments.
@@ -19,12 +19,10 @@ v#Author: your.email@your.domain.com
 
 Feature: Loggin in the application
 
-
   
   Scenario: Company succesfull first log-in
     Given The log-in type "Company"
-    And The password is "null"
-    
+    And The password is "null"   
     And The username "Maersk"
     And The password "0000"
     When Logging-in
@@ -33,8 +31,7 @@ Feature: Loggin in the application
     
   Scenario: Company succesfull regular log-in
     Given The log-in type "Company"
-    And The password is "password00"
-    
+    And The password is "password00"    
     And The username "Maersk"   
     And The password "password00"
     When Logging-in
@@ -42,8 +39,7 @@ Feature: Loggin in the application
     
    Scenario: Company not succesfull log-in
     Given The log-in type "Company"
-    And The password is "password00"
-    
+    And The password is "password00"   
     And The username "Maersk"
     And The password "445"
     When Logging-in
