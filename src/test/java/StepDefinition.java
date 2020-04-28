@@ -330,10 +330,7 @@ public class StepDefinition {
 	    throw new io.cucumber.java.PendingException();
 	}
 
-}
 
-
-<<<<<<< HEAD
 
 
 
@@ -538,14 +535,9 @@ public class StepDefinition {
 		assertEquals(loc,location);
 	}
 
-	@Then ("the system retrieves the data from the journey database")
-	public void the_system_retrieves_the_data_from_the_journey_database() {
+	@Then ("the system retrieves the location from the journey database")
+	public void the_system_retrieves_the_location_from_the_journey_database() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
 
-
-
- /// writing some piece of comment to test
 }
-=======
->>>>>>> d5f57c8b138fde4b21b2f12812669a3bef6fbf99
