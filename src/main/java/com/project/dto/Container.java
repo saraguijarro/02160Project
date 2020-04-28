@@ -74,7 +74,6 @@ public class Container {
 	
 		if (code == 311) {modifyData = new ResponseObject(code, "Error, no measurement could be added.");}
 		return modifyData;
-		
 	}
 	
 	
