@@ -42,7 +42,7 @@ public class Container {
 	public void setPressure(double pressure) {
 		this.pressure = pressure;
 	}
-	
+	/*
 	public ResponseObject update(String updateChoice, int updateData) {
 		
 		ResponseObject modifyData = null;
@@ -58,7 +58,7 @@ public class Container {
 			else if (updateChoice.equals("pressure")) {updateResponse = new ResponseObject(code, "Pressure successfully added.");}
 		}
 		return updateResponse;
-	}
+	}*/
 	
 	
 //Code regarding the historical status of the container, track throughout time
@@ -83,7 +83,7 @@ public class Container {
 		return null;
 	}
 		
-	
+	/*
 	public ResponseObject track(String updateChoice) {
 		
 		ResponseObject trackData = null;
@@ -107,6 +107,6 @@ public class Container {
 		if (code != 317) {updateResponse = new ResponseObject(code, "Tracked location.");}
 		return updateResponse;
 	}
-	
+	*/
 	
 }
