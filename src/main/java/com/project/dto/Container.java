@@ -5,15 +5,24 @@ import java.util.ArrayList;
 public class Container {
 	
 	boolean hasID;
+	String containerID;
+	
+	ArrayList<Container> containers = new ArrayList<>();
+	
+	public void setContainerID(String containerID) {
+		this.containerID = containerID;
+	}
 	
 	public boolean hasId(Container container) {
 		return hasID;
 	}
-
-	boolean hasJourneyDB;
 	
-	public boolean hasJourneyDatabase(Container container) {
-		return hasJourneyDB;
+	public void giveID(Container container) {
+		String prefix = "CO";
+		String number = Integer.toString(this.containers.size()+1);
+		String zeroes = "0".repeat(6-number.length());
+		String id = prefix + zeroes + number;
+		container.setContainerID(id);
 	}
 
 //Code regarding the current internal status of the container, instantaneous data
@@ -47,36 +56,39 @@ public class Container {
 		
 		ResponseObject modifyData = null;
 		int code = 311;
-		if (updateChoice.equals("temperature")) {this.setTemperature(updateData);}
-		else if (updateChoice.equals("humidity")) {this.setHumidity(updateData);}
-		else if (updateChoice.equals("pressure")) {this.setPressure(updateData);}
+		if (updateChoice.equals("temperature")) {
+			this.setTemperature(updateData);
+			code = 312;
+			modifyData = new ResponseObject(code, "Temperature successfully added.");
+		}
+		else if (updateChoice.equals("humidity")) {
+			this.setHumidity(updateData);
+			code = 313;
+			modifyData = new ResponseObject(code, "Humidity successfully added.");
+		}
+		else if (updateChoice.equals("pressure")) {
+			this.setPressure(updateData);
+			code = 314;
+			modifyData = new ResponseObject(code, "Pressure successfully added.");
+		}
+	
+		if (code == 311) {modifyData = new ResponseObject(code, "Error, no measurement could be added.");}
 		return modifyData;
 		
-		if (code != 311) {
-			if (updateChoice.equals("temperature")) {updateResponse = new ResponseObject(code, "Temperature successfully added.");}
-			else if (updateChoice.equals("humidity")) {updateResponse = new ResponseObject(code, "Humidity successfully added.");}
-			else if (updateChoice.equals("pressure")) {updateResponse = new ResponseObject(code, "Pressure successfully added.");}
-		}
-		return updateResponse;
 	}
 	
 	
 //Code regarding the historical status of the container, track throughout time
 	
-	ArrayList<Double> InternalTemperature;
-	ArrayList<Double> AirHumidity;
-	ArrayList<Double> AtmosphericPressure;
+	ArrayList<Double> InternalTemperature = new ArrayList<Double>();
+	ArrayList<Double> AirHumidity = new ArrayList<Double>();
+	ArrayList<Double> AtmosphericPressure = new ArrayList<Double>();
 	
 	String location;
 	ArrayList<String> historyLocation = new ArrayList<String>();
 	
 	
 	public Container internalStatusHistory(double temperature, double humidity, double pressure) {
-		
-		InternalTemperature = new ArrayList<Double>();
-		AirHumidity = new ArrayList<Double>();
-		AtmosphericPressure = new ArrayList<Double>();
-		
 		InternalTemperature.add(this.temperature);
 		AirHumidity.add(this.humidity);
 		AtmosphericPressure.add(this.pressure);
@@ -84,29 +96,28 @@ public class Container {
 	}
 		
 	
-	public ResponseObject track(String updateChoice) {
+	public ResponseObject track(String updateChoice, double value) {
 		
 		ResponseObject trackData = null;
-		int code = 314;
-		if (updateChoice.equals("temperature")) {InternalTemperature.add(temperature);}
-		else if (updateChoice.equals("humidity")) {AirHumidity.add(humidity);}
-		else if (updateChoice.equals("pressure")) {AtmosphericPressure.add(pressure);}
-		return trackData;
+		int code = 321;
+		if (updateChoice.equals("temperature")) {InternalTemperature.add(value);code = 322;}
+		else if (updateChoice.equals("humidity")) {AirHumidity.add(value);code = 323;}
+		else if (updateChoice.equals("pressure")) {AtmosphericPressure.add(value);code = 324;}
 		
-		if (code != 314) {updateResponse = new ResponseObject(code, "Tracked internal status.");}
-		return updateResponse;
+		if (code != 321) {trackData = new ResponseObject(code, "Tracked internal status.");}
+		else {trackData = new ResponseObject(code, "Error, could not track internal status.");}
+		return trackData;
 	}
 		
-	public ResponseObject locate(String journeyID) {
+	public ResponseObject locate(Container container) {
 		
 		ResponseObject locateContainer = null;
-		int code = 317;
+		int code = 330;
 		historyLocation.add(location);
-		return locateContainer;
+		locateContainer = new ResponseObject(code, "Tracked location.");
 		
-		if (code != 317) {updateResponse = new ResponseObject(code, "Tracked location.");}
-		return updateResponse;
+		return locateContainer;
 	}
-	
+
 	
 }
