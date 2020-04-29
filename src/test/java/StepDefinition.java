@@ -409,10 +409,10 @@ public class StepDefinition {
 	    dataChoice = Choice;
 	}*/
 
-	@Given("the container corresponds to the client {string}")
-	public void the_container_corresponds_to_the_client(String client) {
-		client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
-	}
+//	@Given("the container corresponds to the client {string}")
+//	public void the_container_corresponds_to_the_client(String client) {
+//		client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
+//	}
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
