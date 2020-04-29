@@ -1,19 +1,11 @@
 package com.project.dto.GUI;
 
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class View {
@@ -96,11 +88,7 @@ class logInScreen {
 		frame.pack();
 		frame.setVisible(true);
 		
-		clientButton.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){
-				goToLogIn("Client");
-			}		    
-		});
+		clientButton.addActionListener(e -> goToLogIn("Client"));
 		compButton.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){
 				goToLogIn("Company");
@@ -115,21 +103,29 @@ class logInScreen {
 
 
 ///////////////////////////////////////////////////////////////////////////////////
-class clientMainMenuScreen {
-	
-}
 
-class compMainMenuScreen {
+class compMainMenuScreen extends JFrame {
+
+	JMenu jMenuFrameAbout = new JMenu("menubar.jMenuFrameAbout");
+	FrameAbout frameAbout = new FrameAbout();
+
 	compMainMenuScreen(){
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JButton cliButton = new JButton("Clients Information");
 		JButton jouButton = new JButton("Journeys Management");
 		JButton conButton = new JButton("Containers Management");
-		JButton funButton = new JButton("Functionnalities tracking");
+		JButton funButton = new JButton("Functionalities tracking");
 		JButton LOButton = new JButton("Log-out");
-		
-		
+		JButton aboutButton = new JButton("About Software");
+
+
+
+		// jMenuItemFrameAbout :
+		jMenuFrameAbout.addActionListener(ev -> frameAbout.setVisible(true));
+		aboutButton.addActionListener((ActionEvent ev) ->
+				setVisible(true));
+
 		panel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
 		panel.setLayout(new GridLayout(0,1));
 		panel.add(cliButton);
@@ -137,6 +133,7 @@ class compMainMenuScreen {
 		panel.add(conButton);
 		panel.add(funButton);
 		panel.add(LOButton);
+		panel.add(aboutButton);
 		
 		
 		frame.add(panel, BorderLayout.CENTER);

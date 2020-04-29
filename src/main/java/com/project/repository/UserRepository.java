@@ -1,6 +1,7 @@
 package com.project.repository;
 
 import com.google.common.hash.Hashing;
+import com.project.dto.Client;
 import com.project.dto.UserEntity;
 import com.project.dto.UserType;
 import com.project.dto.dao.DAOConnection;
