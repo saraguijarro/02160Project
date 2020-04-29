@@ -106,8 +106,6 @@ class logInScreen {
 
 class compMainMenuScreen extends JFrame {
 
-	JMenu jMenuFrameAbout = new JMenu("menubar.jMenuFrameAbout");
-	FrameAbout frameAbout = new FrameAbout();
 
 	compMainMenuScreen(){
 		JFrame frame = new JFrame();
@@ -121,10 +119,10 @@ class compMainMenuScreen extends JFrame {
 
 
 
-		// jMenuItemFrameAbout :
-		jMenuFrameAbout.addActionListener(ev -> frameAbout.setVisible(true));
-		aboutButton.addActionListener((ActionEvent ev) ->
-				setVisible(true));
+		aboutButton.addActionListener((ActionEvent ev) -> {
+					AboutDialog aboutDialog = new AboutDialog(this);
+					aboutDialog.setVisible(true);
+		});
 
 		panel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
 		panel.setLayout(new GridLayout(0,1));
