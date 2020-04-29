@@ -5,6 +5,10 @@ import java.awt.*;
 
 import static javax.swing.GroupLayout.Alignment.CENTER;
 
+/**
+ *  A short description about the software
+ * @author Mihai
+ */
 
 class AboutDialog extends JDialog {
 
