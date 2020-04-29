@@ -1,7 +1,14 @@
 package com.project.dto.GUI;
 
+import com.project.dto.config.PROP;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
+
 
 import static javax.swing.GroupLayout.Alignment.CENTER;
 
@@ -12,6 +19,8 @@ import static javax.swing.GroupLayout.Alignment.CENTER;
 
 class AboutDialog extends JDialog {
 
+    JLabel jLabelHeader = new JLabel(PROP.getProperty("app.artifactId") + " - " + PROP.getProperty("app.version"));
+    private JTextPane tPane;
     public AboutDialog(Frame parent) {
         super(parent);
 
@@ -19,19 +28,46 @@ class AboutDialog extends JDialog {
     }
 
     private void initUI() {
-        var icon = new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png"));
+
+        Font font = new Font("my font", Font.BOLD,  14);
+        Font font1 = new Font("my font", Font.BOLD,  16);
+
+        EmptyBorder eb = new EmptyBorder(new Insets(10, 10, 10, 10));
+
+        tPane = new JTextPane();
+        tPane.setBorder(eb);
+        tPane.setMargin(new Insets(5, 5, 5, 5));
+
+        ImageIcon icon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("images/logo.png")).getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
+
         var imgLabel = new JLabel(icon);
 
-        var textLabel = new JLabel("Place your info here");
-
         var okBtn = new JButton("OK");
+
+        okBtn.setBounds(175, 5, 60, 40);
         okBtn.addActionListener(event -> dispose());
 
-        createLayout(imgLabel, textLabel, okBtn);
+        tPane.setText(" This is the first version of our \n Remote Container Management" +
+                " System. \n Its purpose is to provide the client a platform" +
+                "\n for shipping goods overseas using containers.\n Many thanks to: Group I " +
+                "\n 2020 (c) www.dtu.dk ");
+        tPane.setEditable(false);
+        tPane.setEnabled(true);
+        tPane.setForeground(Color.RED);
+        tPane.setFont(font);
+        StyledDocument doc = tPane.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+
+        jLabelHeader.setForeground(Color.RED);
+        jLabelHeader.setFont(font1);
+
+        createLayout(jLabelHeader, imgLabel, tPane, okBtn);
 
         setModalityType(ModalityType.APPLICATION_MODAL);
 
-        setSize(300, 300);
+        setSize(375, 450);
         setResizable(false);
         setTitle("About Software");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -43,6 +79,8 @@ class AboutDialog extends JDialog {
         var pane = getContentPane();
         var gl = new GroupLayout(pane);
         pane.setLayout(gl);
+        pane.add(jLabelHeader);
+        pane.add(tPane);
 
         gl.setAutoCreateContainerGaps(true);
         gl.setAutoCreateGaps(true);
@@ -51,16 +89,19 @@ class AboutDialog extends JDialog {
                 .addComponent(arg[0])
                 .addComponent(arg[1])
                 .addComponent(arg[2])
+                .addComponent(arg[3])
                 .addGap(300)
         );
 
         gl.setVerticalGroup(gl.createSequentialGroup()
-                .addGap(50)
+                .addGap(10)
                 .addComponent(arg[0])
                 .addGap(20)
                 .addComponent(arg[1])
                 .addGap(20)
                 .addComponent(arg[2])
+                .addGap(20)
+                .addComponent(arg[3])
                 .addGap(20)
         );
 
