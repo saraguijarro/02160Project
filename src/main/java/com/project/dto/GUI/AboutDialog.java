@@ -19,17 +19,19 @@ class AboutDialog extends JDialog {
     }
 
     private void initUI() {
+        var icon = new ImageIcon(this.getClass().getClassLoader().getResource("images/logo.png"));
+        var imgLabel = new JLabel(icon);
 
         var textLabel = new JLabel("Place your info here");
 
         var okBtn = new JButton("OK");
         okBtn.addActionListener(event -> dispose());
 
-        createLayout(textLabel, okBtn);
+        createLayout(imgLabel, textLabel, okBtn);
 
         setModalityType(ModalityType.APPLICATION_MODAL);
 
-        setSize(300, 200);
+        setSize(300, 300);
         setResizable(false);
         setTitle("About Software");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -48,6 +50,7 @@ class AboutDialog extends JDialog {
         gl.setHorizontalGroup(gl.createParallelGroup(CENTER)
                 .addComponent(arg[0])
                 .addComponent(arg[1])
+                .addComponent(arg[2])
                 .addGap(300)
         );
 
@@ -56,6 +59,8 @@ class AboutDialog extends JDialog {
                 .addComponent(arg[0])
                 .addGap(20)
                 .addComponent(arg[1])
+                .addGap(20)
+                .addComponent(arg[2])
                 .addGap(20)
         );
 
