@@ -1,10 +1,12 @@
 package com.project.repository;
 
+import com.google.common.hash.Hashing;
 import com.project.dto.Client;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +32,7 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM client WHERE id=?");
+                    "SELECT * FROM client WHERE ID=?");
 
             prepared.setString(1, id);
 
@@ -50,6 +52,32 @@ public class ClientRepository implements Repository<Client>
 
         return obj;
 
+    }
+
+    public Client loginUser(String Name, String password) {
+        log.debug("Start method...");
+
+        Client obj = null;
+
+        try {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    "SELECT * FROM client WHERE Name=?");
+            prepared.setString(1, Name);
+            ResultSet result = prepared.executeQuery();
+
+            if (result.first()) {
+                obj = map(result);
+            }
+        } catch (SQLException e) {
+            log.error("Error finding user : " + e);
+        }
+
+        if (obj == null || !obj.getPassword().equals(hashString(password))) {
+            return null;
+        }
+
+        log.debug("End method.");
+        return obj;
     }
 
     @Override
@@ -83,7 +111,6 @@ public class ClientRepository implements Repository<Client>
 
     /**
      * Create new Object and return this new Object if success. Run only on
-     * tables with auto_increment id column.
      */
     @Override
     public Client create(Client obj)
@@ -93,13 +120,15 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO client (ID, Name, Address, Reference_person, Email) "
-                    + " VALUES(?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO client (ID, Name, Address, Reference_person, Email, Password) "
+                    + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
             prepared.setString(1, UUID.randomUUID().toString());
             prepared.setString(2, obj.getName());
             prepared.setString(3, String.valueOf(obj.getAddress()));
             prepared.setString(4, obj.getReferencePerson());
             prepared.setString(5, obj.getEmail());
+            prepared.setString(6, hashString(obj.getPassword()));
+
 
 
         } catch (SQLException e)
@@ -111,7 +140,13 @@ public class ClientRepository implements Repository<Client>
 
         return obj;
     }
-    //
+
+
+    private String hashString(String string) {
+        return Hashing.sha256()
+                .hashString(string, StandardCharsets.UTF_8)
+                .toString();
+    }
 
     @Override
     public Client update(Client obj)
@@ -126,15 +161,15 @@ public class ClientRepository implements Repository<Client>
                     + " SET Name=?, "
                     + " Address=?, "
                     + " Reference_person=?, "
-                    + "Email=?"
+                    + "Email=?," +
+                            "Password=?"
                     + " WHERE ID=? ");
 
             prepared.setString(1, obj.getName());
             prepared.setString(2, String.valueOf(obj.getAddress()));
             prepared.setString(3, obj.getReferencePerson());
             prepared.setString(4, obj.getEmail());
-            prepared.setString(5, obj.getClientID());
-
+            prepared.setString(5, hashString(obj.getPassword()));
 
         } catch (SQLException e)
         {
@@ -160,7 +195,7 @@ public class ClientRepository implements Repository<Client>
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
                     " DELETE FROM client "
-                    + " WHERE id=? ");
+                    + " WHERE ID=? ");
 
             prepared.setString(1, id);
 
@@ -190,6 +225,7 @@ public class ClientRepository implements Repository<Client>
         obj.setAddress(resultSet.getString("Address"));
         obj.setReferencePerson(resultSet.getString("Person"));
         obj.setEmail(resultSet.getString("Email"));
+        obj.setPassword(resultSet.getString("Password"));
 
         return obj;
     }
