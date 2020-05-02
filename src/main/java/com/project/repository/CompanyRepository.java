@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * The UserEntity repository implementation.
+ * The CompanyRepository repository implementation.
  */
 public class CompanyRepository implements Repository<LogisticCompany> {
-    final static Logger log = Logger.getLogger(LogisticCompany.class);
+    final static Logger log = Logger.getLogger(CompanyRepository.class);
 
     @Override
     public LogisticCompany find(String id) {
