@@ -2,12 +2,12 @@ package com.project.dto;
 
 import com.project.repository.ClientDatabase;
 
-public class LogisticCompany {
+public class LogisticCompany extends User {
 	
 	String name;
 	ClientDatabase clientDatabase;
-
 	
+
 	public LogisticCompany() {
 		super();
 		this.clientDatabase = new ClientDatabase();
@@ -28,4 +28,6 @@ public class LogisticCompany {
 	public void setClientDatabase(ClientDatabase clientDatabase) {
 		this.clientDatabase = clientDatabase;
 	}
+
+	
 }

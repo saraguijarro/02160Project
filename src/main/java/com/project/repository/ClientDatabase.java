@@ -9,6 +9,18 @@ public class ClientDatabase {
 	
 	ArrayList<Client> clients;
 	
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+
+
+
+	public void setClients(ArrayList<Client> clients) {
+		this.clients = clients;
+	}
+
+
+
 	public ClientDatabase() {
 		super();
 		clients = new ArrayList<>();
@@ -110,12 +122,12 @@ public class ClientDatabase {
 				if (this.clients.get(i).isFound(searchword).getCode()!=130) {foundClients.add(this.clients.get(i));}
 			}	
 		}
-		else if (filter.equals("Name")) { //search only name
+		else if (filter.toLowerCase().equals("name")) { //search only name
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getName().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Address")) { //search only in the address
+		else if (filter.toLowerCase().equals("address")) { //search only in the address
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getAddress().getCity().contains(searchword)
 				   || this.clients.get(i).getAddress().getCountry().contains(searchword)
@@ -126,12 +138,12 @@ public class ClientDatabase {
 					{foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Reference Person")) {
+		else if (filter.toLowerCase().equals("reference person")) {
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getReferencePerson().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Email")) {
+		else if (filter.toLowerCase().equals("email")) {
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getEmail().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
