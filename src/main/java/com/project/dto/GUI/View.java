@@ -14,7 +14,7 @@ public class View {
 		//new logInScreen();
 		Welcome welcomeScreen = new Welcome();
 		welcomeScreen.newScreen();
-		
+
 
 	}
 
