@@ -104,7 +104,6 @@ class AboutDialog extends JDialog {
                 .addComponent(arg[3])
                 .addGap(20)
         );
-
         pack();
     }
 }

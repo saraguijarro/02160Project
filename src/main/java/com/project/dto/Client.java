@@ -3,23 +3,6 @@ package com.project.dto;
 import com.project.repository.JourneyDB;
 
 public class Client {
-	
-	public Client() {
-		super();
-	}
-
-	public Client(String name) {
-		super();
-		this.name = name;
-	}
-
-	public Client(String name, Address address, String referencePerson, String email) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.referencePerson = referencePerson;
-		this.email = email;
-	}
 
 	private String name;
 	private Address address;
@@ -28,6 +11,22 @@ public class Client {
 	private String clientID;
 	private Boolean hasID;
 	private JourneyDB journeyDB;
+	private String password;
+
+	public Client(){
+	super();
+	}
+
+	public Client(String name, Address address, String referencePerson, String email, String password) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.referencePerson = referencePerson;
+		this.email = email;
+		this.password = password;
+	}
+
+
 	
 //------all the setters and getters----------
 
@@ -78,6 +77,14 @@ public class Client {
 		this.hasID = hasID;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 //----------end of setters and getters----------
 
 	
@@ -126,10 +133,5 @@ public class Client {
 		ResponseObject isFoundResponse = new ResponseObject(code,message);
 		return isFoundResponse;
 	}
-	
-	
-	
-	
-	
 
 }
