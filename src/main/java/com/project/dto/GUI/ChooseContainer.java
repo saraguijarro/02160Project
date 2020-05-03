@@ -92,6 +92,7 @@ public class ChooseContainer extends javax.swing.JFrame {
         History.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HistoryActionPerformed(evt);
+                
             }
         });
 
@@ -166,7 +167,7 @@ public class ChooseContainer extends javax.swing.JFrame {
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed
         // TODO add your handling code here:
         ContainerHistory CoHis = new ContainerHistory();
-//        CoHis.newScreen();
+        CoHis.newScreen();
     }//GEN-LAST:event_HistoryActionPerformed
 
     /**
