@@ -1,4 +1,4 @@
-v#Author: your.email@your.domain.com
+#Author: your.email@your.domain.com
 #Keywords Summary :
 #Feature: List of scenarios.
 #Scenario: Business rule through list of steps with arguments.
@@ -19,71 +19,69 @@ v#Author: your.email@your.domain.com
 
 Feature: Loggin in the application
 
+	Background: 
+		Given a logistic company "Maersk"
 
   
   Scenario: Company succesfull first log-in
     Given The log-in type "Company"
-    And The password is "null"
-    
     And The username "Maersk"
+    And The password is "0000"
     And The password "0000"
     When Logging-in
-    Then Password is set to "0000"
-    And Log-in is succesfull
+    Then Log-in is succesfull
+    And active user is updated
     
   Scenario: Company succesfull regular log-in
-    Given The log-in type "Company"
-    And The password is "password00"
-    
-    And The username "Maersk"   
+    Given The log-in type "Company"  
+    And The username "Maersk"  
+    And The password is "password00"   
     And The password "password00"
     When Logging-in
-    And Log-in is succesfull
+    Then Log-in is succesfull
+    And active user is updated
     
-   Scenario: Company not succesfull log-in
-    Given The log-in type "Company"
-    And The password is "password00"
-    
+   Scenario: Company not log-in (wrong password)
+    Given The log-in type "Company"   
     And The username "Maersk"
-    And The password "445"
-    When Logging-in
-    And Log-in fails
-    
-   Scenario: Client succesfull first log-in
-    Given The log-in type "Client"
-    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "Miguel"
-    And The password is "null"    
-    And The password "0000"
-    When Logging-in
-    Then Password is set to "0000"
-    And Log-in is succesfull
-    
-  Scenario: Company succesfull regular log-in (username)
-    Given The log-in type "Client"
-    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "Miguel"   
-    And The password is "password00"
-    And The password "password00"
-    When Logging-in
-    And Log-in is succesfull
-    
-   Scenario: Company succesfull regular log-in (email)
-    Given The log-in type "Client"
-    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "s184468@student.dtu.dk"   
-    And The password is "password00"
-    And The password "password00"
-    When Logging-in
-    And Log-in is succesfull
-    
-   Scenario: Company not succesfull log-in
-    Given The log-in type "Client"
-    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "Miguel"
     And The password is "password00"
     And The password "445"
     When Logging-in
-    And Log-in fails
-
-  
+    Then Log-in fails
+    
+  Scenario: Company not succesfull log-in (wrong username)
+    Given The log-in type "Company"
+    And The password is "password00"    
+    And The username "Mark"   
+    And The password "password00"
+    When Logging-in
+    Then Log-in fails
+    
+    
+   Scenario: Client succesfull log-in (email)
+    Given The log-in type "Client"
+    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
+    And The username "miguel@student.dtu.dk"   
+    And The password is "password00"
+    And The password "password00"
+    When Logging-in
+    Then Log-in is succesfull
+    And active user is updated
+    
+   Scenario: Company not succesfull log-in (wrong password)
+    Given The log-in type "Client"
+    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
+    And The username "miguel@student.dtu.dk"
+    And The password is "password00"
+    And The password "445"
+    When Logging-in
+    Then Log-in fails
+    
+  Scenario: Company not succesfull log-in (wrong email)
+    Given The log-in type "Client"
+    And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
+    And The username "s18"
+    And The password is "password00"
+    And The password "password00"
+    When Logging-in
+    Then Log-in fails

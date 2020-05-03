@@ -4,16 +4,18 @@ import com.project.repository.ClientDatabase;
 import java.io.Serializable;
 import java.sql.Time;
 
-public class LogisticCompany implements Serializable {
+
+public class LogisticCompany extends User {
+
 	private long id;
 	private String name;
 	private String password;
 	private String details;
 	private Time created;
-	private ClientDatabase clientDatabase;
+	ClientDatabase clientDatabase;
 
 	public  LogisticCompany(){
-
+    super();
 	}
 	
 	public LogisticCompany(String name, String password, String details) {
@@ -71,4 +73,5 @@ public class LogisticCompany implements Serializable {
 	public void setCreated(Time created) {
 		this.created = created;
 	}
+
 }
