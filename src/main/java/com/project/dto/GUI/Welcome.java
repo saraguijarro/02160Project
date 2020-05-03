@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 
 /**
  *
- * @author Miguel
+ * @author Miguel, Mihai
  */
 public class Welcome extends javax.swing.JFrame {
 
@@ -29,11 +29,12 @@ public class Welcome extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        // Variables declaration
+        JLabel jLabel1 = new JLabel();
+        JButton logIn_Company = new JButton();
 
-        jLabel1 = new javax.swing.JLabel();
-        LogIn_Company = new javax.swing.JButton();
-        LogIn_Client = new javax.swing.JButton();
-        aboutDialog = new JButton();
+        JButton logIn_Client = new JButton();
+        JButton aboutDialog1 = new JButton();
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,15 +46,18 @@ public class Welcome extends javax.swing.JFrame {
         jLabel1.setMinimumSize(new java.awt.Dimension(241, 19));
         jLabel1.setName(""); // NOI18N
 
-        LogIn_Company.setText("Log-In as Logistics Company");
-        LogIn_Company.addActionListener(evt -> LogIn_CompanyActionPerformed(evt));
+        logIn_Company.setText("Log-In as Logistics Company");
+        logIn_Company.addActionListener(this::LogIn_CompanyActionPerformed);
 
-        LogIn_Client.setText("Log-In as Client");
-        LogIn_Client.setMaximumSize(new java.awt.Dimension(120, 45));
-        LogIn_Client.addActionListener(evt -> LogIn_ClientActionPerformed(evt));
+        logIn_Client.setText("Log-In as Client");
+        logIn_Client.setMaximumSize(new java.awt.Dimension(120, 45));
+        logIn_Client.addActionListener(this::LogIn_ClientActionPerformed);
 
-        aboutDialog.setText("About Software");
-        aboutDialog.addActionListener(evt -> aboutDialogActionPerformed(evt));
+        aboutDialog1.setText("About Software");
+        aboutDialog1.addActionListener((ActionEvent ev) -> {
+            AboutDialog aboutDialog = new AboutDialog(this);
+            aboutDialog.setVisible(true);
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,9 +66,9 @@ public class Welcome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(LogIn_Company, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LogIn_Client, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(aboutDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logIn_Company, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logIn_Client, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(aboutDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92))
         );
@@ -74,11 +78,11 @@ public class Welcome extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LogIn_Company, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logIn_Company, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LogIn_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logIn_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()
-                    .addComponent(aboutDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aboutDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
         );
 
@@ -89,29 +93,18 @@ public class Welcome extends javax.swing.JFrame {
 //    private void aboutDialogActionPerformed(ActionEvent evt) {
 //        dispose();
 //    }
-    protected void aboutDialogActionPerformed(ActionEvent e) {
-        try {
-            AboutDialog dialog = new AboutDialog();
-            dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
 
-    LogIn login = new LogIn();
     private void LogIn_CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_CompanyActionPerformed
         // TODO add your handling code here:
         dispose();
-        login.newScreen("company");
+        LogIn.newScreen("company");
     }//GEN-LAST:event_LogIn_CompanyActionPerformed
 
     private void LogIn_ClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ClientActionPerformed
         // TODO add your handling code here:
         dispose();
-        login.newScreen("client");
+        LogIn.newScreen("client");
         
         
     }//GEN-LAST:event_LogIn_ClientActionPerformed
@@ -131,29 +124,14 @@ public class Welcome extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Welcome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Welcome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Welcome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
             java.util.logging.Logger.getLogger(Welcome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Welcome().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new Welcome().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton LogIn_Client;
-    private javax.swing.JButton LogIn_Company;
-    private javax.swing.JLabel jLabel1;
-    private JButton aboutDialog;
     // End of variables declaration//GEN-END:variables
 }
