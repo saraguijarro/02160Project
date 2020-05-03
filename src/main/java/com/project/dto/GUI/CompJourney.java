@@ -1,6 +1,14 @@
 package com.project.dto.GUI;
 
 
+import com.project.dto.JourneyEntity;
+import com.project.repository.JourneyRepository;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author Miguel
@@ -79,17 +87,28 @@ public class CompJourney extends javax.swing.JFrame {
         jRadioButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jRadioButton6.setText("ID");
 
+        jTable1.setAutoCreateRowSorter(true);
+//        jTable1.setDefaultEditor(Object.class, null);
+
+        getContentPane().add(new JScrollPane(jTable1), BorderLayout.CENTER);
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
             },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+            new String[]  {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Company"
             }
         ));
+       JourneyRepository journeyRepository = new JourneyRepository();
+       ArrayList<JourneyEntity> products = journeyRepository.findAll();
+
         jScrollPane1.setViewportView(jTable1);
 
         buttonGroup1.add(jRadioButton2);

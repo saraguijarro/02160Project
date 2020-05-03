@@ -1,6 +1,10 @@
 package com.project.dto.GUI;
 
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Miguel
@@ -12,6 +16,9 @@ public class Welcome extends javax.swing.JFrame {
      */
     public Welcome() {
         initComponents();
+
+
+
     }
 
     /**
@@ -26,30 +33,27 @@ public class Welcome extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         LogIn_Company = new javax.swing.JButton();
         LogIn_Client = new javax.swing.JButton();
+        aboutDialog = new JButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Remote Container Management System");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 18)); // NOI18N
         jLabel1.setText("Welcome to RCMS");
         jLabel1.setMaximumSize(new java.awt.Dimension(241, 19));
         jLabel1.setMinimumSize(new java.awt.Dimension(241, 19));
         jLabel1.setName(""); // NOI18N
 
         LogIn_Company.setText("Log-In as Logistics Company");
-        LogIn_Company.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogIn_CompanyActionPerformed(evt);
-            }
-        });
+        LogIn_Company.addActionListener(evt -> LogIn_CompanyActionPerformed(evt));
 
         LogIn_Client.setText("Log-In as Client");
         LogIn_Client.setMaximumSize(new java.awt.Dimension(120, 45));
-        LogIn_Client.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogIn_ClientActionPerformed(evt);
-            }
-        });
+        LogIn_Client.addActionListener(evt -> LogIn_ClientActionPerformed(evt));
+
+        aboutDialog.setText("About Software");
+        aboutDialog.addActionListener(evt -> aboutDialogActionPerformed(evt));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,6 +64,7 @@ public class Welcome extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(LogIn_Company, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(LogIn_Client, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(aboutDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(92, 92, 92))
         );
@@ -72,13 +77,31 @@ public class Welcome extends javax.swing.JFrame {
                 .addComponent(LogIn_Company, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LogIn_Client, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                    .addComponent(aboutDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(365, 212));
+        setSize(new java.awt.Dimension(365, 250));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-        LogIn login = new LogIn();
+
+//    private void aboutDialogActionPerformed(ActionEvent evt) {
+//        dispose();
+//    }
+    protected void aboutDialogActionPerformed(ActionEvent e) {
+        try {
+            AboutDialog dialog = new AboutDialog();
+            dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    LogIn login = new LogIn();
     private void LogIn_CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_CompanyActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -92,7 +115,6 @@ public class Welcome extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_LogIn_ClientActionPerformed
-
     /**
      * 
      */
@@ -132,5 +154,6 @@ public class Welcome extends javax.swing.JFrame {
     private javax.swing.JButton LogIn_Client;
     private javax.swing.JButton LogIn_Company;
     private javax.swing.JLabel jLabel1;
+    private JButton aboutDialog;
     // End of variables declaration//GEN-END:variables
 }
