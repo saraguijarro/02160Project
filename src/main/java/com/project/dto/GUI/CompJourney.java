@@ -87,9 +87,6 @@ public class CompJourney extends javax.swing.JFrame {
         jRadioButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
         jRadioButton6.setText("ID");
 
-        jTable1.setAutoCreateRowSorter(true);
-//        jTable1.setDefaultEditor(Object.class, null);
-
         getContentPane().add(new JScrollPane(jTable1), BorderLayout.CENTER);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -106,8 +103,6 @@ public class CompJourney extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Company"
             }
         ));
-       JourneyRepository journeyRepository = new JourneyRepository();
-       ArrayList<JourneyEntity> products = journeyRepository.findAll();
 
         jScrollPane1.setViewportView(jTable1);
 
