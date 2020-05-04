@@ -30,7 +30,7 @@ Background:
 	  And a valid destination "Beirut"
     And a valid company "Netto"
 	  When Registering in "journey database"
-	  Then the system displays a message telling that the content needs to be filled
+	  Then the system displays a message telling that the field "content" needs to be filled
 	  
  @tag2
   Scenario: The client gives all information about the container's journey, chooses a container that is availble at the port of origin.

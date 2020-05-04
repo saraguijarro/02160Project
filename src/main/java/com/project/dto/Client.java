@@ -20,7 +20,7 @@ public class Client {
 		this.referencePerson = referencePerson;
 		this.email = email;
 	}
-
+    JourneyDB JDB;
 	private String name;
 	private Address address;
 	private String referencePerson;
@@ -78,6 +78,13 @@ public class Client {
 		this.hasID = hasID;
 	}
 
+	public JourneyDB getJDB() {
+		return JDB;
+	}
+
+	public void setJDB(JourneyDB jdb) {
+		this.JDB = jdb;
+	}
 //----------end of setters and getters----------
 
 	
