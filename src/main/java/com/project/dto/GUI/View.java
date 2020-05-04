@@ -14,9 +14,9 @@ public class View {
 
 //		Client client = new Client();
 //
-//		client.setName("sdas");
+//		client.setName("client");
 //		client.setPassword("password");
-//		client.setEmail("schiduluca@gmail.com");
+//		client.setEmail("hello@gmail.com");
 //		ClientRepository clientRepository = new ClientRepository();
 //		clientRepository.create(client);
 	}

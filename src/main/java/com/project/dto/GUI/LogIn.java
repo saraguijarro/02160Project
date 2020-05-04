@@ -120,6 +120,7 @@ public class LogIn extends javax.swing.JFrame {
                         ClientMainMenu.newScreen();
                         dispose();
                     } else {
+                        errorLabel.setText(responseObject.getMessage());
                         errorLabel.setVisible(true);
                     }
                 }
@@ -132,6 +133,7 @@ public class LogIn extends javax.swing.JFrame {
                         CompMainMenu.newScreen();
                         dispose();
                     } else {
+                        errorLabel.setText(responseObject.getMessage());
                         errorLabel.setVisible(true);
                     }
                 }
