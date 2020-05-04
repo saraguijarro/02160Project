@@ -14,7 +14,14 @@ public class Container {
 	
 	public ArrayList<Container> availableContainerAt (String portOfOrigin){
 		
+		if (this.containers.contains(portOfOrigin) && this.inJourney == false) {
+			
+			return containers;
+			
+		}
+		else {
 		return ArrayList<Container>;
+	}
 	}
 	
 	public void setContainerID(String containerID) {
@@ -33,6 +40,10 @@ public class Container {
 		container.setContainerID(id);
 	}
 
+	//show containers at the port of origin
+	
+	
+	
 //Code regarding the current internal status of the container, instantaneous data
 	
 	double temperature;

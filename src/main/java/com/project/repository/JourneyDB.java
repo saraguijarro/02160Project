@@ -1,6 +1,7 @@
 package com.project.repository;
 
 
+import com.project.dto.Container;
 import com.project.dto.Jou;
 import com.project.dto.ResponseObject;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class JourneyDB {
 
 	ArrayList<Jou> journeys;
-
+    Container container;
 	public JourneyDB() {
 		super();
 		journeys = new ArrayList<>();
@@ -49,7 +50,8 @@ public class JourneyDB {
 				
 				response.setMessage("Journey successfully registered.");
 				
-				journeys.add(journey); //journey added to the database
+				
+				//journeys.add(journey); //journey added to the database
 				
 				this.giveID(journey); //ID added to the journey
 			}
