@@ -1,12 +1,8 @@
 package com.project.dto.GUI;
 
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
-
+import com.project.dto.Client;
+import com.project.repository.ClientRepository;
 
 public class View {
 	
@@ -16,6 +12,13 @@ public class View {
 		welcomeScreen.newScreen();
 
 
+//		Client client = new Client();
+//
+//		client.setName("client");
+//		client.setPassword("password");
+//		client.setEmail("hello@gmail.com");
+//		ClientRepository clientRepository = new ClientRepository();
+//		clientRepository.create(client);
 	}
 
 }

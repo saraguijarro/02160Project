@@ -1,18 +1,15 @@
 package com.project.dto;
 
-import com.project.repository.ClientDatabase;
-import java.io.Serializable;
 import java.sql.Time;
 
 
 public class LogisticCompany extends User {
 
-	private long id;
+	private String id;
 	private String name;
 	private String password;
 	private String details;
 	private Time created;
-	ClientDatabase clientDatabase;
 
 	public  LogisticCompany(){
     super();
@@ -23,7 +20,6 @@ public class LogisticCompany extends User {
 		this.name = name;
 		this.password = password;
 		this.details = details;
-		this.clientDatabase = new ClientDatabase();
 	}
 
 	public String getName() {
@@ -34,19 +30,11 @@ public class LogisticCompany extends User {
 		this.name = name;
 	}
 
-	public ClientDatabase getClientDatabase() {
-		return clientDatabase;
-	}
-
-	public void setClientDatabase(ClientDatabase clientDatabase) {
-		this.clientDatabase = clientDatabase;
-	}
-
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
