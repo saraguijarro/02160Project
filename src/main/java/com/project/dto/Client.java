@@ -4,9 +4,8 @@ import com.project.repository.JourneyDB;
 
 public class Client extends User{
 
-
 	private String name;
-	private Address address;
+	private String address;
 	private String referencePerson;
 	private String email;
 	private String clientID;
@@ -18,7 +17,7 @@ public class Client extends User{
 	super();
 	}
 
-	public Client(String name, Address address, String referencePerson, String email, String password) {
+	public Client(String name, String address, String referencePerson, String email, String password) {
 		super();
 		this.name = name;
 		this.address = address;
@@ -58,16 +57,6 @@ public class Client extends User{
 	public void setReferencePerson(String referencePerson) {
 		this.referencePerson = referencePerson;
 	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public void setAddress(String add) {
-		if (add.equals("None")) {this.setAddress(new Address("None","None","None","None","None"));}
-		else {this.setAddress(new Address(add));}
-	}
 	public String getName() {
 		return name;
 	}
@@ -79,6 +68,14 @@ public class Client extends User{
 	}
 	public void setHasID(Boolean hasID) {
 		this.hasID = hasID;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getPassword() {
@@ -106,36 +103,6 @@ public class Client extends User{
 		if (code!=116) {updateResponse = new ResponseObject(code, "Client information succesfully updated");}
 		return updateResponse;
 	}
-	
-	//updating with full address
-	public ResponseObject update(String updateChoice, Address updateContent) {
-		ResponseObject updateResponse = null;
-		int code=116;
-		if (updateChoice.equals("address2")) {this.setAddress(updateContent);code=115;}
-		if (code!=116) {updateResponse = new ResponseObject(code, "Client information succesfully updated");}
-		return updateResponse;
-	}
-//------------end of Update Client method--------------
 
-//--isFound() method, used in the "searchingClient()" method from the ClientDatabase class
-//used to find if a substring can be found in the information of a client	
-	public ResponseObject isFound(String searchword) {
-		int code = 130;
-		String message = "";
-		
-		if (this.name.toLowerCase().contains(searchword.toLowerCase())){code = 131; message="name";}
-		else if (this.address.getCity().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getCountry().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getPostcode().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getStreetName().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
-				{code = 132;message = "address";}
-		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
-		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}
-				
-		ResponseObject isFoundResponse = new ResponseObject(code,message);
-		return isFoundResponse;
-	}
 
 }

@@ -1,11 +1,14 @@
 package com.project.dto.GUI;
 
+import com.project.service.CompanyClientsService;
+
 /**
  *
  * @author Miguel
  */
 public class CompClients extends javax.swing.JFrame {
 
+    private CompanyClientsService companyClientsService = new CompanyClientsService();
     /**
      * Creates new form CompClients
      */
@@ -75,14 +78,9 @@ public class CompClients extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            companyClientsService.getClients(),
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Address", "Reference Person", "Email",
             }
         ));
         jScrollPane1.setViewportView(jTable1);
