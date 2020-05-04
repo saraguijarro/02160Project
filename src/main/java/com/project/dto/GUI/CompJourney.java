@@ -97,10 +97,14 @@ public class CompJourney extends javax.swing.JFrame {
                     {null, null, null, null},
                     {null, null, null, null},
                     {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
                     {null, null, null, null}
             },
             new String[]  {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Company"
+                "id", "origin", "destination", "container_id", "description", "company"
             }
         ));
 
