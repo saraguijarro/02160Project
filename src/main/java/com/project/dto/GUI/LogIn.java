@@ -1,11 +1,19 @@
 package com.project.dto.GUI;
 
+import com.project.dto.ResponseObject;
+import com.project.service.LoginService;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Miguel
  */
 public class LogIn extends javax.swing.JFrame {
 
+    private final LoginService loginService = new LoginService();
     /**
      * Creates new form LogIn
      */
@@ -22,39 +30,37 @@ public class LogIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
-        Confirm = new javax.swing.JButton();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jTextField1 = new JTextField();
+        jPasswordField1 = new JPasswordField();
+        errorLabel = new JLabel();
+        Confirm = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log-in");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel1.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         jLabel1.setText("Name:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel2.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         jLabel2.setText("Password:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jLabel3.setText("(If this is your first time logging-in, the default password will be 0000)");
+        errorLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        errorLabel.setText("Invalid credentials");
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-        Confirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConfirmActionPerformed(evt);
-            }
-        });
+        Confirm.addActionListener(this::ConfirmActionPerformed);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -62,9 +68,9 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(errorLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -89,7 +95,7 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(errorLabel)
                     .addComponent(Confirm))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -106,14 +112,29 @@ public class LogIn extends javax.swing.JFrame {
     private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
                 // TODO add your handling code here:
                 if (loggedIn.equals("client")){
-                    ClientMainMenu ClMMenu= new ClientMainMenu();
-                    ClMMenu.newScreen();
+                    String username = jTextField1.getText();
+                    String password = new String(jPasswordField1.getPassword());
+
+                    ResponseObject responseObject = loginService.loginCompany(username, password);
+                    if (responseObject == null) {
+                        ClientMainMenu.newScreen();
+                        dispose();
+                    } else {
+                        errorLabel.setVisible(true);
+                    }
                 }
                 else if (loggedIn.equals("company")){
-                    CompMainMenu CoMMenu = new CompMainMenu();
-                    CoMMenu.newScreen();
+                    String username = jTextField1.getText();
+                    String password = new String(jPasswordField1.getPassword());
+
+                    ResponseObject responseObject = loginService.loginCompany(username, password);
+                    if (responseObject == null) {
+                        CompMainMenu.newScreen();
+                        dispose();
+                    } else {
+                        errorLabel.setVisible(true);
+                    }
                 }
-                dispose();
     }//GEN-LAST:event_ConfirmActionPerformed
 
     /**
@@ -152,11 +173,11 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Confirm;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private JButton Confirm;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel errorLabel;
+    private JPasswordField jPasswordField1;
+    private JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

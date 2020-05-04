@@ -105,6 +105,7 @@ public class CompanyRepository implements Repository<LogisticCompany> {
             prepared.setString(3, hashString(obj.getPassword()));
             prepared.setString(4, obj.getDetails());
 
+            prepared.executeUpdate();
         } catch (SQLException e) {
             log.error("Error creating new user : " + e);
         }
@@ -154,7 +155,7 @@ public class CompanyRepository implements Repository<LogisticCompany> {
     private static LogisticCompany map(ResultSet resultSet) throws SQLException {
         LogisticCompany obj = new LogisticCompany();
 
-        obj.setId(resultSet.getLong("id"));
+        obj.setId(resultSet.getString("id"));
         obj.setName(resultSet.getString("name"));
         obj.setPassword(resultSet.getString("password"));
         obj.setDetails(resultSet.getString("details"));

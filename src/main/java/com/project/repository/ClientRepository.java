@@ -129,7 +129,7 @@ public class ClientRepository implements Repository<Client>
             prepared.setString(5, obj.getEmail());
             prepared.setString(6, hashString(obj.getPassword()));
 
-
+            prepared.executeUpdate();
 
         } catch (SQLException e)
         {
