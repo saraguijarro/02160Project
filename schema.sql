@@ -10,7 +10,7 @@ CREATE TABLE client(
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE company(
-        id int primary key  not null auto_increment,
+        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
         name varchar(255) not null,
         password varchar(255) not null,
         details varchar(255) not null,

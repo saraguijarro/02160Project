@@ -223,7 +223,7 @@ public class ClientRepository implements Repository<Client>
         obj.setClientID(resultSet.getString("ID"));
         obj.setName(resultSet.getString("Name"));
         obj.setAddress(resultSet.getString("Address"));
-        obj.setReferencePerson(resultSet.getString("Person"));
+        obj.setReferencePerson(resultSet.getString("reference_Person"));
         obj.setEmail(resultSet.getString("Email"));
         obj.setPassword(resultSet.getString("Password"));
 

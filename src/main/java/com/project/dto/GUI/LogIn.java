@@ -115,7 +115,7 @@ public class LogIn extends javax.swing.JFrame {
                     String username = jTextField1.getText();
                     String password = new String(jPasswordField1.getPassword());
 
-                    ResponseObject responseObject = loginService.loginCompany(username, password);
+                    ResponseObject responseObject = loginService.loginClient(username, password);
                     if (responseObject == null) {
                         ClientMainMenu.newScreen();
                         dispose();
