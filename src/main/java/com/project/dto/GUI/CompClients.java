@@ -80,7 +80,7 @@ public class CompClients extends javax.swing.JFrame {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             companyClientsService.getClients(),
             new String [] {
-                "Name", "Address", "Reference Person", "Email",
+                "ID", "Name", "Address", "Reference Person", "Email",
             }
         ));
         jScrollPane1.setViewportView(jTable1);

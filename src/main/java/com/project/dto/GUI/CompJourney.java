@@ -1,8 +1,7 @@
 package com.project.dto.GUI;
 
 
-import com.project.dto.JourneyEntity;
-import com.project.repository.JourneyRepository;
+import com.project.service.CompanyJourneysService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
  */
 public class CompJourney extends javax.swing.JFrame {
 
+    private CompanyJourneysService companyJourneysService = new CompanyJourneysService();
     /**
      * Creates new form CompJourney
      */
@@ -90,17 +90,9 @@ public class CompJourney extends javax.swing.JFrame {
         getContentPane().add(new JScrollPane(jTable1), BorderLayout.CENTER);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-            },
+            companyJourneysService.getJourneys(),
             new String[]  {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Company"
+                "Id", "Origin", "Destination", "Company", "Description", "Container Id"
             }
         ));
 

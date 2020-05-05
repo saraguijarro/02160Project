@@ -17,11 +17,12 @@ public class CompanyClientsService {
 
         int i = 0;
         for(Client client: allClients) {
-            String[] data = new String[4];
-            data[0] = client.getName();
-            data[1] = client.getAddress();
-            data[2] = client.getReferencePerson();
-            data[3] = client.getEmail();
+            String[] data = new String[5];
+            data[0] = client.getClientID();
+            data[1] = client.getName();
+            data[2] = client.getAddress();
+            data[3] = client.getReferencePerson();
+            data[4] = client.getEmail();
 
             result[i] = data;
         }
