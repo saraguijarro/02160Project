@@ -6,5 +6,8 @@
 *.iml
 .idea
 
-app.properties
+src/main/resources/app.properties
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/saraguijarro/02160Project.git

@@ -2,8 +2,7 @@ package com.project.repository;
 
 import com.google.common.hash.Hashing;
 
-import com.project.dto.UserEntity;
-import com.project.dto.UserType;
+import com.project.dto.LogisticCompany;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
@@ -17,20 +16,20 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * The UserEntity repository implementation.
+ * The CompanyRepository repository implementation.
  */
-public class UserRepository implements Repository<UserEntity> {
-    final static Logger log = Logger.getLogger(UserEntity.class);
+public class CompanyRepository implements Repository<LogisticCompany> {
+    final static Logger log = Logger.getLogger(CompanyRepository.class);
 
     @Override
-    public UserEntity find(String id) {
+    public LogisticCompany find(String id) {
         log.debug("Start method...");
 
-        UserEntity obj = null;
+        LogisticCompany obj = null;
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM users WHERE id=?");
+                    "SELECT * FROM company WHERE id=?");
             prepared.setString(1, id);
             ResultSet result = prepared.executeQuery();
 
@@ -45,15 +44,15 @@ public class UserRepository implements Repository<UserEntity> {
         return obj;
     }
 
-    public UserEntity loginUser(String email, String password) {
+    public LogisticCompany loginUser(String name, String password) {
         log.debug("Start method...");
 
-        UserEntity obj = null;
+        LogisticCompany obj = null;
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM users WHERE email=?");
-            prepared.setString(1, email);
+                    "SELECT * FROM company WHERE name=?");
+            prepared.setString(1, name);
             ResultSet result = prepared.executeQuery();
 
             if (result.first()) {
@@ -64,7 +63,7 @@ public class UserRepository implements Repository<UserEntity> {
         }
 
         if (obj == null || !obj.getPassword().equals(hashString(password))) {
-             return null;
+            return null;
         }
 
         log.debug("End method.");
@@ -72,13 +71,13 @@ public class UserRepository implements Repository<UserEntity> {
     }
 
     @Override
-    public ArrayList<UserEntity> findAll() {
+    public ArrayList<LogisticCompany> findAll() {
         log.debug("Start method...");
-        ArrayList<UserEntity> users = new ArrayList<>();
+        ArrayList<LogisticCompany> users = new ArrayList<>();
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM users");
+                    "SELECT * FROM company");
 
             ResultSet result = prepared.executeQuery();
             while (result.next()) {
@@ -93,19 +92,20 @@ public class UserRepository implements Repository<UserEntity> {
     }
 
     @Override
-    public UserEntity create(UserEntity obj) {
+    public LogisticCompany create(LogisticCompany obj) {
         log.debug("Start method...");
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO users (id, email, password, user_type) "
-                    + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO company (id, name, password, details) "
+                            + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, UUID.randomUUID().toString());
-            prepared.setString(2, obj.getEmail());
+            prepared.setString(2, obj.getName());
             prepared.setString(3, hashString(obj.getPassword()));
-            prepared.setString(4, obj.getUserType().getUrl());
+            prepared.setString(4, obj.getDetails());
 
+            prepared.executeUpdate();
         } catch (SQLException e) {
             log.error("Error creating new user : " + e);
         }
@@ -115,7 +115,7 @@ public class UserRepository implements Repository<UserEntity> {
     }
 
     @Override
-    public UserEntity update(UserEntity obj) {
+    public LogisticCompany update(LogisticCompany obj) {
         throw new UnsupportedOperationException();
     }
 
@@ -134,8 +134,8 @@ public class UserRepository implements Repository<UserEntity> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM users "
-                    + " WHERE id=? ");
+                    " DELETE FROM logistic_company "
+                            + " WHERE id=? ");
 
             prepared.setString(1, id);
 
@@ -152,13 +152,13 @@ public class UserRepository implements Repository<UserEntity> {
     }
 
 
-    private static UserEntity map(ResultSet resultSet) throws SQLException {
-        UserEntity obj = new UserEntity();
+    private static LogisticCompany map(ResultSet resultSet) throws SQLException {
+        LogisticCompany obj = new LogisticCompany();
 
-        obj.setId(resultSet.getLong("id"));
-        obj.setEmail(resultSet.getString("email"));
+        obj.setId(resultSet.getString("id"));
+        obj.setName(resultSet.getString("name"));
         obj.setPassword(resultSet.getString("password"));
-        obj.setUserType(UserType.valueOf(resultSet.getString("user_type")));
+        obj.setDetails(resultSet.getString("details"));
 
         return obj;
     }
