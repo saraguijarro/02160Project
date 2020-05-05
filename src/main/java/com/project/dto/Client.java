@@ -20,14 +20,13 @@ public class Client {
 		this.referencePerson = referencePerson;
 		this.email = email;
 	}
-    JourneyDB JDB;
+    private JourneyDB JDB;
 	private String name;
 	private Address address;
 	private String referencePerson;
 	private String email;
 	private String clientID;
 	private Boolean hasID;
-	private JourneyDB journeyDB;
 	
 //------all the setters and getters----------
 
@@ -36,12 +35,6 @@ public class Client {
 	}
 	public void setClientID(String clientID) {
 		this.clientID = clientID;
-	}
-	public JourneyDB getJourneyDB() {
-		return journeyDB;
-	}
-	public void setJourneyDB(JourneyDB journeyDB) {
-		this.journeyDB = journeyDB;
 	}
 	public String getEmail() {
 		return email;

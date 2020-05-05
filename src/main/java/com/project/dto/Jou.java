@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class Jou {
 	
-	Container container;
+	Container c;
+	public boolean onGoing = true;
 	public String OriginPort;
 	public String Destination;
 	public String Content;
 	public String Company;
 	public String JourneyID;
-	public ArrayList<String> Container;
+	private Boolean hasID;
+	public ArrayList<Container> Container;
 
     public Jou(String op , String dest , String cont , String comp )	{
     	
@@ -21,6 +23,8 @@ public class Jou {
     	
     }
 
+   
+    
 	public Jou() {
 		super();
 	}
@@ -54,26 +58,42 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
-	public ArrayList<String> getContainer() {
+	public ArrayList<Container> getContainer() {
 		return Container;
 	}
-	public void setContainer(ArrayList<String> container) {
+	public void setContainer(ArrayList<Container> container) {
 		Container = container;
 	}
 
-	
+	public Boolean getHasID() {
+		return hasID;
+	}
+	public void setHasID(Boolean hasID) {
+		this.hasID = hasID;
+	}
 
+	public void setC(Container container) {
+		this.c = container;
+	}
+	
+	public Container getC() {
+		return c;
+	}
 	//---------Update Journey Method:------------
 		
 		//updating any field with a string
 		public ResponseObject update(String updateContent) {
 			ResponseObject updateResponse = null;
-			int code=216; //216 = error code by default (it is changed if an update successfully happens)
-			this.container.currentPosition = updateContent;
-			code=211;
+			this.c.setCurrentPosition(updateContent);
+			int code=211;
 			
 			
-			if (code!=216) {updateResponse = new ResponseObject(code, "current position succesfully updated");}
+			updateResponse = new ResponseObject(code, "current position succesfully updated");
+			if(c.getCurrentPosition().equals(getDestination())) {
+				this.onGoing = false;
+				updateResponse = new ResponseObject(code, "current position succesfully updated and the journey is terminated");
+			}
+			
 			return updateResponse;
 		}
 		
@@ -85,10 +105,10 @@ public class Jou {
 			int code = 230;
 			String message = "";
 			
-			if (this.OriginPort.contains(searchword)){code = 231; message="Port of origin";}
-			else if(this.Destination.contains(searchword)){code = 232; message="Destination";}
-			else if(this.Content.contains(searchword)){code = 233; message="Content";}
-			else if(this.Company.contains(searchword)){code = 234; message="Company";}
+			if (this.OriginPort.toLowerCase().contains(searchword.toLowerCase())){code = 231; message="Port of origin";}
+			else if(this.Destination.toLowerCase().contains(searchword)){code = 232; message="Destination";}
+			else if(this.Content.toLowerCase().contains(searchword.toLowerCase())){code = 233; message="Content";}
+			else if(this.Company.toLowerCase().contains(searchword.toLowerCase())){code = 234; message="Company";}
 					
 			ResponseObject isFoundResponse = new ResponseObject(code,message);
 			return isFoundResponse;

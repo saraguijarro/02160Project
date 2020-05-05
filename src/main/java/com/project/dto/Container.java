@@ -2,26 +2,71 @@ package com.project.dto;
 
 import java.util.ArrayList;
 
+import com.project.repository.ContainerDB;
+
 public class Container {
 	
-	String currentPosition;
-	boolean inJourney;
+	private String currentPosition;
+	private boolean inJourney;
 	boolean hasID;
 	String containerID;
+	Jou journey;
 	
+
+
 	ArrayList<Container> containers = new ArrayList<>();
 	
 	
-	public ArrayList<Container> availableContainerAt (String portOfOrigin){
-		
-		if (this.containers.contains(portOfOrigin) && this.inJourney == false) {
-			
-			return containers;
-			
-		}
-		else {
-		return ArrayList<Container>;
+	public String getContainerID() {
+		return containerID;
 	}
+	
+	 public Container(ContainerDB CDB , String cp)	{
+	    	
+		 this.inJourney = false;
+		 
+		 this.currentPosition=cp;
+
+	    }
+	
+	public Container(boolean inJourney, String containerID) {
+		super();
+		this.inJourney = inJourney;
+		this.containerID = containerID;
+	}
+
+	public ArrayList<Container> getContainers() {
+		return containers;
+	}
+
+	public void setContainers(ArrayList<Container> containers) {
+		this.containers = containers;
+	}
+
+	public boolean getInJourney() {
+		return inJourney;
+	}
+
+	public void setInJourney(boolean inJourney) {
+		this.inJourney = inJourney;
+	}
+
+	
+	public String getCurrentPosition() {
+		return currentPosition;
+	}
+
+	public void setCurrentPosition(String currentPosition) {
+		this.currentPosition = currentPosition;
+	}
+
+	
+	public Jou getJourney() {
+		return journey;
+	}
+
+	public void setJourney(Jou journey) {
+		this.journey = journey;
 	}
 	
 	public void setContainerID(String containerID) {
@@ -32,13 +77,7 @@ public class Container {
 		return hasID;
 	}
 	
-	public void giveID(Container container) {
-		String prefix = "CO";
-		String number = Integer.toString(this.containers.size()+1);
-		String zeroes = "0".repeat(6-number.length());
-		String id = prefix + zeroes + number;
-		container.setContainerID(id);
-	}
+
 
 	//show containers at the port of origin
 	

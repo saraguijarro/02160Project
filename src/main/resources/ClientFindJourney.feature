@@ -41,6 +41,6 @@ Feature: Client Find Journey
    @tag3
    Scenario: The client uses the criteria from an existing journey with a filter
    Given a searchword "c"
-   And a filter "Port of Orifin"
+   And a filter "Port of Origin"
    When searching for journey
    Then the corresponding "1" journey(s) is/are found.
