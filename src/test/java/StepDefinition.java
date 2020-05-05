@@ -508,13 +508,43 @@ public class StepDefinition {
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
+	
+	/*
+	//@Given("Create the lists and save them")
+	public void truc(double temperature, double humidity, double pressure) {
+		InternalTemperature.add(0.2);InternalTemperature.add(4.7);InternalTemperature.add(3.2);
+		AirHumidity.add(20.2);AirHumidity.add(24.7);AirHumidity.add(32.2);
+		AtmosphericPressure.add(100.2);AtmosphericPressure.add(117.9);AtmosphericPressure.add(110);
+		
+		container.track("temperature", temperature);
+		container.track("humidity", humidity);
+		container.track("pressure", pressure);
+	}
+	
+	
+	@Given("a client database with the client {string} {string} {string} and {string}")
+	public void a_client_database_with_the_client_and(String name1, String name2, String name3, String name4) {
+	    Client c1 = new Client(name1, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Oskar","sara@student.du.dk");
+	    Client c2 = new Client(name2, new Address("Denmark","Lyngby","2800","Kampsax","30"),"None","mihai@student.dtu.dk");
+	    Client c3 = new Client(name3, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Sammy","thomas@student.dtu.dk");
+	    Client c4 = new Client(name4, new Address("Denmark","Lyngby","2800","Kampsax","48"), "Suzan", "miguel@student.dtu.dk");
+
+	    company.getClientDatabase().registering(c1);
+	    company.getClientDatabase().registering(c2);
+	    company.getClientDatabase().registering(c3);
+	    company.getClientDatabase().registering(c4);
+	}
+	*/
 			
-	@When ("the system decides to retrieve the internal status facts temperature {ArrayList} humidity {ArrayList} pressure {ArrayList}")
-	public void the_system_decides_to_retrieve_the_internal_status_facts(ArrayList<Double> tem, ArrayList<Double> hum, ArrayList<Double> press) {
+	@When ("the system decides to retrieve the internal status facts")
+	public void the_system_decides_to_retrieve_the_internal_status_facts(tem, hum, press) {
+		
+		
 		assertEquals(tem, InternalTemperature);
 		assertEquals(hum, AirHumidity);
 		assertEquals(press, AtmosphericPressure);
 	}
+	
 			
 	@Then ("the system retrieves the data from the database")
 	public void the_system_retrieves_the_data_from_the_database() {
