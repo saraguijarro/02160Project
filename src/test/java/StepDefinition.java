@@ -514,8 +514,8 @@ public class StepDefinition {
 		assertEquals(container.hasId(container),true);
 	} */
 				
-	@When ("the system decides to retrieve the internal status facts")
-	public void the_system_decides_to_retrieve_the_internal_status_facts() {
+	@When ("the system decides to retrieve the internal status measurements")
+	public void the_system_decides_to_retrieve_the_internal_status_measurements() {
 			
 		temList.add(0.2);temList.add(4.7);temList.add(3.2);
 		humList.add(20.2);humList.add(24.7);humList.add(32.2);
