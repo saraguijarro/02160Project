@@ -403,7 +403,7 @@ public class StepDefinition {
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-			
+				
 	/*
 	@Given("an update choice {string}")
 	public void an_update_choice(String Choice) {
@@ -442,10 +442,14 @@ public class StepDefinition {
 	ResponseObject locateContainer;
 	String location;
 	double value;
-	
+		
 	ArrayList<Double> InternalTemperature;
 	ArrayList<Double> AirHumidity;
 	ArrayList<Double> AtmosphericPressure;
+	
+	ArrayList<Double> temList;
+	ArrayList<Double> humList;
+	ArrayList<Double> pressList;
 
 	//Scenario: Tracking the internal status
 
@@ -503,49 +507,39 @@ public class StepDefinition {
 //Feature: Retrieve info about each container
 
 	//Scenario: Retrieve data about the internal status
-		
+			
 	/*
 	@Given("a journey id {string} exists for the corresponding container")
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-	
-	
-	//@Given("Create the lists and save them")
-	public void truc(double temperature, double humidity, double pressure) {
-		InternalTemperature.add(0.2);InternalTemperature.add(4.7);InternalTemperature.add(3.2);
-		AirHumidity.add(20.2);AirHumidity.add(24.7);AirHumidity.add(32.2);
-		AtmosphericPressure.add(100.2);AtmosphericPressure.add(117.9);AtmosphericPressure.add(110);
-		
-		container.track("temperature", temperature);
-		container.track("humidity", humidity);
-		container.track("pressure", pressure);
-	}
-			
+				
 	@When ("the system decides to retrieve the internal status facts")
-	public void the_system_decides_to_retrieve_the_internal_status_facts(tem, hum, press) {
-		
-		
-		assertEquals(tem, InternalTemperature);
-		assertEquals(hum, AirHumidity);
-		assertEquals(press, AtmosphericPressure);
-	}
-	
+	public void the_system_decides_to_retrieve_the_internal_status_facts() {
 			
+		temList.add(0.2);temList.add(4.7);temList.add(3.2);
+		humList.add(20.2);humList.add(24.7);humList.add(32.2);
+		pressList.add(100.2);pressList.add(117.9);pressList.add(110.3);
+			
+		assertEquals(temList,InternalTemperature);
+		assertEquals(humList,AirHumidity);
+		assertEquals(pressList,AtmosphericPressure);
+	}
+				
 	@Then ("the system retrieves the data from the database")
 	public void the_system_retrieves_the_data_from_the_database() {
 		assertEquals("Measurements successfully retrieved.",updateResponse.getMessage());
 	}
 
   	//Scenario: Retrieve data from the journey evolution
-	
 		
+			
 	/*
 	@Given("a journey id {string} exists for the corresponding container")
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-		
+			
 	@When ("the system decides to retrieve a location {string} from the database")
 	public void the_system_decides_to_retrieve_a_location_from_the_database(String loc) {
 		assertEquals(loc,location);
@@ -555,6 +549,7 @@ public class StepDefinition {
 	public void the_system_retrieves_the_location_from_the_journey_database() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
+
 
 }
 =======
