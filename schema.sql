@@ -13,7 +13,7 @@ CREATE TABLE company(
         ID VARCHAR(255) PRIMARY KEY NOT NULL ,
         name varchar(255) not null,
         password varchar(255) not null,
-        details varchar(255) not null,
+        details varchar(255) ,
         created timestamp not null default current_timestamp
 );
 
