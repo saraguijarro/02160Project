@@ -362,11 +362,11 @@ public class StepDefinition {
 
 	//Scenario: Update measurements about the container’s internal status
 
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	}
-
+	
 	/*
 	@Given("an update choice {string}")
 	public void an_update_choice(String Choice) {
@@ -397,9 +397,9 @@ public class StepDefinition {
 	//Scenario: Retrieve measurements from the system
 
 	/*
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	} */
 				
 	/*
@@ -452,9 +452,9 @@ public class StepDefinition {
 	//Scenario: Tracking the internal status
 
 	/*
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	} */
 
 	@When("the logistic company measures the internal status facts")
@@ -470,9 +470,9 @@ public class StepDefinition {
 	//Scenario: Tracking the journey
 
 	/*
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	} */
 
 	@When("the logistic company determines the location {string} of the container")
@@ -488,13 +488,13 @@ public class StepDefinition {
 	//Scenario: There is no journey id for the tracked container
 
 	@Given("the journey id {string} does not exist for the corresponding container")
-	public void the_journey_id_does_not_exist_for_the_coresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),false);
+	public void the_journey_id_does_not_exist_for_the_coresponding_container(Container container) {
+		container.noID(container);
 	}
 
-	@When("trying to obtain information about the internal status or the journey evolution")
-	public void trying_to_obtain_information_about_the_internal_status_or_the_journey_evolution() {
-		assertEquals("No journey id has been found for the corresponding container.",updateResponse.getMessage());
+	@When("trying to track the internal status or the journey evolution")
+	public void trying_to_track_the_internal_status_or_the_journey_evolution() {
+		assertEquals("No id has been found for the corresponding container.",updateResponse.getMessage());
 	}
 
 	@Then("the search is unsuccessful")
@@ -507,9 +507,9 @@ public class StepDefinition {
 	//Scenario: Retrieve data about the internal status
 			
 	/*
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	} */
 				
 	@When ("the system decides to retrieve the internal status measurements")
@@ -530,12 +530,11 @@ public class StepDefinition {
 	}
 
   	//Scenario: Retrieve data from the journey evolution
-		
 			
 	/*
-	@Given("a journey id {string} exists for the corresponding container")
-	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
-		assertEquals(container.hasId(container),true);
+	@Given("a journey id exists for the corresponding container")
+	public void a_journey_id_exists_for_the_corresponding_container(Container container) {
+		container.giveID(container);
 	} */
 			
 	@When ("the system decides to retrieve a location {string} from the database")

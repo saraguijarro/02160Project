@@ -22,12 +22,12 @@ Feature: Retrieve info about each container
 
   @tag1
   Scenario: Retrieve data about the internal status
-    Given a journey id "JO002160" exists for the corresponding container
+    Given a journey id exists for the corresponding container
 		When the system decides to retrieve the internal status measurements
 		Then the system retrieves the internal status measurements
 
   @tag2
   Scenario: Retrieve data from the journey evolution
-		Given a journey id "JO002160" exists for the corresponding container
+		Given a journey id exists for the corresponding container
 		When the system decides to retrieve a location "Denmark" from the database
 		Then the system retrieves the location

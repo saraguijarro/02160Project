@@ -24,6 +24,16 @@ public class Container {
 		String id = prefix + zeroes + number;
 		container.setContainerID(id);
 	}
+	
+	public ResponseObject noID(Container container) {
+		ResponseObject noId = null;
+		int code = 301;
+		String noid = "";
+		container.setContainerID(noid);
+		noId = new ResponseObject(code, "No id has been found for the corresponding container.");
+		return noId;
+	}
+	
 
 //Code regarding the current internal status of the container, instantaneous data
 	

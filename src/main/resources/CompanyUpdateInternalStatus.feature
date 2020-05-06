@@ -22,7 +22,7 @@ Feature: Add measurements about the container’s internal status
 
   @tag1
   Scenario: Update measurements about the container’s internal status
-		Given a journey id "JO002160" exists for the corresponding container
+		Given a journey id exists for the corresponding container
 		And a logistic company "Maersk"
 		And an update choice "humidity"
 		When updating the internal status
