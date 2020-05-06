@@ -33,7 +33,7 @@ public class Container {
 	
 	String[][] currentStatus = new String[2][2];
 	
-	public Container internalStatusCurrent(int temperature, int humidity, int pressure) {
+	public Container internalStatusCurrent(double temperature, double humidity, double pressure) {
 		String[][] currentStatus = { { "Internal Temperature", Double.toString(this.temperature) }, 
                 					 { "Air Humidity", Double.toString(this.humidity) }, 
                 					 { "Atmospheric Pressure", Double.toString(this.pressure) } }; 
@@ -52,7 +52,7 @@ public class Container {
 		this.pressure = pressure;
 	}
 	
-	public ResponseObject update(String updateChoice, int updateData) {
+	public ResponseObject update(String updateChoice, double updateData) {
 		
 		ResponseObject modifyData = null;
 		int code = 311;

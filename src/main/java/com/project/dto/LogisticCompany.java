@@ -2,6 +2,8 @@ package com.project.dto;
 
 import java.sql.Time;
 
+import com.project.repository.ClientDatabase;
+
 
 public class LogisticCompany extends User {
 
@@ -10,9 +12,18 @@ public class LogisticCompany extends User {
 	private String password;
 	private String details;
 	private Time created;
+	private ClientDatabase clientDatabase;
 
 	public  LogisticCompany(){
     super();
+	}
+	
+	public ClientDatabase getClientDatabase() {
+		return clientDatabase;
+	}
+	
+	public void setClientDatabase(ClientDatabase clientDatabase) {
+		this.clientDatabase = clientDatabase;
 	}
 	
 	public LogisticCompany(String name, String password, String details) {

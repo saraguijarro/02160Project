@@ -8,6 +8,8 @@ import com.project.UpdateData;
 import com.project.dto.*;
 import com.project.repository.ClientDatabase;
 import com.project.repository.JourneyDB;
+
+import io.cucumber.java.bs.I;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -352,14 +354,11 @@ public class StepDefinition {
 
 
 
-
-
-
 //Mandatory 3 and Optional 1 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Feature: Add measurements about the container’s internal status
 	Container container = new Container();
-	int updateData;
+	double updateData;
 
 	//Scenario: Update measurements about the container’s internal status
 
@@ -387,7 +386,6 @@ public class StepDefinition {
 
 //Feature: Retrieve measurements about the container internal status
 	Container retrieveData;
-	Client client3 = new Client();
 	Container initialData;
 	double temperature;
 	double humidity;
@@ -412,7 +410,7 @@ public class StepDefinition {
 
 	@Given("the container corresponds to the client {string}")
 	public void the_container_corresponds_to_the_client(String client) {
-		client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
+		client.getJourneyDB().getJourneys().get(i).getContainer();
 	}
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
@@ -459,13 +457,13 @@ public class StepDefinition {
 		assertEquals(container.hasId(container),true);
 	} */
 
-	@When("the system measures the internal status facts")
-	public void the_system_measures_the_internal_facts() {
+	@When("the logistic company measures the internal status facts")
+	public void the_logistic_company_measures_the_internal_facts() {
 		trackData = internalStatusHistory.track(updateChoice,value);
 	}
 
-	@Then("the system adds the data given to the internal status’ database")
-	public void the_system_adds_the_data_given_to_the_internal_status_database() {
+	@Then("the logistic company adds the data given to the internal status database")
+	public void the_logistic_company_adds_the_data_given_to_the_internal_status_database() {
 		assertEquals("Tracked internal status.",updateResponse.getMessage());
 	}
 
@@ -477,13 +475,13 @@ public class StepDefinition {
 		assertEquals(container.hasId(container),true);
 	} */
 
-	@When("the system determines the location {string} of the container")
-	public void the_system_determines_the_location_of_the_container(String location) {
+	@When("the logistic company determines the location {string} of the container")
+	public void the_logistic_company_determines_the_location_of_the_container(String location) {
 		locateContainer = containerLocation.locate(container);
 	}
 
-	@Then("the system add the location found to the journey’s database")
-	public void the_system_add_the_location_found_to_the_journey_database() {
+	@Then("the logistic company adds the location found to the journey database")
+	public void the_logistic_company_adds_the_location_found_to_the_journey_database() {
 		assertEquals("Tracked location.",updateResponse.getMessage());
 	}
 
@@ -526,8 +524,8 @@ public class StepDefinition {
 		assertEquals(pressList,AtmosphericPressure);
 	}
 				
-	@Then ("the system retrieves the data from the database")
-	public void the_system_retrieves_the_data_from_the_database() {
+	@Then ("the system retrieves the internal status measurements")
+	public void the_system_retrieves_the_data_from_the_internal_status_measurements() {
 		assertEquals("Measurements successfully retrieved.",updateResponse.getMessage());
 	}
 
@@ -545,8 +543,8 @@ public class StepDefinition {
 		assertEquals(loc,location);
 	}
 
-	@Then ("the system retrieves the location from the journey database")
-	public void the_system_retrieves_the_location_from_the_journey_database() {
+	@Then ("the system retrieves the location")
+	public void the_system_retrieves_the_location() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
 
