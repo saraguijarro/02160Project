@@ -22,18 +22,12 @@ Feature: Track each container
 
   @tag1
   Scenario: Tracking the internal status
-    Given a journey id "JO002160" exists for the corresponding container
-		When the system measures the internal status facts
-		Then the system adds the data given to the internal status database
+    Given a container with a container id "J02061"
+		When the logistic company measures the internal status facts
+		Then the logistic company adds the data given to the internal status database
 
   @tag2
   Scenario: Tracking the journey
-		Given a journey id "JO002160" exists for the corresponding container
-		When the system determines the location of the container
-		Then the system add the location found to the journey database
-
-  @tag3
-  Scenario: There is no journey id for the tracked container
-		Given the journey id "JO002160" does not exist for the corresponding container
-		When trying to obtain information about the internal status or the journey evolution
-		Then the search is unsuccessful
+		Given a container with a container id "J02061"
+		When the logistic company determines the location "Italy" of the container
+		Then the logistic company adds the location found to the journey database

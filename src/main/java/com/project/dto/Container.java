@@ -10,75 +10,55 @@ public class Container {
 	private boolean inJourney;
 	boolean hasID;
 	String containerID;
-
 	Jou journey;
-
 	
-	
-	
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-
-	
-
-
-	ArrayList<Container> containers = new ArrayList<>();
-	
-	
-	public String getContainerID() {
-		return containerID;
+	public Container() {
+		super();
 	}
 	
-	 public Container(ContainerDB CDB , String cp)	{
-	    	
-		 this.inJourney = false;
-		 
-		 this.currentPosition=cp;
-
-	    }
+	public Container(ContainerDB CDB , String cp) {
+    	this.inJourney = false;
+		this.currentPosition=cp;
+	}
 	
 	public Container(boolean inJourney, String containerID) {
 		super();
 		this.inJourney = inJourney;
 		this.containerID = containerID;
 	}
-
-	public ArrayList<Container> getContainers() {
-		return containers;
+	
+	public Container(String containerID) {
+		this.containerID = containerID;
 	}
 
-	public void setContainers(ArrayList<Container> containers) {
-		this.containers = containers;
+	public boolean hasId(Container container) {
+		return hasID;
 	}
 
+	
+	public void setContainerID(String containerID) {
+		this.containerID = containerID;
+	}
+	
+	public String getContainerID() {
+		return containerID;
+	}
+	
 	public boolean getInJourney() {
 		return inJourney;
 	}
-
+	
 	public void setInJourney(boolean inJourney) {
 		this.inJourney = inJourney;
 	}
-
-
 	
 	public String getCurrentPosition() {
 		return currentPosition;
-}
-	
-	public void giveID(Container container) {
-		String prefix = "CO";
-		String number = Integer.toString(this.containers.size()+1);
-		String zeroes = "0".repeat(6-number.length());
-		String id = prefix + zeroes + number;
-		container.setContainerID(id);
-
 	}
-
+	
 	public void setCurrentPosition(String currentPosition) {
 		this.currentPosition = currentPosition;
 	}
-
 	
 	public Jou getJourney() {
 		return journey;
@@ -87,21 +67,8 @@ public class Container {
 	public void setJourney(Jou journey) {
 		this.journey = journey;
 	}
-	
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-	
-	public boolean hasId(Container container) {
-		return hasID;
-	}
-	
 
 
-	//show containers at the port of origin
-	
-	
-	
 //Code regarding the current internal status of the container, instantaneous data
 	
 	double temperature;
@@ -129,7 +96,8 @@ public class Container {
 		this.pressure = pressure;
 	}
 	
-	public ResponseObject update(String updateChoice, int updateData) {
+	
+	public ResponseObject update(String updateChoice, double updateData) {
 		
 		ResponseObject modifyData = null;
 		int code = 311;
@@ -137,8 +105,8 @@ public class Container {
 			this.setTemperature(updateData);
 			code = 312;
 			modifyData = new ResponseObject(code, "Temperature successfully added.");
-
 		}
+		
 		else if (updateChoice.equals("humidity")) {
 			this.setHumidity(updateData);
 			code = 313;

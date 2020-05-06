@@ -22,7 +22,7 @@ Feature: Retrieve measurements about the container internal status
 
   @tag1
   Scenario: Retrieve measurements from the system
-		Given a journey id "JO002160" exists for the corresponding container
+		Given a container with a container id "J02061"
 		And a container with temperature 15 humidity 10 pressure 0.4
 		And the container corresponds to the client "Alberto"
 		When a client retrieves measurements from the internal status
