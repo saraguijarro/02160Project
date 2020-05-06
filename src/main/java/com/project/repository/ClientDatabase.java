@@ -9,6 +9,18 @@ public class ClientDatabase {
 	
 	ArrayList<Client> clients;
 	
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+
+
+
+	public void setClients(ArrayList<Client> clients) {
+		this.clients = clients;
+	}
+
+
+
 	public ClientDatabase() {
 		super();
 		clients = new ArrayList<>();
@@ -110,30 +122,30 @@ public class ClientDatabase {
 				if (this.clients.get(i).isFound(searchword).getCode()!=130) {foundClients.add(this.clients.get(i));}
 			}	
 		}
-		else if (filter.equals("Name")) { //search only name
+		else if (filter.equals("name")) { //search only name
 			for (int i=0;i<this.clients.size();i++) {
-				if (this.clients.get(i).getName().contains(searchword)){foundClients.add(this.clients.get(i));}
+				if (this.clients.get(i).getName().toLowerCase().contains(searchword.toLowerCase())){foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Address")) { //search only in the address
+		else if (filter.equals("address")) { //search only in the address
 			for (int i=0;i<this.clients.size();i++) {
-				if (this.clients.get(i).getAddress().getCity().contains(searchword)
-				   || this.clients.get(i).getAddress().getCountry().contains(searchword)
-				   || this.clients.get(i).getAddress().getPostcode().contains(searchword)
-				   || this.clients.get(i).getAddress().getStreetName().contains(searchword)
-				   || this.clients.get(i).getAddress().getStreetNumber().contains(searchword)
-				   || this.clients.get(i).getAddress().getKeyWord().contains(searchword))
+				if (this.clients.get(i).getAddress().getCity().toLowerCase().contains(searchword.toLowerCase())
+				   || this.clients.get(i).getAddress().getCountry().toLowerCase().contains(searchword.toLowerCase())
+				   || this.clients.get(i).getAddress().getPostcode().toLowerCase().contains(searchword.toLowerCase())
+				   || this.clients.get(i).getAddress().getStreetName().toLowerCase().contains(searchword.toLowerCase())
+				   || this.clients.get(i).getAddress().getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
+				   || this.clients.get(i).getAddress().getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
 					{foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Reference Person")) {
+		else if (filter.equals("reference person")) {
 			for (int i=0;i<this.clients.size();i++) {
-				if (this.clients.get(i).getReferencePerson().contains(searchword)){foundClients.add(this.clients.get(i));}
+				if (this.clients.get(i).getReferencePerson().toLowerCase().contains(searchword.toLowerCase())){foundClients.add(this.clients.get(i));}
 			}
 		}
-		else if (filter.equals("Email")) {
+		else if (filter.equals("email")) {
 			for (int i=0;i<this.clients.size();i++) {
-				if (this.clients.get(i).getEmail().contains(searchword)){foundClients.add(this.clients.get(i));}
+				if (this.clients.get(i).getEmail().toLowerCase().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
 		}
 		

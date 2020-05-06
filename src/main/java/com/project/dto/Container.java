@@ -10,7 +10,16 @@ public class Container {
 	private boolean inJourney;
 	boolean hasID;
 	String containerID;
+
 	Jou journey;
+
+	
+	
+	
+	public void setContainerID(String containerID) {
+		this.containerID = containerID;
+	}
+
 	
 
 
@@ -51,9 +60,19 @@ public class Container {
 		this.inJourney = inJourney;
 	}
 
+
 	
 	public String getCurrentPosition() {
 		return currentPosition;
+}
+	
+	public void giveID(Container container) {
+		String prefix = "CO";
+		String number = Integer.toString(this.containers.size()+1);
+		String zeroes = "0".repeat(6-number.length());
+		String id = prefix + zeroes + number;
+		container.setContainerID(id);
+
 	}
 
 	public void setCurrentPosition(String currentPosition) {
@@ -118,12 +137,14 @@ public class Container {
 			this.setTemperature(updateData);
 			code = 312;
 			modifyData = new ResponseObject(code, "Temperature successfully added.");
+
 		}
 		else if (updateChoice.equals("humidity")) {
 			this.setHumidity(updateData);
 			code = 313;
 			modifyData = new ResponseObject(code, "Humidity successfully added.");
 		}
+
 		else if (updateChoice.equals("pressure")) {
 			this.setPressure(updateData);
 			code = 314;

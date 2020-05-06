@@ -2,33 +2,34 @@ package com.project.dto;
 
 import com.project.repository.JourneyDB;
 
-public class Client {
-	
-	public Client() {
-		super();
-	}
+public class Client extends User{
 
-	public Client(String name) {
-		super();
-		this.name = name;
-	}
 
-	public Client(String name, Address address, String referencePerson, String email) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.referencePerson = referencePerson;
-		this.email = email;
-	}
-    private JourneyDB JDB;
 	private String name;
 	private Address address;
 	private String referencePerson;
 	private String email;
 	private String clientID;
 	private Boolean hasID;
+	private JourneyDB JDB;
+	private String password;
+
+	public Client(){
+	super();
+	}
+
+	public Client(String name, Address address, String referencePerson, String email, String password) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.referencePerson = referencePerson;
+		this.email = email;
+		this.password = password;
+	}
 	
 //------all the setters and getters----------
+
+	
 
 	public String getClientID() {
 		return clientID;
@@ -71,6 +72,7 @@ public class Client {
 		this.hasID = hasID;
 	}
 
+
 	public JourneyDB getJDB() {
 		return JDB;
 	}
@@ -78,6 +80,16 @@ public class Client {
 	public void setJDB(JourneyDB jdb) {
 		this.JDB = jdb;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 //----------end of setters and getters----------
 
 	
@@ -112,24 +124,19 @@ public class Client {
 		int code = 130;
 		String message = "";
 		
-		if (this.name.contains(searchword)){code = 131; message="name";}
-		else if (this.address.getCity().contains(searchword)
-			   ||this.address.getCountry().contains(searchword)
-			   ||this.address.getPostcode().contains(searchword)
-			   ||this.address.getStreetName().contains(searchword)
-			   ||this.address.getStreetNumber().contains(searchword)
-			   ||this.address.getKeyWord().contains(searchword))
+		if (this.name.toLowerCase().contains(searchword.toLowerCase())){code = 131; message="name";}
+		else if (this.address.getCity().toLowerCase().contains(searchword.toLowerCase())
+			   ||this.address.getCountry().toLowerCase().contains(searchword.toLowerCase())
+			   ||this.address.getPostcode().toLowerCase().contains(searchword.toLowerCase())
+			   ||this.address.getStreetName().toLowerCase().contains(searchword.toLowerCase())
+			   ||this.address.getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
+			   ||this.address.getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
 				{code = 132;message = "address";}
-		else if(this.referencePerson.contains(searchword)){code = 133; message="reference person";}
-		else if(this.email.contains(searchword)){code = 134; message="email";}
+		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
+		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}
 				
 		ResponseObject isFoundResponse = new ResponseObject(code,message);
 		return isFoundResponse;
 	}
-	
-	
-	
-	
-	
 
 }

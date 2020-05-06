@@ -8,17 +8,25 @@ import com.project.dto.*;
 import com.project.repository.ClientDatabase;
 import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
+
+import BackupPro.ArrayList;
+import BackupPro.Client;
+import BackupPro.Container;
+import BackupPro.ContainerCurrent;
+import BackupPro.ResponseObject;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepDefinition {
 
+
 //Feature: register client
 	Client client = new Client();
 	ClientDatabase CD;
 	ResponseObject registerResponse;
 	LogisticCompany company;
+	Application app = new Application();
 
 	//Background
 
@@ -150,10 +158,10 @@ public class StepDefinition {
 	//Background
 	@Given("a client database with the client {string} {string} {string} and {string}")
 	public void a_client_database_with_the_client_and(String name1, String name2, String name3, String name4) {
-	    Client c1 = new Client(name1, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Oskar","sara@student.du.dk");
-	    Client c2 = new Client(name2, new Address("Denmark","Lyngby","2800","Kampsax","30"),"None","mihai@student.dtu.dk");
-	    Client c3 = new Client(name3, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Sammy","thomas@student.dtu.dk");
-	    Client c4 = new Client(name4, new Address("Denmark","Lyngby","2800","Kampsax","48"), "Suzan", "miguel@student.dtu.dk");
+	    Client c1 = new Client(name1, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Oskar","sara@student.du.dk", "000");
+	    Client c2 = new Client(name2, new Address("Denmark","Lyngby","2800","Kampsax","30"),"None","mihai@student.dtu.dk", "000");
+	    Client c3 = new Client(name3, new Address("Denmark","Lyngby","2800","Fysikvej","315A"),"Sammy","thomas@student.dtu.dk", "000");
+	    Client c4 = new Client(name4, new Address("Denmark","Lyngby","2800","Kampsax","48"), "Suzan", "miguel@student.dtu.dk", "000");
 
 	    company.getClientDatabase().registering(c1);
 	    company.getClientDatabase().registering(c2);
@@ -182,6 +190,61 @@ public class StepDefinition {
 	@Then("the corresponding {string} client\\(s) is\\/are found.")
 	public void the_corresponding_client_s_is_are_found(String expectedClients) {
 		assertEquals(expectedClients+" clients found with the searchword: ["+searchword+"] and the filter: ["+filter+"]", searchResponse.getMessage());
+	}
+
+
+
+	//Feature:login
+
+	String loginType;
+	String username;
+	String password;
+	ResponseObject loginResponse;
+	User activeUser;
+
+	@Given("The log-in type {string}")
+	public void the_log_in_type(String string) {
+		loginType = string;
+	}
+
+	@Given("The password is {string}")  //WARNING - NOT BEST IMPLEMENTATION ON SETTING THE PASSWORD IN CLIENT
+	public void the_password_is(String string) {
+	    if (loginType.equals("Company")){company.setPassword(string);}
+	    else if (loginType.equals("Client")){company.getClientDatabase().getClients().get(3).setPassword(string);}
+	}
+
+	@Given("The username {string}")
+	public void the_username(String string) {
+	    username = string;
+	}
+
+	@Given("The password {string}")
+	public void the_password(String string) {
+	    password = string;
+	}
+
+	@When("Logging-in")
+	public void logging_in() {
+	    loginResponse = app.login(loginType, username, password, company);
+	}
+
+	@Then("Log-in is succesfull")
+	public void log_in_is_succesfull() {
+	    assertEquals("Succesfull login.", loginResponse.getMessage());
+	}
+
+	@Then("Log-in fails")
+	public void log_in_fails() {
+		assertEquals("Failed login.", loginResponse.getMessage());
+	}
+
+	@Then("active user is updated")
+	public void active_user_is_updated() {
+
+		if (loginType.equals("Company")){activeUser = company;}
+
+	    else if (loginType.equals("Client")){activeUser = client;}
+
 	}
 
 
@@ -336,6 +399,163 @@ public void the_container_is_in_that_journey() {
 
 //Scenario: The client gives all information about the container's journey, chooses a new container when there is availble ones at the port of origin.
 
+	//Mandatory 3 and Optional 1 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//Feature: Add measurements about the container’s internal status
+		ContainerCurrent currentStatus;
+		Container container = new Container();
+		int updateData;
+
+		//Scenario: Update measurements about the container’s internal status
+
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		}
+
+		/*
+		@Given("an update choice {string}")
+		public void an_update_choice(String Choice) {
+		    dataChoice = Choice;
+		}*/
+
+		@When("updating the internal status")
+		public void updating_the_internal_status(String company) {
+			updateResponse = container.update(updateChoice,updateData);
+		}
+
+		@Then ("the system sets the internal status to the latests measurements")
+		public void the_system_sets_the_internal_status_to_the_latests_measurements() {
+			assertEquals("Measurement successfully added.",updateResponse.getMessage());
+		}
+
+
+	//Feature: Retrieve measurements about the container internal status
+		Container retrieveData;
+		Client client3 = new Client();
+		Container initialData;
+		double temperature;
+		double humidity;
+		double pressure;
+
+		//Scenario: Retrieve measurements from the system
+
+		/*
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		} */
+
+		/*
+		@Given("an update choice {string}")
+		public void an_update_choice(String Choice) {
+		    dataChoice = Choice;
+		}*/
+
+
+		@Given("the container corresponds to the client {string}")
+		public void the_container_corresponds_to_the_client(String client) {
+			containerData = ///////////////////////////WORK ON THIS WITH THOMAS
+		}
+
+		@Given("a container with temperature {double} humidity {double} pressure {double}")
+		public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
+			initialData.setTemperature(this.temp);
+			initialData.setHumidity(this.hum);
+			initialData.setPressure(this.press);
+		}
+
+		@When ("a client retrieves measurements from the internal status")
+		public void a_client_retrieves_measurements_from_the_internal_status() {
+			assertEquals(temp, temperature);
+			assertEquals(hum, humidity);
+			assertEquals(press, pressure)
+		}
+
+		@Then ("the measurements temperature {double} humidity {double} pressure {double} are retrieved")
+		public void the_measurements_temperature_humidity_pressure_are_retrieved(double temp,double hum,double press) {
+			assertEquals("Measurement successfully retrieved.",retrieveData.getMessage()); //to modify, match it w/ measurements
+		}
+
+
+	//Feature: Track each container
+		Container internalStatusHistory;
+		Container containerLocation;
+		ResponseObject trackData;
+		ResponseObject locateContainer;
+
+		//Scenario: Tracking the internal status
+
+		/*
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		} */
+
+		@Given("a database exists for the measures of the container’s internal status")
+		public void a_database_exists_for_the_measures_of_the_container_internal_status() {
+			assertEquals(container.hasJourneyDatabase(journey),true);
+		}
+
+		@When("the system measures the internal status facts")
+		public void the_system_measures_the_internal_facts() {
+			trackData = internalStatusHistory.track(updateChoice);
+		}
+
+		@Then("the system adds the data given to the internal status’ database")
+		public void the_system_adds_the_data_given_to_the_internal_status_database() {
+			assertEquals("Tracked internal status.",trackData.getMessage());
+		}
+
+		//Scenario: Tracking the journey
+
+		/*
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		} */
+
+		@Given("a database exists for the container journeys")
+		public void a_database_exists_for_the_container_journeys() {
+			assertEquals(container.hasJourneyDatabase(journey),true);
+		}
+
+		@When("the system determines the location of the container")
+		public void the_system_determines_the_location_of_the_container() {
+			locateContainer = containerLocation.locate(container);
+		}
+
+		@Then("the system add the location found to the journey’s database")
+		public void the_system_add_the_location_found_to_the_journey_database() {
+			assertEquals("Tracked location.",containerLocation.getMessage());
+		}
+
+		//Scenario: There is no journey id for the tracked container
+
+		@Given("the journey id {string} does not exist for the corresponding container")
+		public void the_journey_id_does_not_exist_for_the_coresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),false);
+		}
+
+		@When("trying to obtain information about the internal status or the journey evolution")
+		public void trying_to_obtain_information_about_the_internal_status_or_the_journey_evolution() {
+			assertEquals("No journey id has been found for the corresponding container.",container.getMessage());
+		}
+
+		@Then("the search is unsuccessful")
+		public void the_search_is_unsuccessful() {
+			assertEquals("Thus the research is unsuccessful.",container.getMessage());
+		}
+
+	//Feature: Retrieve info about each container
+
+		//Scenario: Retrieve data about the internal status
+
+		/*
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		} */
 
 
 @Given("a new generated container")
@@ -344,8 +564,30 @@ public void a_new_generated_container() {
 	CDB.getContainers().add(selectedContainer);
 }
 
+		/*
+		@Given("a database exists for the measures of the container internal status")
+		public void a_database_exists_for_the_measures_of_the_container_internal_status() {
+
+
+		}*/
+
 
 //Scenario: The client gives all information about the container's journey, chooses a new container when there is no availble ones at the port of origin.
+
+		@When ("the system decides to retrieve the internal status facts temperature {ArrayList} humidity {ArrayList} pressure {ArrayList}")
+		public void the_system_decides_to_retrieve_the_internal_status_facts(ArrayList<Double> tem, ArrayList<Double> hum, ArrayList<Double> press) {
+			assertEquals(tem, InternalTemperature);
+			assertEquals(hum, AirHumidity);
+			assertEquals(press, AtmosphericPressure);
+		}
+
+		@Then ("the system retrieves the data from the database")
+		public void the_system_retrieves_the_data_from_the_database() {
+			assertEquals("Measurements successfully retrieved.",retrieveData.getMessage());
+		}
+
+	  	//Scenario: Retrieve data from the journey evolution
+
 
 @Given("no container at the port of origin")
 public void no_container_at_the_port_of_origin() {
@@ -353,8 +595,27 @@ public void no_container_at_the_port_of_origin() {
 	CDB.getContainers().add(con);
 }
 
+		/*
+		@Given("a journey id {string} exists for the corresponding container")
+		public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
+			assertEquals(container.hasId(container),true);
+		} */
 
+		/*
+		@Given("a database exists for the container journeys")
+		public void a_database_exists_for_the_container_journeys() {
+			assertEquals(container.hasJourneyDatabase(journey),true);
+		}*/
 
+		@When ("the system decides to retrieve a location {string} from the database")
+		public void the_system_decides_to_retrieve_a_location_from_the_database(String loc) {
+			assertEquals(loc,location);
+		}
+
+		@Then ("the system retrieves the data from the journey database")
+		public void the_system_retrieves_the_data_from_the_journey_database() {
+			assertEquals("Location successfully retrieved.",retrieveData.getMessage());
+		}
 
 
 
@@ -398,6 +659,7 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 	//Feature: Client Find Journey
+
 
 
 //Mandatory 3 and Optional 1 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -448,17 +710,24 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-			
+
 	/*
 	@Given("an update choice {string}")
 	public void an_update_choice(String Choice) {
 	    dataChoice = Choice;
 	}*/
 
+
 	@Given("the container corresponds to the client {string}")
 	public void the_container_corresponds_to_the_client(String client) {
 		//client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
 	}
+
+//	@Given("the container corresponds to the client {string}")
+//	public void the_container_corresponds_to_the_client(String client) {
+//		client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
+//	}
+
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
@@ -487,7 +756,7 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 	ResponseObject locateContainer;
 	String location;
 	double value;
-	
+
 	ArrayList<Double> InternalTemperature;
 	ArrayList<Double> AirHumidity;
 	ArrayList<Double> AtmosphericPressure;
@@ -548,34 +817,35 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 //Feature: Retrieve info about each container
 
 	//Scenario: Retrieve data about the internal status
-		
+
 	/*
 	@Given("a journey id {string} exists for the corresponding container")
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-			/*
+
 	@When ("the system decides to retrieve the internal status facts temperature {ArrayList} humidity {ArrayList} pressure {ArrayList}")
 	public void the_system_decides_to_retrieve_the_internal_status_facts(ArrayList<Double> tem, ArrayList<Double> hum, ArrayList<Double> press) {
 		assertEquals(tem, InternalTemperature);
 		assertEquals(hum, AirHumidity);
 		assertEquals(press, AtmosphericPressure);
 	}
-			*/
+
 	@Then ("the system retrieves the data from the database")
 	public void the_system_retrieves_the_data_from_the_database() {
 		assertEquals("Measurements successfully retrieved.",updateResponse.getMessage());
 	}
 
-	//Scenario: Retrieve data from the journey evolution
-	
-		
+
+ 	//Scenario: Retrieve data from the journey evolution
+
+
 	/*
 	@Given("a journey id {string} exists for the corresponding container")
 	public void a_journey_id_exists_for_the_corresponding_container(String journeyID) {
 		assertEquals(container.hasId(container),true);
 	} */
-		
+
 	@When ("the system decides to retrieve a location {string} from the database")
 	public void the_system_decides_to_retrieve_a_location_from_the_database(String loc) {
 		assertEquals(loc,location);
@@ -585,26 +855,6 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 	public void the_system_retrieves_the_location_from_the_journey_database() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
