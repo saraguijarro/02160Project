@@ -11,7 +11,7 @@ public class Client extends User{
 	private String email;
 	private String clientID;
 	private Boolean hasID;
-	private JourneyDB journeyDB;
+	private JourneyDB JDB;
 	private String password;
 
 	public Client(){
@@ -26,9 +26,6 @@ public class Client extends User{
 		this.email = email;
 		this.password = password;
 	}
-
-
-	
 	
 //------all the setters and getters----------
 
@@ -39,12 +36,6 @@ public class Client extends User{
 	}
 	public void setClientID(String clientID) {
 		this.clientID = clientID;
-	}
-	public JourneyDB getJourneyDB() {
-		return journeyDB;
-	}
-	public void setJourneyDB(JourneyDB journeyDB) {
-		this.journeyDB = journeyDB;
 	}
 	public String getEmail() {
 		return email;
@@ -81,6 +72,15 @@ public class Client extends User{
 		this.hasID = hasID;
 	}
 
+
+	public JourneyDB getJDB() {
+		return JDB;
+	}
+
+	public void setJDB(JourneyDB jdb) {
+		this.JDB = jdb;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -88,6 +88,7 @@ public class Client extends User{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 //----------end of setters and getters----------
 

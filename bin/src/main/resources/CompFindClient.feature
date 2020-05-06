@@ -17,30 +17,29 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Client Find Journey
+Feature: Company find client
   
- ##TF
   Background: 
-  	Given a client "Thomas"
-		And a journey database with the departing port "Copenhagen"  "New York" and "Beirut" 
+		Given a logistic company "Maersk"
+		And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
 
-   @tag1
-  Scenario: The client uses the criteria from an existing journey without filter
-    Given a searchword "Bananas"
+  @tag1
+  Scenario: The company uses the criteria from an existing client without filter
+    Given a searchword "Fysikvej"
     And a filter "None"
-    When searching for journey
-    Then the corresponding "2" journey(s) is/are found.
+    When searching for client
+    Then the corresponding "2" client(s) is/are found.
     
    @tag2
-   Scenario: The client uses criteria that do not exist, without filter
+   Scenario: The company uses criteria that do not exist, without filter
    	Given a searchword "Lisbon"
    	And a filter "None"
-   	When searching for journey
-   	Then the corresponding "0" journey(s) is/are found.
+   	When searching for client
+   	Then the corresponding "0" client(s) is/are found.
    	
    @tag3
-   Scenario: The client uses the criteria from an existing journey with a filter
-   Given a searchword "c"
-   And a filter "Port of Origin"
-   When searching for journey
-   Then the corresponding "1" journey(s) is/are found.
+   Scenario: The company uses the criteria from an existing client with a filter
+   Given a searchword "m"
+   And a filter "Reference Person"
+   When searching for client
+   Then the corresponding "1" client(s) is/are found.

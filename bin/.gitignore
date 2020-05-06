@@ -6,6 +6,5 @@
 *.iml
 .idea
 
-src/main/resources/app.properties
+app.properties
 
-/bin/

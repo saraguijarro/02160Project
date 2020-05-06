@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.project.UpdateData;
 import com.project.dto.*;
 import com.project.repository.ClientDatabase;
+import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
 
 import BackupPro.ArrayList;
@@ -69,7 +70,15 @@ public class StepDefinition {
 			registerResponse = CD.registering(client);
 		}
 		else if (database.equals("journey database")) {
-
+			
+            registerResponse = JDB.registerStep1(journey);
+            
+            if(registerResponse.getCode()==200) {
+            	
+            	availableContainers = CDB.availableContainerAt(journey.getOriginPort());
+            	
+            	JDB.registerStep2(journey , selectedContainer);
+            }
 		}
 
 	}
@@ -246,152 +255,149 @@ public class StepDefinition {
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 
+	//feature: Client search journey
+	//Scenario: The client uses the criteria from an existing journey without filter
+
+	Jou journey = new Jou();
+	JourneyDB JDB = new JourneyDB();
 
 
-	//Feature: Client Find Journey
+@Given("a journey database with the departing port {string}  {string} and {string}")
+public void a_journey_database_with_the_departing_port_and(String poo1, String poo2, String poo3) {
+	
+	JDB = new JourneyDB();
+	client.setJDB(JDB);
+	
+	Jou j1 = new Jou(poo1, "BEY","Bananas","NETTO");
+	Jou j2 = new Jou(poo2, "BRU","Bananas","Fotex");
+	Jou j3 = new Jou(poo3, "PAR","Spinach","Brus");
+	
 
-		Jou j = new Jou();
-		//ClientDatabase CD;
-		JourneyDB JD;
+	JDB.registerStep1(j1);
+	JDB.registerStep1(j2);
+	JDB.registerStep1(j3);
+	
+	
+	con = new Container(CDB , poo1);
+	CDB.getContainers().add(con);
+	
+	con1 = new Container(CDB , poo2);
+	CDB.getContainers().add(con1);
+	
+	con2 = new Container(CDB , poo3);
+	CDB.getContainers().add(con2);
+	
+	JDB.registerStep2(j1 , con);
+	JDB.registerStep2(j2 , con1);
+	JDB.registerStep2(j3 , con2);
+	
+}
 
-	@Given("a client {string}")
-	public void a_client(String name) {
-		client.setName(name);
-	}
+@When("searching for journey")
+public void searching_for_journey() {
+	searchResponse=client.getJDB().resultSearchJourney(searchword, filter);
+}
 
-
-	//Background
-
-
-	@Given("a journey database with the departing port {string} {string} and {string}")
-	public void a_journey_database_with_the_departing_port_and(String dp1, String dp2, String dp3) {
-		Jou j1 = new Jou(dp1 ,"CPH","Veggies","Netto","JOU00001");
-	    Jou j2 = new Jou(dp2, "Bey","oil","Total","JOU00002");
-	    Jou j3 = new Jou(dp3,"NYC","pork","Meat Lovers","JOU00003");
-
-
-	}
-
-	@When("searching for journey")
-	public void searching_for_journey() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the corresponding journey is\\/are found.")
-	public void the_corresponding_journey_is_are_found() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+@Then("the corresponding {string} journey\\(s) is\\/are found.")
+public void the_corresponding_journey_s_is_are_found(String expectedJourneys) {
+	assertEquals(expectedJourneys+" journeys found with the searchword: ["+searchword+"] and the filter: ["+filter+"]", searchResponse.getMessage());
+}
 
 
-	//Feature:
-	//@Given("a client {string}")
 
-	@Given("a journey database")
-	public void a_journey_database() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+ContainerDB CDB = new ContainerDB();
+Container con;
+Container con1;
+Container con2;
+Container selectedContainer;
+ArrayList<Container> availableContainers;
 
-	@Given("a valid port of origin {string}")
-	public void a_valid_port_of_origin(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+//Feature: User registers journey
 
-	@Given("a valid destination {string}")
-	public void a_valid_destination(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+//background
+@Given("a client {string}")
+public void a_client(String name) {
+    client.setName(name);
+}
 
-	@Given("a valid content {string}")
-	public void a_valid_content(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+@Given("a journey database")
+public void a_journey_database() {
+	JDB = new JourneyDB();
+	client.setJDB(JDB);
+}
 
-	@Given("a valid company {string}")
-	public void a_valid_company(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
 
-	/*
-	@When("Registering")
-	public void registering() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	*/
+//Scenario: The client does not give all of the container's journey
 
-	@Then("the system displays a message confirming the registration of journey")
-	public void the_system_displays_a_message_confirming_the_registration_of_journey() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+@Given("a valid port of origin {string}")
+public void a_valid_port_of_origin(String poo) {
+	journey.setOriginPort(poo);
+}
 
-	@Then("a new journey id is automaticly generated")
-	public void a_new_journey_id_is_automaticly_generated() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	//Feature:
+@Given("a valid destination {string}")
+public void a_valid_destination(String D) {
+    journey.setDestination(D);
+}
 
-	/*
-	@Given("a client {string}")
+@Given("a valid company {string}")
+public void a_valid_company(String C) {
+    journey.setCompany(C);
+}
 
-	@Given("a journey database")
+@Given("a valid content {string}")
+public void a_valid_content(String string) {
+    journey.setContent(string);
+}
 
-	@Given("a valid port of origin {string}")
+@Then("the system displays a message telling that the field {string} needs to be filled")
+public void the_system_displays_a_message_telling_that_the_field_needs_to_be_filled(String field) {
+	
+	String missingMessage="";
+	if (field.contains("port of origin")) {missingMessage +=" Journey needs a port of origin to be registered.";}
+	if (field.contains("destination")) {missingMessage +=" Journey needs a destination to be registered.";}
+	if (field.contains("content")) {missingMessage +=" Journey needs a content to be registered.";}
+	if (field.contains("company")) {missingMessage +=" Journey needs a company to be registered.";}
+	
+    assertEquals("No changes were made!"+ missingMessage, registerResponse.getMessage());
+}
 
-	@Given("a valid destination {string}")
+//Scenario: The client gives all information about the container's journey, chooses a container that is available at the port of origin.
 
-	@Given("a valid company {string}")
+@Given("an available container at the port of origin")
+public void an_available_container_at_the_port_of_origin() {
 
-	@When("Registering")
-	*/
+	con = new Container(CDB , journey.OriginPort);
+	CDB.getContainers().add(con);
+	
+	con1 = new Container(CDB , "Beirut");
+	CDB.getContainers().add(con1);
+	
+	con2 = new Container(CDB , "Amsterdam");
+	CDB.getContainers().add(con2);
+}
 
-	@Then("the system displays a message telling that the content needs to be filled")
-	public void the_system_displays_a_message_telling_that_the_content_needs_to_be_filled() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+@Given("a selected container")
+public void a_selected_container() {
+    selectedContainer = con;
+}
 
-	/*
-	@Given("a logistic company {string}")
-	public void a_logistic_company(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	*/
+@Then("the system displays a message confirming the registration of journey")
+public void the_system_displays_a_message_confirming_the_registration_of_journey() {
+	 assertEquals("Journey successfully created.", registerResponse.getMessage());
+}
 
-	/*
-	@Given("a client database with the client {string}")
-	public void a_client_database_with_the_client(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}*/
+@Then("a new journey id is automaticly generated")
+public void a_new_journey_id_is_automaticly_generated() {
+	assertEquals(true,journey.getHasID());
+}
 
-	/*
-	@Given("an update choice {string}")
-	public void an_update_choice(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}*/
+@Then("the container is in that journey")
+public void the_container_is_in_that_journey() {
+   assertEquals( JDB.containerInAJourney(selectedContainer.getContainerID()) , true);
+}
 
-	@When("Update journey information")
-	public void update_journey_information() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
 
-	@Then("the journey information is updated")
-	public void the_journey_information_is_updated() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is availble ones at the port of origin.
 
 	//Mandatory 3 and Optional 1 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -551,11 +557,22 @@ public class StepDefinition {
 			assertEquals(container.hasId(container),true);
 		} */
 
+
+@Given("a new generated container")
+public void a_new_generated_container() {
+	selectedContainer = new Container(CDB , journey.OriginPort);
+	CDB.getContainers().add(selectedContainer);
+}
+
 		/*
 		@Given("a database exists for the measures of the container internal status")
 		public void a_database_exists_for_the_measures_of_the_container_internal_status() {
 
+
 		}*/
+
+
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is no availble ones at the port of origin.
 
 		@When ("the system decides to retrieve the internal status facts temperature {ArrayList} humidity {ArrayList} pressure {ArrayList}")
 		public void the_system_decides_to_retrieve_the_internal_status_facts(ArrayList<Double> tem, ArrayList<Double> hum, ArrayList<Double> press) {
@@ -571,6 +588,12 @@ public class StepDefinition {
 
 	  	//Scenario: Retrieve data from the journey evolution
 
+
+@Given("no container at the port of origin")
+public void no_container_at_the_port_of_origin() {
+	con = new Container(CDB , "123");
+	CDB.getContainers().add(con);
+}
 
 		/*
 		@Given("a journey id {string} exists for the corresponding container")
@@ -598,23 +621,44 @@ public class StepDefinition {
 
 
 
+//Feature: Company updates journey information
+
+
+//Scenario: The company updates the current position"
+
+@Given("a container in a journey with destination {string}")
+public void a_container_in_a_journey_with_destination(String destination) {
+	Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
+	con = new Container(CDB , "Beirut");
+	j1.setC(con);
+}
+
+@Given("a container with the ID {string} ")
+public void a_container_with_the_ID(String CID) {
+	con = new Container(true , CID);
+}
+
+@When("Update current position to {string}")
+public void update_current_position() {
+	updateResponse = journey.update(updateContent);
+}
+
+@Then("the current position is updated")
+public void the_current_position_is_updated() {
+   assertEquals("current position succesfully updated" , updateResponse.getMessage());
+}
+
+@Then("the current position is updated and the journey is terminated")
+public void the_current_position_is_updated_and_the_journey_is_terminated() {
+	assertEquals("current position succesfully updated and the journey is terminated" , updateResponse.getMessage());
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+	//Feature: Client Find Journey
 
 
 
@@ -639,7 +683,7 @@ public class StepDefinition {
 
 	@When("updating the internal status")
 	public void updating_the_internal_status(String company) {
-		updateResponse = container.update(updateChoice,updateData);
+		//updateResponse = container.update(updateChoice,updateData);
 	}
 
 	@Then ("the system sets the internal status to the latests measurements")
@@ -673,10 +717,17 @@ public class StepDefinition {
 	    dataChoice = Choice;
 	}*/
 
+
+	@Given("the container corresponds to the client {string}")
+	public void the_container_corresponds_to_the_client(String client) {
+		//client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
+	}
+
 //	@Given("the container corresponds to the client {string}")
 //	public void the_container_corresponds_to_the_client(String client) {
 //		client.journeyDB.register(new Jou("Cph","Lis","Strawberries","Netto"), new Container());
 //	}
+
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
@@ -785,6 +836,7 @@ public class StepDefinition {
 		assertEquals("Measurements successfully retrieved.",updateResponse.getMessage());
 	}
 
+
  	//Scenario: Retrieve data from the journey evolution
 
 
@@ -803,5 +855,6 @@ public class StepDefinition {
 	public void the_system_retrieves_the_location_from_the_journey_database() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
+
 
 }

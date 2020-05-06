@@ -17,26 +17,19 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Company updates journey information
+Feature: Client Find Journey
   
+ ##TF
   Background: 
-		Given a logistic company "Maersk" 
-		And a container with the ID "CON0004" 
-		And a container in a journey with destination "BEY" 
-		And an update choice "current position"
-		
-  @tag1
-  Scenario: The company updates the current position"
-     
-    When Update current position to "CPH" 
-    Then the current position is updated
-    
-    @tag2
-  Scenario: The company updates the current position
-    
-    When Update current position to "BEY" 
-    Then the current position is updated and the journey is terminated
-    
+  	Given a logistic company "Maersk"
+		And a client "Thomas"
+		And a journey database with the departing port "Copenhagen" "New York" and "Beirut"
 
+  @tag1
+  Scenario: The company uses the criteria from an existing client without filter
+    Given a searchword "Copenhagen"
+    And a filter "None"
+    When searching for journey
+    Then the corresponding journey is/are found.
     
     
