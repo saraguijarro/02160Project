@@ -13,15 +13,6 @@ public class Container {
 
 	Jou journey;
 
-	
-	
-	
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-
-	
-
 
 	ArrayList<Container> containers = new ArrayList<>();
 	
