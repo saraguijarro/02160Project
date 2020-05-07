@@ -1,4 +1,4 @@
-#Use these queries to create the tables in the database in order to be able to save the data
+#you can use this queries to create tables in the database to try to run the program
 
 CREATE TABLE client(
                        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
@@ -10,11 +10,11 @@ CREATE TABLE client(
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE company(
-                        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
-                        name varchar(255) not null,
-                        password varchar(255) not null,
-                        details varchar(255),
-                        created timestamp not null default current_timestamp
+        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
+        name varchar(255) not null,
+        password varchar(255) not null,
+        details varchar(255) ,
+        created timestamp not null default current_timestamp
 );
 
 
@@ -38,11 +38,8 @@ CREATE TABLE user_actions(
 create table containers
 (
     id VARCHAR(40) PRIMARY KEY NOT NULL,
-    location VARCHAR(255) NOT NULL,
-    journey_id  VARCHAR(255) NOT NULL,
-    used BOOLEAN NOT NULL default false,
-    FOREIGN KEY (journey_id) REFERENCES journeys(id),
-    FOREIGN KEY (location) REFERENCES journeys(location)
+    name VARCHAR(255) NOT NULL,
+    description  VARCHAR(255) NOT NULL
 );
 
 
@@ -53,8 +50,6 @@ CREATE TABLE journeys(
                          container_id VARCHAR (255) NOT NULL,
                          description VARCHAR (255) NOT NULL,
                          company VARCHAR (255) NOT NULL,
-                         location VARCHAR(255) NOT NULL,
-                         ongoing Boolean NOT NULL default false,
                          created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                          FOREIGN KEY (container_id) REFERENCES containers(id)
 );
@@ -64,11 +59,10 @@ CREATE TABLE container_status(
                                  temperature NUMERIC not null,
                                  humidity NUMERIC not null,
                                  pressure NUMERIC not null,
-                                 location VARCHAR(255) not null,
                                  journey_id VARCHAR(40) NOT NULL,
                                  container_id VARCHAR(40) NOT NULL,
-                                 created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                 FOREIGN KEY (location) REFERENCES  journeys(location),
                                  FOREIGN KEY (container_id) REFERENCES containers(id),
                                  FOREIGN KEY (journey_id) REFERENCES journeys(id)
 );
+
+
