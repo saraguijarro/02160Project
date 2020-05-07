@@ -23,7 +23,7 @@ Feature: Track each container
   @tag1
   Scenario: Tracking the internal status
     Given a container with a container id "J02061"
-		When the logistic company measures the internal status facts
+		When the logistic company measures 9.66 about the internal status
 		Then the logistic company adds the data given to the internal status database
 
   @tag2

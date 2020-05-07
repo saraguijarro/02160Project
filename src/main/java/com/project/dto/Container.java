@@ -104,19 +104,19 @@ public class Container {
 		if (updateChoice.equals("temperature")) {
 			this.setTemperature(updateData);
 			code = 312;
-			modifyData = new ResponseObject(code, "Temperature successfully added.");
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 		
 		else if (updateChoice.equals("humidity")) {
 			this.setHumidity(updateData);
 			code = 313;
-			modifyData = new ResponseObject(code, "Humidity successfully added.");
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 
 		else if (updateChoice.equals("pressure")) {
 			this.setPressure(updateData);
 			code = 314;
-			modifyData = new ResponseObject(code, "Pressure successfully added.");
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 	
 		if (code == 311) {modifyData = new ResponseObject(code, "Error, no measurement could be added.");}

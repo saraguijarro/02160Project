@@ -483,7 +483,7 @@ public class StepDefinition {
 
 //Feature: Retrieve measurements about the container internal status
 	Container retrieveData;
-	Container initialData = new Container();
+	Container initialData;
 	double temperature;
 	double humidity;
 	double pressure;
@@ -506,11 +506,6 @@ public class StepDefinition {
 	    dataChoice = Choice;
 	}*/
 
-	@Given("the container corresponds to the client {string}")
-	public void the_container_corresponds_to_the_client(Client client) {
-		client.getJDB().getJourneys().get(i).getContainers();
-	}
-
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp, double hum, double press) {
 		initialData.setTemperature(this.temp);
@@ -518,18 +513,17 @@ public class StepDefinition {
 		initialData.setPressure(this.press);
 	}
 
-	@When ("a client retrieves measurements from the internal status")
-	public void a_client_retrieves_measurements_from_the_internal_status() {
-		assertEquals(temp, temperature, 0.01);
-		assertEquals(hum, humidity,0.02);
-		assertEquals(press, pressure,0.03);
+	@When ("a client retrieves the measurements temperature {double} humidity {double} pressure {double}")
+	public void a_client_retrieves_the_measurements_temperature_humidity_pressure(double temp,double hum,double press) {
+		assertEquals(temp, temperature, 0.1);
+		assertEquals(hum, humidity,0.2);
+		assertEquals(press, pressure,3.0);
 	}
 
-	@Then ("the measurements temperature {double} humidity {double} pressure {double} are retrieved")
-	public void the_measurements_temperature_humidity_pressure_are_retrieved(double temp,double hum,double press) {
+	@Then ("the measurements are retrieved from the internal status")
+	public void the_measurements_are_retrieved_from_the_internal_status() {
 		assertEquals("Measurement successfully retrieved.",updateResponse.getMessage());
 	}
-
 
 //Feature: Track each container
 	Container internalStatusHistory;
@@ -537,7 +531,6 @@ public class StepDefinition {
 	ResponseObject trackData;
 	ResponseObject locateContainer;
 	String location;
-	double value;
 		
 	ArrayList<Double> InternalTemperature;
 	ArrayList<Double> AirHumidity;
@@ -556,8 +549,8 @@ public class StepDefinition {
 		CDB.getContainers().add(container);
 	} */
 
-	@When("the logistic company measures the internal status facts")
-	public void the_logistic_company_measures_the_internal_facts() {
+	@When("the logistic company measures {double} about the internal status")
+	public void the_logistic_company_measures_about_the_internal_status(double value) {
 		trackData = internalStatusHistory.track(updateChoice,value);
 	}
 
@@ -586,7 +579,7 @@ public class StepDefinition {
 	}
 
 //Feature: Retrieve info about each container
-
+	
 	//Scenario: Retrieve data about the internal status
 			
 	/*
@@ -624,7 +617,7 @@ public class StepDefinition {
 			
 	@When ("the system decides to retrieve a location {string} from the database")
 	public void the_system_decides_to_retrieve_a_location_from_the_database(String loc) {
-		assertEquals(loc,location);
+		assertEquals(loc,location,null);
 	}
 
 	@Then ("the system retrieves the location")
