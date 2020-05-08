@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Jou {
 	
 	Container c;
+
+
+
 	public boolean onGoing = true;
 	public String OriginPort;
 	public String Destination;
@@ -28,6 +31,14 @@ public class Jou {
 	public Jou() {
 		super();
 	}
+
+	public boolean isOnGoing() {
+		return onGoing;
+	}
+	public void setOnGoing(boolean onGoing) {
+		this.onGoing = onGoing;
+	}
+
 	public String getOriginPort() {
 		return OriginPort;
 	}
