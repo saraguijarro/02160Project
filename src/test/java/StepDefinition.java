@@ -517,9 +517,9 @@ public void the_container_is_in_that_journey() {
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
 		initialData = new Container();
-		initialData.setTemperature(this.temp);
-		initialData.setHumidity(this.hum);
-		initialData.setPressure(this.press);
+		initialData.setTemp(this.temp);
+		initialData.setHum(this.hum);
+		initialData.setPress(this.press);
 	}
 
 	@When("a client wants to retrieve the measurements from the internal status")
@@ -538,8 +538,8 @@ public void the_container_is_in_that_journey() {
 
 
 //Feature: Track each container
-	Container internalStatusHistory;
-	Container containerLocation;
+	Container internalStatusHistory = new Container();
+	Container containerLocation = new Container();
 	ResponseObject trackData;
 	ResponseObject locateContainer;
 	String location;
@@ -553,14 +553,14 @@ public void the_container_is_in_that_journey() {
 		CDB.getContainers().add(container);
 	} */
 
-	@When("the logistic company measures {double} about the internal status")
-	public void the_logistic_company_measures_about_the_internal_status(double value) {
+	@When("the logistic company measures a {string} of {double}")
+	public void the_logistic_company_measures_a_of(String updateChoice, double value) {
 		trackData = internalStatusHistory.track(updateChoice,value);
 	}
 
 	@Then("the logistic company adds the data given to the internal status database")
 	public void the_logistic_company_adds_the_data_given_to_the_internal_status_database() {
-		assertEquals("Tracked internal status.",updateResponse.getMessage());
+		assertEquals("Tracked internal status.",trackData.getMessage());
 	}
 
 	//Scenario: Tracking the journey
@@ -574,25 +574,27 @@ public void the_container_is_in_that_journey() {
 
 	@When("the logistic company determines the location {string} of the container")
 	public void the_logistic_company_determines_the_location_of_the_container(String location) {
-		locateContainer = containerLocation.locate(container);
+		locateContainer = containerLocation.locate(location);
 	}
 
 	@Then("the logistic company adds the location found to the journey database")
 	public void the_logistic_company_adds_the_location_found_to_the_journey_database() {
-		assertEquals("Tracked location.",updateResponse.getMessage());
+		assertEquals("Tracked location.",locateContainer.getMessage());
 	}
 
 //Feature: Retrieve info about each container
-	ArrayList<Double> InternalTemperature;
-	ArrayList<Double> AirHumidity;
-	ArrayList<Double> AtmosphericPressure;
+	ArrayList<Double> InternalTemperature = new ArrayList<Double>();
+	ArrayList<Double> AirHumidity = new ArrayList<Double>();
+	ArrayList<Double> AtmosphericPressure = new ArrayList<Double>();
 	
 	ArrayList<Double> retrievedTemperature;
 	ArrayList<Double> retrievedHumidity;
 	ArrayList<Double> retrievedPressure;
 	
-	String compLocation;
+	ArrayList<String> historyLocation = new ArrayList<String>();
 	ArrayList<String> retrievedLocation;
+	
+	double temp1; double temp2; double temp3;
 	
 	//Scenario: Retrieve data about the internal status
 			
@@ -602,10 +604,23 @@ public void the_container_is_in_that_journey() {
 		Container container = new Container(containerID);
 		CDB.getContainers().add(container);
 	} */
-				
-	@Given("a container with a history of internal measurement {double}")
-	public void a_container_with_a_history_of_internal_measurement(double compValue) {
-		trackData = internalStatusHistory.track(updateChoice,compValue);
+	
+	@Given("a container with a temperature history {double}, {double}, {double}")
+	public void a_container_with_a_temperature_history(double temp1, double temp2, double temp3) {
+		InternalTemperature.add(temp1);InternalTemperature.add(temp2);InternalTemperature.add(temp3);
+		internalStatusHistory.setTemperature(InternalTemperature);
+	}
+	
+	@Given("a container with a humidity history {double}, {double}, {double}")
+	public void a_container_with_a_humidity_history(double hum1, double hum2, double hum3) {
+		InternalTemperature.add(hum1);InternalTemperature.add(hum2);InternalTemperature.add(hum3);
+		internalStatusHistory.setHumidity(AirHumidity);
+	}
+	
+	@Given("a container with a pressure history {double}, {double}, {double}")
+	public void a_container_with_a_pressure_history(double press1, double press2, double press3) {
+		InternalTemperature.add(press1);InternalTemperature.add(press2);InternalTemperature.add(press3);
+		internalStatusHistory.setPressure(AtmosphericPressure);
 	}
 	
 	@When("the system decides to retrieve the internal status measurements")
@@ -615,8 +630,8 @@ public void the_container_is_in_that_journey() {
 		retrievedPressure = internalStatusHistory.getPressure();
 	}
 				
-	@Then("the system retrieves the internal status measurements")
-	public void the_system_retrieves_the_data_from_the_internal_status_measurements() {
+	@Then("the internal status measurements are retrived")
+	public void the_internal_status_measurements_are_retrived() {
 		assertEquals(InternalTemperature,retrievedTemperature);
 		assertEquals(AirHumidity,retrievedHumidity);
 		assertEquals(AtmosphericPressure,retrievedPressure);
@@ -631,9 +646,10 @@ public void the_container_is_in_that_journey() {
 		CDB.getContainers().add(container);
 	} */
 	
-	@Given("a container with a history of locations {string}")
-	public void a_container_with_a_history_of_locations(String compLocation) {
-		locateContainer = containerLocation.locate(container);
+	@Given("a container with a history of locations {string}, {string}, {string}")
+	public void a_container_with_a_history_of_locations(String loc1, String loc2, String loc3) {
+		historyLocation.add(loc1);historyLocation.add(loc2);historyLocation.add(loc3);
+		containerLocation.setLocation(historyLocation);
 	}
 	
 	@When ("the system decides to retrieve a location from the database")
@@ -643,7 +659,7 @@ public void the_container_is_in_that_journey() {
 
 	@Then ("the system retrieves the location")
 	public void the_system_retrieves_the_location() {
-		assertEquals(location,compLocation);
+		assertEquals(historyLocation,retrievedLocation);
 	}
 
 

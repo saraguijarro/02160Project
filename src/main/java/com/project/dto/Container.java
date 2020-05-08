@@ -84,26 +84,23 @@ public class Container {
 		return null;
 	}
 
-	public void setTemperature(double temperature) {
+	public void setTemp(double temperature) {
 		this.temperature = temperature;
 	}
-	
 	public double getTemp() {
 		return temperature;
 	}
 		
-	public void setHumidity(double humidity) {
+	public void setHum(double humidity) {
 		this.humidity = humidity;
 	}
-	
 	public double getHum() {
 		return humidity;
 	}
 		
-	public void setPressure(double pressure) {
+	public void setPress(double pressure) {
 		this.pressure = pressure;
 	}
-	
 	public double getPress() {
 		return pressure;
 	}
@@ -113,19 +110,19 @@ public class Container {
 		ResponseObject modifyData = null;
 		int code = 311;
 		if (updateChoice.equals("temperature")) {
-			this.setTemperature(updateData);
+			this.setTemp(updateData);
 			code = 312;
 			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 		
 		else if (updateChoice.equals("humidity")) {
-			this.setHumidity(updateData);
+			this.setHum(updateData);
 			code = 313;
 			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 
 		else if (updateChoice.equals("pressure")) {
-			this.setPressure(updateData);
+			this.setPress(updateData);
 			code = 314;
 			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
@@ -156,13 +153,22 @@ public class Container {
 	public ArrayList<Double> getTemperature() {
 		return InternalTemperature;
 	}
+	public void setTemperature(ArrayList<Double> InternalTemperature) {
+		this.InternalTemperature = InternalTemperature;
+	}
 	
 	public ArrayList<Double> getHumidity() {
 		return AirHumidity;
 	}
+	public void setHumidity(ArrayList<Double> AirHumidity) {
+		this.AirHumidity = AirHumidity;
+	}
 	
 	public ArrayList<Double> getPressure() {
 		return AtmosphericPressure;
+	}
+	public void setPressure(ArrayList<Double> AtmosphericPressure) {
+		this.AtmosphericPressure = AtmosphericPressure;
 	}
 	
 	public ResponseObject track(String updateChoice, double value) {
@@ -181,8 +187,11 @@ public class Container {
 	public ArrayList<String> getLocation() {
 		return historyLocation;
 	}
+	public void setLocation(ArrayList<String> historyLocation) {
+		this.historyLocation = historyLocation;
+	}
 	
-	public ResponseObject locate(Container container) {
+	public ResponseObject locate(String location) {
 		
 		ResponseObject locateContainer = null;
 		int code = 330;
