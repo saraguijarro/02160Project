@@ -1,4 +1,3 @@
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -80,6 +79,7 @@ public class StepDefinition {
             	JDB.registerStep2(journey , selectedContainer);
             }
 		}
+
 	}
 
 	@Then("the system displays a message confirming the registration of client") //code 100
@@ -92,19 +92,19 @@ public class StepDefinition {
 	    assertEquals(client.getHasID(),true);
 	}
 
-	//Scenario 2: missing info
+	//Scenario 2 - missing info
 	@Then("the system displays a message confirming the registration and indicating the missing fields") //code 101
 	public void the_system_displays_a_message_confirming_the_registration_and_indicating_the_missing_fields() {
 		 assertEquals("Client registered, but some or all fields are missing.", registerResponse.getMessage());
 	}
 
-	//Scenario 3: missing name
+	//Scenario 3 - missing name
 	@Then("the system displays a message telling that the client needs a name")
 	public void the_system_displays_a_message_telling_that_the_client_needs_a_name() {
 		assertEquals("Clients needs a name to be registered, no changes were made!", registerResponse.getMessage());
 	}
 
-	//Scenario 4: already registered
+	//Scenario 4 - already registered
 	@Then("the system displays a message telling that the client is already registered")
 	public void the_system_displays_a_message_telling_that_the_client_is_already_registered() {
 		assertEquals("Client with the same name already registered, no changes were made!", registerResponse.getMessage());
@@ -126,6 +126,7 @@ public class StepDefinition {
 		Client c= new Client();
 	    c.setName(name);
 
+
 	    CD.registering(c);
 	}
 
@@ -144,9 +145,9 @@ public class StepDefinition {
 	@Then("the client information is updated")
 	public void the_client_information_is_updated() {
 		assertEquals("Client information succesfully updated", updateResponse.getMessage());
+
 	}
 
-	
 //Feature: Company find client
 
 	String searchword;
@@ -166,6 +167,7 @@ public class StepDefinition {
 	    company.getClientDatabase().registering(c3);
 	    company.getClientDatabase().registering(c4);
 	}
+
 
 	//Scenario 1: The company uses the criteria from an existing client without filter
 	//Scenario 2: no matches
@@ -190,7 +192,8 @@ public class StepDefinition {
 	}
 
 
-//Feature: login
+
+	//Feature:login
 
 	String loginType;
 	String username;
@@ -240,151 +243,161 @@ public class StepDefinition {
 		if (loginType.equals("Company")){activeUser = company;}
 
 	    else if (loginType.equals("Client")){activeUser = client;}
+
 	}
 
 
+
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 // JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 
-//Feature: Client search journey
-	
+	//feature: Client search journey
 	//Scenario: The client uses the criteria from an existing journey without filter
+
 	Jou journey = new Jou();
 	JourneyDB JDB = new JourneyDB();
 
-	@Given("a journey database with the departing port {string}  {string} and {string}")
-	public void a_journey_database_with_the_departing_port_and(String poo1, String poo2, String poo3) {
-	
-		JDB = new JourneyDB();
-		client.setJDB(JDB);
-	
-		Jou j1 = new Jou(poo1, "BEY","Bananas","NETTO");
-		Jou j2 = new Jou(poo2, "BRU","Bananas","Fotex");
-		Jou j3 = new Jou(poo3, "PAR","Spinach","Brus");
-	
-		JDB.registerStep1(j1);
-		JDB.registerStep1(j2);
-		JDB.registerStep1(j3);
-	
-		con = new Container(CDB , poo1);
-		CDB.getContainers().add(con);
-	
-		con1 = new Container(CDB , poo2);
-		CDB.getContainers().add(con1);
-	
-		con2 = new Container(CDB , poo3);
-		CDB.getContainers().add(con2);
-	
-		JDB.registerStep2(j1 , con);
-		JDB.registerStep2(j2 , con1);
-		JDB.registerStep2(j3 , con2);
-	}
 
-	@When("searching for journey")
-	public void searching_for_journey() {
-		searchResponse=client.getJDB().resultSearchJourney(searchword, filter);
-	}
+@Given("a journey database with the departing port {string}  {string} and {string}")
+public void a_journey_database_with_the_departing_port_and(String poo1, String poo2, String poo3) {
+	
+	JDB = new JourneyDB();
+	client.setJDB(JDB);
+	
+	Jou j1 = new Jou(poo1, "BEY","Bananas","NETTO");
+	Jou j2 = new Jou(poo2, "BRU","Bananas","Fotex");
+	Jou j3 = new Jou(poo3, "PAR","Spinach","Brus");
+	
 
-	@Then("the corresponding {string} journey\\(s) is\\/are found.")
-	public void the_corresponding_journey_s_is_are_found(String expectedJourneys) {
-		assertEquals(expectedJourneys+" journeys found with the searchword: ["+searchword+"] and the filter: ["+filter+"]", searchResponse.getMessage());
-	}
+	JDB.registerStep1(j1);
+	JDB.registerStep1(j2);
+	JDB.registerStep1(j3);
+	
+	
+	con = new Container(CDB , poo1);
+	CDB.getContainers().add(con);
+	
+	con1 = new Container(CDB , poo2);
+	CDB.getContainers().add(con1);
+	
+	con2 = new Container(CDB , poo3);
+	CDB.getContainers().add(con2);
+	
+	JDB.registerStep2(j1 , con);
+	JDB.registerStep2(j2 , con1);
+	JDB.registerStep2(j3 , con2);
+	
+}
 
+@When("searching for journey")
+public void searching_for_journey() {
+	searchResponse=client.getJDB().resultSearchJourney(searchword, filter);
+}
+
+@Then("the corresponding {string} journey\\(s) is\\/are found.")
+public void the_corresponding_journey_s_is_are_found(String expectedJourneys) {
+	assertEquals(expectedJourneys+" journeys found with the searchword: ["+searchword+"] and the filter: ["+filter+"]", searchResponse.getMessage());
+}
+
+
+
+ContainerDB CDB = new ContainerDB();
+Container con;
+Container con1;
+Container con2;
+Container selectedContainer;
+ArrayList<Container> availableContainers;
 
 //Feature: User registers journey
+
+//background
+@Given("a client {string}")
+public void a_client(String name) {
+    client.setName(name);
+}
+
+@Given("a journey database")
+public void a_journey_database() {
+	JDB = new JourneyDB();
+	client.setJDB(JDB);
+}
+
+
+//Scenario: The client does not give all of the container's journey
+
+@Given("a valid port of origin {string}")
+public void a_valid_port_of_origin(String poo) {
+	journey.setOriginPort(poo);
+}
+
+@Given("a valid destination {string}")
+public void a_valid_destination(String D) {
+    journey.setDestination(D);
+}
+
+@Given("a valid company {string}")
+public void a_valid_company(String C) {
+    journey.setCompany(C);
+}
+
+@Given("a valid content {string}")
+public void a_valid_content(String string) {
+    journey.setContent(string);
+}
+
+@Then("the system displays a message telling that the field {string} needs to be filled")
+public void the_system_displays_a_message_telling_that_the_field_needs_to_be_filled(String field) {
 	
-	Container selectedContainer;
-	ContainerDB CDB = new ContainerDB();
-	Container con;
-	Container con1;
-	Container con2;
-	ArrayList<Container> availableContainers;
-
-	//Background
-	@Given("a client {string}")
-	public void a_client(String name) {
-		client.setName(name);
-	}
-
-	@Given("a journey database")
-	public void a_journey_database() {
-		JDB = new JourneyDB();
-		client.setJDB(JDB);
-	}
-
-	//Scenario: The client does not give all of the container's journey
-
-	@Given("a valid port of origin {string}")
-	public void a_valid_port_of_origin(String poo) {
-		journey.setOriginPort(poo);
-	}
-
-	@Given("a valid destination {string}")
-	public void a_valid_destination(String D) {
-		journey.setDestination(D);
-	}
-
-	@Given("a valid company {string}")
-	public void a_valid_company(String C) {
-		journey.setCompany(C);
-	}
-
-	@Given("a valid content {string}")
-	public void a_valid_content(String string) {
-		journey.setContent(string);
-	}
-
-	@Then("the system displays a message telling that the field {string} needs to be filled")
-	public void the_system_displays_a_message_telling_that_the_field_needs_to_be_filled(String field) {
+	String missingMessage="";
+	if (field.contains("port of origin")) {missingMessage +=" Journey needs a port of origin to be registered.";}
+	if (field.contains("destination")) {missingMessage +=" Journey needs a destination to be registered.";}
+	if (field.contains("content")) {missingMessage +=" Journey needs a content to be registered.";}
+	if (field.contains("company")) {missingMessage +=" Journey needs a company to be registered.";}
 	
-		String missingMessage="";
-		if (field.contains("port of origin")) {missingMessage +=" Journey needs a port of origin to be registered.";}
-		if (field.contains("destination")) {missingMessage +=" Journey needs a destination to be registered.";}
-		if (field.contains("content")) {missingMessage +=" Journey needs a content to be registered.";}
-		if (field.contains("company")) {missingMessage +=" Journey needs a company to be registered.";}
+    assertEquals("No changes were made!"+ missingMessage, registerResponse.getMessage());
+}
+
+//Scenario: The client gives all information about the container's journey, chooses a container that is available at the port of origin.
+
+@Given("an available container at the port of origin")
+public void an_available_container_at_the_port_of_origin() {
+
+	con = new Container(CDB , journey.OriginPort);
+	CDB.getContainers().add(con);
 	
-		assertEquals("No changes were made!"+ missingMessage, registerResponse.getMessage());
-	}
-
-	//Scenario: The client gives all information about the container's journey, chooses a container that is available at the port of origin.
-
-	@Given("an available container at the port of origin")
-	public void an_available_container_at_the_port_of_origin() {
-
-		con = new Container(CDB , journey.OriginPort);
-		CDB.getContainers().add(con);
+	con1 = new Container(CDB , "Beirut");
+	CDB.getContainers().add(con1);
 	
-		con1 = new Container(CDB , "Beirut");
-		CDB.getContainers().add(con1);
+	con2 = new Container(CDB , "Amsterdam");
+	CDB.getContainers().add(con2);
+}
+
+@Given("a selected container")
+public void a_selected_container() {
+    selectedContainer = con;
+}
+
+@Then("the system displays a message confirming the registration of journey")
+public void the_system_displays_a_message_confirming_the_registration_of_journey() {
+	 assertEquals("Journey successfully created.", registerResponse.getMessage());
+}
+
+@Then("a new journey id is automaticly generated")
+public void a_new_journey_id_is_automaticly_generated() {
+	assertEquals(true,journey.getHasID());
+}
+
+@Then("the container is in that journey")
+public void the_container_is_in_that_journey() {
+   assertEquals( JDB.containerInAJourney(selectedContainer.getContainerID()) , true);
+}
 	
-		con2 = new Container(CDB , "Amsterdam");
-		CDB.getContainers().add(con2);
-	}
-
-	@Given("a selected container")
-	public void a_selected_container() {
-		selectedContainer = con;
-	}
-
-	@Then("the system displays a message confirming the registration of journey")
-	public void the_system_displays_a_message_confirming_the_registration_of_journey() {
-		assertEquals("Journey successfully created.", registerResponse.getMessage());
-	}
-
-	@Then("a new journey id is automaticly generated")
-	public void a_new_journey_id_is_automaticly_generated() {
-		assertEquals(true,journey.getHasID());
-	}
-
-	@Then("the container is in that journey")
-	public void the_container_is_in_that_journey() {
-		assertEquals( JDB.containerInAJourney(selectedContainer.getContainerID()) , true);
-	}
 	
-
+	
+	
 	
 	
 	
@@ -418,7 +431,7 @@ public class StepDefinition {
 		j1.setC(con);
 	}
 
-	@Given("a container with the ID {string} ")
+	@Given("a container with the ID {string}")
 	public void a_container_with_the_ID(String CID) {
 		con = new Container(true , CID);
 	}
