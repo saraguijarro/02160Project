@@ -2,17 +2,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import com.project.UpdateData;
 import com.project.dto.*;
 import com.project.repository.ClientDatabase;
 import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
 
-import BackupPro.ArrayList;
-import BackupPro.Client;
-import BackupPro.Container;
-import BackupPro.ContainerCurrent;
-import BackupPro.ResponseObject;
+import com.project.dto.Client;
+import com.project.dto.Container;
+import com.project.dto.ResponseObject;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -437,7 +434,7 @@ public void the_container_is_in_that_journey() {
 	}
 
 	@When("Update current position to {string}")
-	public void update_current_position() {
+	public void update_current_position(String updateContent) {
 		updateResponse = journey.update(updateContent);
 	}
 
@@ -488,7 +485,7 @@ public void the_container_is_in_that_journey() {
 		updateResponse = container.update(updateChoice,updateData);
 	}
 	
-	@Then ("the system sets the internal status to the latests measurements")
+	@Then("the system sets the internal status to the latests measurements")
 	public void the_system_sets_the_internal_status_to_the_latests_measurements() {
 		assertEquals("Measurement successfully added.",updateResponse.getMessage());
 	}
@@ -497,12 +494,10 @@ public void the_container_is_in_that_journey() {
 //Feature: Retrieve measurements about the container internal status
 	Container retrieveData;
 	Container initialData;
-	double temperature;
-	double humidity;
-	double pressure;
-	double temp;
-	double hum;
-	double press;
+	ResponseObject retrieveResponse;
+	double temperature; double humidity; double pressure;
+	double temp; double hum; double press;
+	double retrievedTemp; double retrievedHum; double retrievedPress;
 
 	//Scenario: Retrieve measurements from the system
 
@@ -520,23 +515,27 @@ public void the_container_is_in_that_journey() {
 	}*/
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
-	public void a_container_with_temperature_humidity_pressure(double temp, double hum, double press) {
+	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
+		initialData = new Container();
 		initialData.setTemperature(this.temp);
 		initialData.setHumidity(this.hum);
 		initialData.setPressure(this.press);
 	}
 
-	@When ("a client retrieves the measurements temperature {double} humidity {double} pressure {double}")
-	public void a_client_retrieves_the_measurements_temperature_humidity_pressure(double temp,double hum,double press) {
-		assertEquals(temp, temperature, 0.1);
-		assertEquals(hum, humidity,0.2);
-		assertEquals(press, pressure,3.0);
+	@When("a client wants to retrieve the measurements from the internal status")
+	public void a_client_wants_to_retrieve_the_measurements_from_the_internal_status() {
+		retrievedTemp = initialData.getTemp();
+		retrievedHum = initialData.getHum();
+		retrievedPress = initialData.getPress();
 	}
 
-	@Then ("the measurements are retrieved from the internal status")
-	public void the_measurements_are_retrieved_from_the_internal_status() {
-		assertEquals("Measurement successfully retrieved.",updateResponse.getMessage());
+	@Then("the measurements are retrieved")
+	public void the_measurements_are_retrieved() {
+		assertEquals(temperature,retrievedTemp,0.001);
+		assertEquals(humidity,retrievedHum,0.001);
+		assertEquals(pressure,retrievedPress,0.001);
 	}
+
 
 //Feature: Track each container
 	Container internalStatusHistory;
@@ -544,14 +543,6 @@ public void the_container_is_in_that_journey() {
 	ResponseObject trackData;
 	ResponseObject locateContainer;
 	String location;
-		
-	ArrayList<Double> InternalTemperature;
-	ArrayList<Double> AirHumidity;
-	ArrayList<Double> AtmosphericPressure;
-	
-	ArrayList<Double> temList;
-	ArrayList<Double> humList;
-	ArrayList<Double> pressList;
 
 	//Scenario: Tracking the internal status
 
@@ -592,6 +583,16 @@ public void the_container_is_in_that_journey() {
 	}
 
 //Feature: Retrieve info about each container
+	ArrayList<Double> InternalTemperature;
+	ArrayList<Double> AirHumidity;
+	ArrayList<Double> AtmosphericPressure;
+	
+	ArrayList<Double> retrievedTemperature;
+	ArrayList<Double> retrievedHumidity;
+	ArrayList<Double> retrievedPressure;
+	
+	String compLocation;
+	ArrayList<String> retrievedLocation;
 	
 	//Scenario: Retrieve data about the internal status
 			
@@ -602,21 +603,23 @@ public void the_container_is_in_that_journey() {
 		CDB.getContainers().add(container);
 	} */
 				
-	@When ("the system decides to retrieve the internal status measurements")
+	@Given("a container with a history of internal measurement {double}")
+	public void a_container_with_a_history_of_internal_measurement(double compValue) {
+		trackData = internalStatusHistory.track(updateChoice,compValue);
+	}
+	
+	@When("the system decides to retrieve the internal status measurements")
 	public void the_system_decides_to_retrieve_the_internal_status_measurements() {
-			
-		temList.add(0.2);temList.add(4.7);temList.add(3.2);
-		humList.add(20.2);humList.add(24.7);humList.add(32.2);
-		pressList.add(100.2);pressList.add(117.9);pressList.add(110.3);
-			
-		assertEquals(temList,InternalTemperature);
-		assertEquals(humList,AirHumidity);
-		assertEquals(pressList,AtmosphericPressure);
+		retrievedTemperature = internalStatusHistory.getTemperature();
+		retrievedHumidity = internalStatusHistory.getHumidity();
+		retrievedPressure = internalStatusHistory.getPressure();
 	}
 				
-	@Then ("the system retrieves the internal status measurements")
+	@Then("the system retrieves the internal status measurements")
 	public void the_system_retrieves_the_data_from_the_internal_status_measurements() {
-		assertEquals("Measurements successfully retrieved.",updateResponse.getMessage());
+		assertEquals(InternalTemperature,retrievedTemperature);
+		assertEquals(AirHumidity,retrievedHumidity);
+		assertEquals(AtmosphericPressure,retrievedPressure);
 	}
 
 	//Scenario: Retrieve data from the journey evolution
@@ -627,15 +630,20 @@ public void the_container_is_in_that_journey() {
 		Container container = new Container(containerID);
 		CDB.getContainers().add(container);
 	} */
-			
-	@When ("the system decides to retrieve a location {string} from the database")
-	public void the_system_decides_to_retrieve_a_location_from_the_database(String loc) {
-		assertEquals(loc,location,null);
+	
+	@Given("a container with a history of locations {string}")
+	public void a_container_with_a_history_of_locations(String compLocation) {
+		locateContainer = containerLocation.locate(container);
+	}
+	
+	@When ("the system decides to retrieve a location from the database")
+	public void the_system_decides_to_retrieve_a_location_from_the_database() {
+		retrievedLocation = containerLocation.getLocation();
 	}
 
 	@Then ("the system retrieves the location")
 	public void the_system_retrieves_the_location() {
-		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
+		assertEquals(location,compLocation);
 	}
 
 

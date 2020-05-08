@@ -87,15 +87,26 @@ public class Container {
 	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
+	
+	public double getTemp() {
+		return temperature;
+	}
 		
 	public void setHumidity(double humidity) {
 		this.humidity = humidity;
+	}
+	
+	public double getHum() {
+		return humidity;
 	}
 		
 	public void setPressure(double pressure) {
 		this.pressure = pressure;
 	}
 	
+	public double getPress() {
+		return pressure;
+	}
 	
 	public ResponseObject update(String updateChoice, double updateData) {
 		
@@ -140,7 +151,19 @@ public class Container {
 		AtmosphericPressure.add(this.pressure);
 		return null;
 	}
-		
+	
+	
+	public ArrayList<Double> getTemperature() {
+		return InternalTemperature;
+	}
+	
+	public ArrayList<Double> getHumidity() {
+		return AirHumidity;
+	}
+	
+	public ArrayList<Double> getPressure() {
+		return AtmosphericPressure;
+	}
 	
 	public ResponseObject track(String updateChoice, double value) {
 		
@@ -155,6 +178,10 @@ public class Container {
 		return trackData;
 	}
 		
+	public ArrayList<String> getLocation() {
+		return historyLocation;
+	}
+	
 	public ResponseObject locate(Container container) {
 		
 		ResponseObject locateContainer = null;
@@ -164,6 +191,4 @@ public class Container {
 		
 		return locateContainer;
 	}
-
-	
 }

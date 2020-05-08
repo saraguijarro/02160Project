@@ -12,7 +12,7 @@ public class LogisticCompany extends User {
 	private String password;
 	private String details;
 	private Time created;
-	public ClientDatabase clientDatabase;
+	public ClientDatabase clientDatabase = new ClientDatabase();
 	
 	public ClientDatabase getClientDatabase() {
 		return clientDatabase;

@@ -23,11 +23,13 @@ Feature: Retrieve info about each container
   @tag1
   Scenario: Retrieve data about the internal status
     Given a container with a container id "J02061"
+    And a container with a history of internal measurement 23.9
 		When the system decides to retrieve the internal status measurements
 		Then the system retrieves the internal status measurements
 
   @tag2
   Scenario: Retrieve data from the journey evolution
 		Given a container with a container id "J02061"
-		When the system decides to retrieve a location "Denmark" from the database
+		And a container with a history of locations "Denmark"
+		When the system decides to retrieve a location from the database
 		Then the system retrieves the location

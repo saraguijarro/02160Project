@@ -23,6 +23,6 @@ Feature: Retrieve measurements about the container internal status
   @tag1
   Scenario: Retrieve measurements from the system
 		Given a container with a container id "J02061"
-		And a container with temperature 15.0 humidity 10.35 pressure 0.4
-		When a client retrieves the measurements temperature 15.7 humidity 10.8 pressure 0.4
-		Then the measurements are retrieved from the internal status
+		And a container with temperature 15.7 humidity 10.8 pressure 0.4
+		When a client wants to retrieve the measurements from the internal status
+		Then the measurements are retrieved
