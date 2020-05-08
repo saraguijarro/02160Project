@@ -19,6 +19,7 @@ public class Container {
 	public Container(ContainerDB CDB , String cp) {
     	this.inJourney = false;
 		this.currentPosition=cp;
+
 	}
 	
 	public Container(boolean inJourney, String containerID) {

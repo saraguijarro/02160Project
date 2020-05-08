@@ -404,19 +404,30 @@ public void the_container_is_in_that_journey() {
 	
 	//Scenario: Client registers a journey
 
-	@Given("a new generated container")
-	public void a_new_generated_container() {
-		selectedContainer = new Container(CDB , journey.OriginPort);
-		CDB.getContainers().add(selectedContainer);
-	}
-	
 	//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
 
-	@Given("no container at the port of origin")
-	public void no_container_at_the_port_of_origin() {
-		con = new Container(CDB , "123");
-		CDB.getContainers().add(con);
-	}
+  @Given("a new generated container")
+  public void a_new_generated_container() {
+	  selectedContainer = new Container(CDB , journey.OriginPort);
+	  CDB.getContainers().add(selectedContainer);
+  }
+
+  @Given("no container at the port of origin")
+  public void no_container_at_the_port_of_origin() {
+  	con = new Container(CDB , "123");
+  	CDB.getContainers().add(con);
+  }
+
+  @Given("a container in a journey with destination {string}")
+  public void a_container_in_a_journey_with_destination(String destination) {
+  	Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
+  	con = new Container(CDB , "Beirut");
+  	j1.setC(con);
+  }
+
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is available ones at the port of origin.
+
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
 
 //Feature: Company updates journey information
 	//Scenario: The company updates the current position
@@ -427,11 +438,12 @@ public void the_container_is_in_that_journey() {
 		con = new Container(CDB , "Beirut");
 		j1.setC(con);
 	}
-
 	@Given("a container with the ID {string}")
 	public void a_container_with_the_ID(String CID) {
 		con = new Container(true , CID);
 	}
+
+//Scenario: The company updates the current position"
 
 	@When("Update current position to {string}")
 	public void update_current_position(String updateContent) {
@@ -661,6 +673,13 @@ public void the_container_is_in_that_journey() {
 	public void the_system_retrieves_the_location() {
 		assertEquals(historyLocation,retrievedLocation);
 	}
+
+
+
+
+
+
+
 
 
 }

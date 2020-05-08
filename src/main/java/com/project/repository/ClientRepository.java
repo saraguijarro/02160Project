@@ -212,6 +212,26 @@ public class ClientRepository implements Repository<Client>
         return affectedRows;
     }
 
+    @Override
+    public void putAllInDatabase(ArrayList<Client> entitiesList) {
+        log.debug("Start method...");
+
+        try
+        {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    " TRUNCATE TABLE client");
+            prepared.executeUpdate();
+        } catch (SQLException e)
+        {
+            log.error("Error truncating the table: " + e);
+        }
+
+        entitiesList.forEach(this::create);
+
+        log.debug("End method.");
+
+    }
+
     /**
      * Map the current row of the given ResultSet to an Object.
      *

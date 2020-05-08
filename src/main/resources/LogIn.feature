@@ -68,7 +68,7 @@ Feature: Loggin in the application
     Then Log-in is succesfull
     And active user is updated
     
-   Scenario: Company not succesfull log-in (wrong password)
+   Scenario: Client not succesfull log-in (wrong password)
     Given The log-in type "Client"
     And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
     And The username "miguel@student.dtu.dk"
@@ -77,7 +77,7 @@ Feature: Loggin in the application
     When Logging-in
     Then Log-in fails
     
-  Scenario: Company not succesfull log-in (wrong email)
+  Scenario: Client not succesfull log-in (wrong email)
     Given The log-in type "Client"
     And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
     And The username "s18"

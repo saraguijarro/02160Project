@@ -40,6 +40,6 @@ Feature: Company find client
    @tag3
    Scenario: The company uses the criteria from an existing client with a filter
    Given a searchword "m"
-   And a filter "Reference Person"
+   And a filter "reference person"
    When searching for client
    Then the corresponding "1" client(s) is/are found.
