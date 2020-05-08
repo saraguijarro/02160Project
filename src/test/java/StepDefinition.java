@@ -436,13 +436,6 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 }
 
 
-
-
-
-
-
-
-
 //Scenario: The client gives all information about the container's journey, chooses a new container when there is availble ones at the port of origin.
 
 	//Mandatory 3 and Optional 1 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -847,7 +840,7 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 	}
 
 
- 	//Scenario: Retrieve data from the journey evolution
+	//Scenario: Retrieve data from the journey evolution
 
 
 	/*
@@ -865,6 +858,13 @@ public void the_current_position_is_updated_and_the_journey_is_terminated() {
 	public void the_system_retrieves_the_location_from_the_journey_database() {
 		assertEquals("Location successfully retrieved.",updateResponse.getMessage());
 	}
+
+
+
+
+
+
+
 
 
 }

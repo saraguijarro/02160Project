@@ -16,7 +16,7 @@ public class Application {
         if (password.equals(company.getPassword())){matchPassword=true;}
 
         else if (loginType.equals("Client")){
-            ArrayList<Client> matchedClients = company.clientDatabase.searchClient(username, "Email");
+            ArrayList<Client> matchedClients = company.clientDatabase.searchClient(username, "email");
             int matchSize = matchedClients.size();
             if (matchSize == 1) {
                 if (username.equals(matchedClients.get(0).getEmail())){matchUsername=true;}
