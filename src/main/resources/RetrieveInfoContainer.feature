@@ -22,12 +22,16 @@ Feature: Retrieve info about each container
 
   @tag1
   Scenario: Retrieve data about the internal status
-    Given a journey id "JO002160" exists for the corresponding container
-		When the system decides to retrieve the temperature [14.2,13.5] humidity [6.6,45.3] and pressure [1000.4,3.3]
-		Then the system retrieves the data from the database
+    Given a container with a container id "J02061"
+		And a container with a temperature history 23.9, 34.5, 6.7
+    And a container with a humidity history 4.5, 3.5, 68.7
+    And a container with a pressure history 23.2, 0.2, 5.6
+		When the system decides to retrieve the internal status measurements
+		Then the internal status measurements are retrived
 
   @tag2
   Scenario: Retrieve data from the journey evolution
-		Given a journey id "JO002160" exists for the corresponding container
-		When the system decides to retrieve a location "Denmark" from the database
-		Then the system retrieves the data from the journey database
+		Given a container with a container id "J02061"
+		And a container with a history of locations "Denmark", "Sweden", "Norway"
+		When the system decides to retrieve a location from the database
+		Then the system retrieves the location
