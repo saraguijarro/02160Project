@@ -396,6 +396,52 @@ public void the_container_is_in_that_journey() {
    assertEquals( JDB.containerInAJourney(selectedContainer.getContainerID()) , true);
 }
 
+@Given("a new generated container")
+public void a_new_generated_container() {
+	selectedContainer = new Container(CDB , journey.OriginPort);
+	CDB.getContainers().add(selectedContainer);
+}
+
+@Given("no container at the port of origin")
+public void no_container_at_the_port_of_origin() {
+	con = new Container(CDB , "123");
+	CDB.getContainers().add(con);
+}
+
+@Given("a container in a journey with destination {string}")
+public void a_container_in_a_journey_with_destination(String destination) {
+	Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
+	con = new Container(CDB , "Beirut");
+	j1.setC(con);
+}
+
+@Given("a container with the ID {string} ")
+public void a_container_with_the_ID(String CID) {
+	con = new Container(true , CID);
+}
+
+@When("Update current position to {string}")
+public void update_current_position() {
+	updateResponse = journey.update(updateContent);
+}
+
+@Then("the current position is updated")
+public void the_current_position_is_updated() {
+   assertEquals("current position succesfully updated" , updateResponse.getMessage());
+}
+
+@Then("the current position is updated and the journey is terminated")
+public void the_current_position_is_updated_and_the_journey_is_terminated() {
+	assertEquals("current position succesfully updated and the journey is terminated" , updateResponse.getMessage());
+}
+
+
+
+
+
+
+
+
 
 //Scenario: The client gives all information about the container's journey, chooses a new container when there is availble ones at the port of origin.
 
@@ -558,11 +604,7 @@ public void the_container_is_in_that_journey() {
 		} */
 
 
-@Given("a new generated container")
-public void a_new_generated_container() {
-	selectedContainer = new Container(CDB , journey.OriginPort);
-	CDB.getContainers().add(selectedContainer);
-}
+
 
 		/*
 		@Given("a database exists for the measures of the container internal status")
@@ -587,13 +629,6 @@ public void a_new_generated_container() {
 		}
 
 	  	//Scenario: Retrieve data from the journey evolution
-
-
-@Given("no container at the port of origin")
-public void no_container_at_the_port_of_origin() {
-	con = new Container(CDB , "123");
-	CDB.getContainers().add(con);
-}
 
 		/*
 		@Given("a journey id {string} exists for the corresponding container")
@@ -626,32 +661,7 @@ public void no_container_at_the_port_of_origin() {
 
 //Scenario: The company updates the current position"
 
-@Given("a container in a journey with destination {string}")
-public void a_container_in_a_journey_with_destination(String destination) {
-	Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
-	con = new Container(CDB , "Beirut");
-	j1.setC(con);
-}
 
-@Given("a container with the ID {string} ")
-public void a_container_with_the_ID(String CID) {
-	con = new Container(true , CID);
-}
-
-@When("Update current position to {string}")
-public void update_current_position() {
-	updateResponse = journey.update(updateContent);
-}
-
-@Then("the current position is updated")
-public void the_current_position_is_updated() {
-   assertEquals("current position succesfully updated" , updateResponse.getMessage());
-}
-
-@Then("the current position is updated and the journey is terminated")
-public void the_current_position_is_updated_and_the_journey_is_terminated() {
-	assertEquals("current position succesfully updated and the journey is terminated" , updateResponse.getMessage());
-}
 
 
 
