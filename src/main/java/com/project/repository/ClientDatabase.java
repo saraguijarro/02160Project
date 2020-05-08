@@ -2,11 +2,13 @@ package com.project.repository;
 
 import com.project.dto.Client;
 import com.project.dto.ResponseObject;
+import com.project.dto.dao.Repository;
 
 import java.util.ArrayList;
 
 public class ClientDatabase {
-	
+
+	Repository<Client> clientRepository;
 	ArrayList<Client> clients;
 	
 	public ArrayList<Client> getClients() {
@@ -20,14 +22,18 @@ public class ClientDatabase {
 	}
 
 
-
 	public ClientDatabase() {
 		super();
-		clients = new ArrayList<>();
+		clientRepository = new ClientRepository();
+		clients = clientRepository.findAll();
 	}
 	
-	
-	
+	// this method needs to be called when application will end. For the entities to be written to database
+	public void writeAllToDatabase() {
+		clientRepository.putAllInDatabase(clients);
+	}
+
+
 	public ResponseObject findMissingAndReplace(Client client) {
 		
 		ResponseObject response;		
