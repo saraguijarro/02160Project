@@ -10,66 +10,56 @@ public class Container {
 	private boolean inJourney;
 	boolean hasID;
 	String containerID;
-
 	Jou journey;
-
-
-	ArrayList<Container> containers = new ArrayList<>();
 	
-	
-	public String getContainerID() {
-		return containerID;
+	public Container() {
+		super();
 	}
 	
-	 public Container(ContainerDB CDB , String cp)	{
-	    	
-		 this.inJourney = false;
-		 
-		 this.currentPosition=cp;
+	public Container(ContainerDB CDB , String cp) {
+    	this.inJourney = false;
+		this.currentPosition=cp;
 
-	    }
+	}
 	
 	public Container(boolean inJourney, String containerID) {
 		super();
 		this.inJourney = inJourney;
 		this.containerID = containerID;
 	}
-
-	public ArrayList<Container> getContainers() {
-		return containers;
+	
+	public Container(String containerID) {
+		this.containerID = containerID;
 	}
 
-	public void setContainers(ArrayList<Container> containers) {
-		this.containers = containers;
+	public boolean hasId(Container container) {
+		return hasID;
 	}
 
+	
+	public void setContainerID(String containerID) {
+		this.containerID = containerID;
+	}
+	
+	public String getContainerID() {
+		return containerID;
+	}
+	
 	public boolean getInJourney() {
 		return inJourney;
 	}
-
+	
 	public void setInJourney(boolean inJourney) {
 		this.inJourney = inJourney;
 	}
-
-
 	
 	public String getCurrentPosition() {
 		return currentPosition;
-}
-	
-	public void giveID(Container container) {
-		String prefix = "CO";
-		String number = Integer.toString(this.containers.size()+1);
-		String zeroes = "0".repeat(6-number.length());
-		String id = prefix + zeroes + number;
-		container.setContainerID(id);
-
 	}
-
+	
 	public void setCurrentPosition(String currentPosition) {
 		this.currentPosition = currentPosition;
 	}
-
 	
 	public Jou getJourney() {
 		return journey;
@@ -78,21 +68,8 @@ public class Container {
 	public void setJourney(Jou journey) {
 		this.journey = journey;
 	}
-	
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-	
-	public boolean hasId(Container container) {
-		return hasID;
-	}
-	
 
 
-	//show containers at the port of origin
-	
-	
-	
 //Code regarding the current internal status of the container, instantaneous data
 	
 	double temperature;
@@ -108,38 +85,47 @@ public class Container {
 		return null;
 	}
 
-	public void setTemperature(double temperature) {
+	public void setTemp(double temperature) {
 		this.temperature = temperature;
 	}
+	public double getTemp() {
+		return temperature;
+	}
 		
-	public void setHumidity(double humidity) {
+	public void setHum(double humidity) {
 		this.humidity = humidity;
 	}
+	public double getHum() {
+		return humidity;
+	}
 		
-	public void setPressure(double pressure) {
+	public void setPress(double pressure) {
 		this.pressure = pressure;
 	}
+	public double getPress() {
+		return pressure;
+	}
 	
-	public ResponseObject update(String updateChoice, int updateData) {
+	public ResponseObject update(String updateChoice, double updateData) {
 		
 		ResponseObject modifyData = null;
 		int code = 311;
 		if (updateChoice.equals("temperature")) {
-			this.setTemperature(updateData);
+			this.setTemp(updateData);
 			code = 312;
-			modifyData = new ResponseObject(code, "Temperature successfully added.");
-
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
+		
 		else if (updateChoice.equals("humidity")) {
-			this.setHumidity(updateData);
+			this.setHum(updateData);
 			code = 313;
-			modifyData = new ResponseObject(code, "Humidity successfully added.");
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 
 		else if (updateChoice.equals("pressure")) {
-			this.setPressure(updateData);
+			this.setPress(updateData);
 			code = 314;
-			modifyData = new ResponseObject(code, "Pressure successfully added.");
+			modifyData = new ResponseObject(code, "Measurement successfully added.");
 		}
 	
 		if (code == 311) {modifyData = new ResponseObject(code, "Error, no measurement could be added.");}
@@ -163,7 +149,28 @@ public class Container {
 		AtmosphericPressure.add(this.pressure);
 		return null;
 	}
-		
+	
+	
+	public ArrayList<Double> getTemperature() {
+		return InternalTemperature;
+	}
+	public void setTemperature(ArrayList<Double> InternalTemperature) {
+		this.InternalTemperature = InternalTemperature;
+	}
+	
+	public ArrayList<Double> getHumidity() {
+		return AirHumidity;
+	}
+	public void setHumidity(ArrayList<Double> AirHumidity) {
+		this.AirHumidity = AirHumidity;
+	}
+	
+	public ArrayList<Double> getPressure() {
+		return AtmosphericPressure;
+	}
+	public void setPressure(ArrayList<Double> AtmosphericPressure) {
+		this.AtmosphericPressure = AtmosphericPressure;
+	}
 	
 	public ResponseObject track(String updateChoice, double value) {
 		
@@ -178,7 +185,14 @@ public class Container {
 		return trackData;
 	}
 		
-	public ResponseObject locate(Container container) {
+	public ArrayList<String> getLocation() {
+		return historyLocation;
+	}
+	public void setLocation(ArrayList<String> historyLocation) {
+		this.historyLocation = historyLocation;
+	}
+	
+	public ResponseObject locate(String location) {
 		
 		ResponseObject locateContainer = null;
 		int code = 330;
@@ -187,6 +201,4 @@ public class Container {
 		
 		return locateContainer;
 	}
-
-	
 }

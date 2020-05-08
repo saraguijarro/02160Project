@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import com.project.dto.Container;
 
-
-
 public class ContainerDB {
-	
 	
 	public ArrayList<Container> containers;
 	
@@ -23,12 +20,11 @@ public class ContainerDB {
 	public void setContainers(ArrayList<Container> containers) {
 		this.containers = containers;
 	}
-
+	
 	
 	public ArrayList<Container> availableContainerAt (String portOfOrigin){
 		
 		ArrayList<Container> result = new ArrayList<Container>();
-		
 		for(int i = 0 ; i<containers.size(); i++) {
 			if( this.containers.get(i).getCurrentPosition().equals(portOfOrigin) && this.containers.get(i).getInJourney()==false) {
 				result.add(this.containers.get(i));
@@ -36,6 +32,7 @@ public class ContainerDB {
 		}
 		return result;
 	 }
+	
 	
 	public void giveID(Container container) {
 		String prefix = "CO";
