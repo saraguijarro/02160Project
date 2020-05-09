@@ -19,6 +19,10 @@ public class Address {
 		this.keyWord = "None";
 	}
 
+	public Address() {
+
+	}
+
 	public Address(String keyword) {
 		this.keyWord = keyword;
 	}
