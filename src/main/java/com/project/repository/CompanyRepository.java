@@ -114,41 +114,10 @@ public class CompanyRepository implements Repository<LogisticCompany> {
         return obj;
     }
 
-    @Override
-    public LogisticCompany update(LogisticCompany obj) {
-        throw new UnsupportedOperationException();
-    }
-
     private String hashString(String string) {
         return Hashing.sha256()
                 .hashString(string, StandardCharsets.UTF_8)
                 .toString();
-    }
-
-
-    @Override
-    public int delete(String id) {
-        log.debug("Start method...");
-
-        int affectedRows = 0;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM logistic_company "
-                            + " WHERE id=? ");
-
-            prepared.setString(1, id);
-
-            // execute query and get the affected rows number :
-            affectedRows = prepared.executeUpdate();
-
-        } catch (SQLException e) {
-            log.error("Error deleting user : " + e);
-        }
-
-        log.debug("End method.");
-
-        return affectedRows;
     }
 
 
