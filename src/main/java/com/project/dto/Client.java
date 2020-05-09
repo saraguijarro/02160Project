@@ -29,49 +29,58 @@ public class Client extends User{
 	
 //------all the setters and getters----------
 
-	
-
 	public String getClientID() {
 		return clientID;
 	}
+	
 	public void setClientID(String clientID) {
 		this.clientID = clientID;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	public String getReferencePerson() {
 		return referencePerson;
 	}
+	
 	public void setReferencePerson(String referencePerson) {
 		this.referencePerson = referencePerson;
 	}
+	
 	public Address getAddress() {
 		return address;
 	}
+	
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
 	public void setAddress(String add) {
 		if (add.equals("None")) {this.setAddress(new Address("None","None","None","None","None"));}
 		else {this.setAddress(new Address(add));}
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public Boolean getHasID() {
 		return hasID;
 	}
+	
 	public void setHasID(Boolean hasID) {
 		this.hasID = hasID;
 	}
-
 
 	public JourneyDB getJDB() {
 		return JDB;

@@ -25,7 +25,8 @@ public class ClientDatabase {
 	public ClientDatabase() {
 		super();
 		clientRepository = new ClientRepository();
-		clients = clientRepository.findAll();
+		clients = new ArrayList<Client>();
+		//clients = clientRepository.findAll();
 	}
 	
 	// this method needs to be called when application will end. For the entities to be written to database

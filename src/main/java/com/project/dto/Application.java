@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.project.repository.ClientDatabase;
 public class Application {
 
-    public ResponseObject login(String loginType, String username, String password, LogisticCompany company) {
+    static public ResponseObject login(String loginType, String username, String password, LogisticCompany company) {
 
         boolean matchUsername=false;
         boolean matchPassword=false;

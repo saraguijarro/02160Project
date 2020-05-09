@@ -2,10 +2,8 @@ package com.project.dto;
 
 public class Jou {
 	
-	Container c;
 
-
-
+	Container c = new Container();
 	public boolean onGoing = true;
 	public String OriginPort;
 	public String Destination;
@@ -13,6 +11,7 @@ public class Jou {
 	public String Company;
 	public String JourneyID;
 	private Boolean hasID;
+  public ArrayList<Container> Container;
 
     public Jou(String op , String dest , String cont , String comp )	{
     	
@@ -66,6 +65,11 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
+  public ArrayList<Container> getContainer() {
+		return Container;
+	}
+	public void setContainer(ArrayList<Container> container) {
+		Container = container;
 
 	public Boolean getHasID() {
 		return hasID;
@@ -91,9 +95,9 @@ public class Jou {
 			
 			
 			updateResponse = new ResponseObject(code, "current position succesfully updated");
-			if(c.getCurrentPosition().equals(getDestination())) {
+			if(this.c.getCurrentPosition().equals(this.getDestination())) {
 				this.onGoing = false;
-				updateResponse = new ResponseObject(code, "current position succesfully updated and the journey is terminated");
+				updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
 			}
 			
 			return updateResponse;

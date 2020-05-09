@@ -26,7 +26,7 @@ Feature: Company updates journey information
 		And an update choice "current position"
 		
   @tag1
-  Scenario: The company updates the current position"
+  Scenario: The company updates the current position
      
     When Update current position to "CPH" 
     Then the current position is updated

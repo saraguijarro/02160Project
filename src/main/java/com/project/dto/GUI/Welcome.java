@@ -47,11 +47,11 @@ public class Welcome extends javax.swing.JFrame {
         jLabel1.setName(""); // NOI18N
 
         logIn_Company.setText("Log-In as Logistics Company");
-        logIn_Company.addActionListener(this::LogIn_CompanyActionPerformed);
+        logIn_Company.addActionListener(Controller.Listeners::LogIn_CompanyActionPerformed);
 
         logIn_Client.setText("Log-In as Client");
         logIn_Client.setMaximumSize(new java.awt.Dimension(120, 45));
-        logIn_Client.addActionListener(this::LogIn_ClientActionPerformed);
+        logIn_Client.addActionListener(Controller.Listeners::LogIn_CompanyActionPerformed);
 
         aboutDialog1.setText("About Software");
         aboutDialog1.addActionListener((ActionEvent ev) -> {
@@ -95,19 +95,7 @@ public class Welcome extends javax.swing.JFrame {
 //    }
 
 
-    private void LogIn_CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_CompanyActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        LogIn.newScreen("company");
-    }//GEN-LAST:event_LogIn_CompanyActionPerformed
-
-    private void LogIn_ClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ClientActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        LogIn.newScreen("client");
-        
-        
-    }//GEN-LAST:event_LogIn_ClientActionPerformed
+    
     /**
      * 
      */

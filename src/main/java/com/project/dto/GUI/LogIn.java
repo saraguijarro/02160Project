@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
  */
 public class LogIn extends javax.swing.JFrame {
 
-    private final LoginService loginService = new LoginService();
+    final LoginService loginService = new LoginService();
     /**
      * Creates new form LogIn
      */
@@ -32,8 +32,8 @@ public class LogIn extends javax.swing.JFrame {
 
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
-        jTextField1 = new JTextField();
-        jPasswordField1 = new JPasswordField();
+        fieldName = new JTextField();
+        fieldPassword = new JPasswordField();
         errorLabel = new JLabel();
         Confirm = new JButton();
 
@@ -46,7 +46,7 @@ public class LogIn extends javax.swing.JFrame {
         jLabel2.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         jLabel2.setText("Password:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        fieldName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
@@ -58,7 +58,7 @@ public class LogIn extends javax.swing.JFrame {
         errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-        Confirm.addActionListener(this::ConfirmActionPerformed);
+        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,8 +78,8 @@ public class LogIn extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))
+                            .addComponent(fieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(fieldPassword))
                         .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
@@ -88,11 +88,11 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(errorLabel)
@@ -109,35 +109,7 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
     
     static String loggedIn;
-    private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
-                // TODO add your handling code here:
-                if (loggedIn.equals("client")){
-                    String username = jTextField1.getText();
-                    String password = new String(jPasswordField1.getPassword());
-
-                    ResponseObject responseObject = loginService.loginClient(username, password);
-                    if (responseObject == null) {
-                        ClientMainMenu.newScreen();
-                        dispose();
-                    } else {
-                        errorLabel.setText(responseObject.getMessage());
-                        errorLabel.setVisible(true);
-                    }
-                }
-                else if (loggedIn.equals("company")){
-                    String username = jTextField1.getText();
-                    String password = new String(jPasswordField1.getPassword());
-
-                    ResponseObject responseObject = loginService.loginCompany(username, password);
-                    if (responseObject == null) {
-                        CompMainMenu.newScreen();
-                        dispose();
-                    } else {
-                        errorLabel.setText(responseObject.getMessage());
-                        errorLabel.setVisible(true);
-                    }
-                }
-    }//GEN-LAST:event_ConfirmActionPerformed
+    
 
     /**
      * 
@@ -178,8 +150,8 @@ public class LogIn extends javax.swing.JFrame {
     private JButton Confirm;
     private JLabel jLabel1;
     private JLabel jLabel2;
-    private JLabel errorLabel;
-    private JPasswordField jPasswordField1;
-    private JTextField jTextField1;
+    JLabel errorLabel;
+    JPasswordField fieldPassword;
+    JTextField fieldName;
     // End of variables declaration//GEN-END:variables
 }
