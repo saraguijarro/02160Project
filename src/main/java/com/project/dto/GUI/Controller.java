@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.project.dto.Address;
 import com.project.dto.Application;
 import com.project.dto.Client;
+import com.project.dto.Container;
 import com.project.dto.LogisticCompany;
 import com.project.dto.ResponseObject;
 import com.project.dto.User;
@@ -30,7 +31,7 @@ public class Controller {
 	static CompJourneyContainer_Details compJourneyContainer_Details = new CompJourneyContainer_Details();
 	static CompMainMenu compMainMenu = new CompMainMenu();
 	static ContainerHistory containerHistory = new ContainerHistory();
-	static ContainerStorage containerStorage = new ContainerStorage();
+	//static ContainerStorage containerStorage = new ContainerStorage();
 	static JourneyRegister journeyRegister = new JourneyRegister();
 	static LogIn logIn = new LogIn();
 	static Warning saved = new Warning();
@@ -47,7 +48,7 @@ public class Controller {
 
 		Welcome.newScreen();
 		
-		//company.getClientDatabase().findAll();
+		company.getClientDatabase().findAll();
 				
 	}
 	
@@ -56,6 +57,7 @@ public class Controller {
 
 		static ClientDatabase CDB = company.getClientDatabase();
 		static ArrayList<Client> clients = CDB.getClients();
+		static ArrayList<Container> containers = company.getContainerDatabase().getContainers();
 		
 		public static void closure() {
 			
@@ -85,6 +87,34 @@ public class Controller {
 				finalTable[i][6] = clients.get(i).getAddress().getStreetNumber();
 				finalTable[i][7] = clients.get(i).getReferencePerson();
 				finalTable[i][8] = clients.get(i).getEmail();
+				
+			}
+			return finalTable;
+		}
+		
+		public static Object[][] tableContainerSetter() {
+			
+			Object[][] finalTable;
+			
+				
+				
+			containers = company.getContainerDatabase().getContainers();
+			
+			
+			finalTable = new String[containers.size()][6];
+			
+			for (int i = 0; i<clients.size();i++) {
+				finalTable[i][0] = containers.get(i).getContainerID();
+				finalTable[i][1] = containers.get(i).getCurrentPosition();
+				finalTable[i][2] = containers.get(i).getTemperature().get(containers.get(i).getTemperature().size()-1);
+				finalTable[i][3] = containers.get(i).getHumidity().get(containers.get(i).getHumidity().size()-1);
+				finalTable[i][4] = containers.get(i).getPressure().get(containers.get(i).getPressure().size()-1);	
+				if (containers.get(i).getInJourney()) {
+					finalTable[i][5] = containers.get(i).getJourneys().get(containers.get(i).getJourneys().size() -1);
+				}
+				else {
+					finalTable[i][5] = "No current journey.";
+				}
 				
 			}
 			return finalTable;

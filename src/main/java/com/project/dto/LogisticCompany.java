@@ -13,7 +13,16 @@ public class LogisticCompany extends User {
 	private String details;
 	
 	public ClientDatabase clientDatabase = new ClientDatabase();
+	public ContainerDB containerDatabase = new ContainerDB();
 	
+	public ContainerDB getContainerDatabase() {
+		return containerDatabase;
+	}
+
+	public void setContainerDatabase(ContainerDB containerDatabase) {
+		this.containerDatabase = containerDatabase;
+	}
+
 	public ClientDatabase getClientDatabase() {
 		return clientDatabase;
 	}

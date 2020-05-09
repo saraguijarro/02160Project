@@ -63,7 +63,7 @@ public class Client extends User{
 	
 	public void setAddress(String add) {
 		if (add.equals("None")) {this.setAddress(new Address("None","None","None","None","None"));}
-		else {this.setAddress(new Address(add));}
+		
 	}
 	
 	public String getName() {
@@ -139,7 +139,7 @@ public class Client extends User{
 			   ||this.address.getPostcode().toLowerCase().contains(searchword.toLowerCase())
 			   ||this.address.getStreetName().toLowerCase().contains(searchword.toLowerCase())
 			   ||this.address.getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
+			    )
 				{code = 132;message = "address";}
 		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
 		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}

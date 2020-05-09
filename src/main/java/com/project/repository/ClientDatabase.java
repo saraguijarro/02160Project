@@ -146,7 +146,7 @@ public class ClientDatabase {
 				   || this.clients.get(i).getAddress().getPostcode().toLowerCase().contains(searchword.toLowerCase())
 				   || this.clients.get(i).getAddress().getStreetName().toLowerCase().contains(searchword.toLowerCase())
 				   || this.clients.get(i).getAddress().getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
-				   || this.clients.get(i).getAddress().getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
+				   )
 					{foundClients.add(this.clients.get(i));}
 			}
 		}

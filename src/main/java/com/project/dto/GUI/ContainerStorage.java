@@ -18,6 +18,7 @@ public class ContainerStorage extends javax.swing.JFrame {
     public ContainerStorage() {
         initComponents();
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,6 +37,14 @@ public class ContainerStorage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Containers");
 
+        Object [][] tableBody = Controller.Requests.tableClientSetter("all", null, null);
+        String [] tableTitles = new String [] {
+                "ID", "Current Position", "Internal Temperature", "Air Humidity", "Atm. Pressure", "Corresponding Journey"
+            };
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
+        jScrollPane1.setViewportView(jTable1);
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
