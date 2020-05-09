@@ -1,8 +1,5 @@
 package com.project.dto.GUI;
 
-import com.project.dto.ResponseObject;
-import com.project.service.LoginService;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +10,6 @@ import java.awt.event.ActionEvent;
  */
 public class LogIn extends javax.swing.JFrame {
 
-    final LoginService loginService = new LoginService();
     /**
      * Creates new form LogIn
      */
@@ -58,7 +54,7 @@ public class LogIn extends javax.swing.JFrame {
         errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
+//        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

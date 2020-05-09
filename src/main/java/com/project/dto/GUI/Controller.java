@@ -1,12 +1,11 @@
 package com.project.dto.GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import com.project.dto.Application;
 import com.project.dto.LogisticCompany;
-import com.project.dto.ResponseObject;
 import com.project.dto.User;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Controller {
 	
@@ -57,35 +56,35 @@ public class Controller {
 	    }//GEN-LAST:event_LogIn_ClientActionPerformed
 	        
 	        
-        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
-            
-            if (LogIn.loggedIn.equals("client")){
-                String username = logIn.fieldName.getText();
-                String password = new String(logIn.fieldPassword.getPassword());
-
-                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
-                if (responseObject == null) {
-                    ClientMainMenu.newScreen();
-                    logIn.dispose();
-                } else {
-                    logIn.errorLabel.setText(responseObject.getMessage());
-                    logIn.errorLabel.setVisible(true);
-                }
-            }
-            else if (logIn.loggedIn.equals("company")){
-                String username = logIn.fieldName.getText();
-                String password = new String(logIn.fieldPassword.getPassword());
-
-                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
-                if (responseObject == null) {
-                    CompMainMenu.newScreen();
-                    logIn.dispose();
-                } else {
-                    logIn.errorLabel.setText(responseObject.getMessage());
-                    logIn.errorLabel.setVisible(true);
-                }
-            }
-    }//GEN-LAST:event_ConfirmActionPerformed
+//        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+//
+//            if (LogIn.loggedIn.equals("client")){
+//                String username = logIn.fieldName.getText();
+//                String password = new String(logIn.fieldPassword.getPassword());
+//
+//                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
+//                if (responseObject == null) {
+//                    ClientMainMenu.newScreen();
+//                    logIn.dispose();
+//                } else {
+//                    logIn.errorLabel.setText(responseObject.getMessage());
+//                    logIn.errorLabel.setVisible(true);
+//                }
+//            }
+//            else if (logIn.loggedIn.equals("company")){
+//                String username = logIn.fieldName.getText();
+//                String password = new String(logIn.fieldPassword.getPassword());
+//
+//                ResponseObject responseObject = logIn.loginCompany(username, password);
+//                if (responseObject == null) {
+//                    CompMainMenu.newScreen();
+//                    logIn.dispose();
+//                } else {
+//                    logIn.errorLabel.setText(responseObject.getMessage());
+//                    logIn.errorLabel.setVisible(true);
+//                }
+//            }
+//    }//GEN-LAST:event_ConfirmActionPerformed
 	        
 	        
 	    
