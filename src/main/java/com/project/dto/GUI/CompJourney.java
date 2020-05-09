@@ -1,13 +1,9 @@
 package com.project.dto.GUI;
 
 
-import com.project.dto.JourneyEntity;
-import com.project.repository.JourneyRepository;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *

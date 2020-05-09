@@ -1,13 +1,10 @@
 package com.project.dto;
 
-import java.sql.Time;
-
 import com.project.repository.*;
 
 
 public class LogisticCompany extends User {
 
-	
 	private String name;
 	private String password;
 	private String details;
@@ -57,7 +54,4 @@ public class LogisticCompany extends User {
 	public void setDetails(String details) {
 		this.details = details;
 	}
-
-	
-
 }

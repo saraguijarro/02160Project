@@ -1,6 +1,5 @@
 package com.project.dto;
 
-import java.util.ArrayList;
 
 public class Jou {
 	
@@ -15,6 +14,7 @@ public class Jou {
 	public String JourneyID;
 	private Boolean hasID;
 	private String containerID;
+
 
 
 
@@ -72,7 +72,7 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
-	
+
 
 	public Boolean getHasID() {
 		return hasID;
