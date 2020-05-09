@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 
 public interface Repository<T> {
-    T find(String id);
 
     ArrayList<T> findAll();
 
