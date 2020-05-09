@@ -61,8 +61,6 @@ public class ContainerStatusRepository implements Repository<Container> {
     }
 
 
-
-
     private static Container map(ResultSet resultSet) throws SQLException {
         Container obj = new Container();
 
