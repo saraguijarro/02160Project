@@ -404,6 +404,10 @@ public class StepDefinition {
 
 	//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
 
+	//Scenario: Client registers a journey
+
+	//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
+
 	@Given("a new generated container")
 	public void a_new_generated_container() {
 		selectedContainer = new Container(CDB , journey.OriginPort);
@@ -415,6 +419,10 @@ public class StepDefinition {
 		con = new Container(CDB , "123");
 		CDB.getContainers().add(con);
 	}
+
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is available ones at the port of origin.
+
+//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
 
 	//Scenario: The client gives all information about the container's journey, chooses a new container when there is available ones at the port of origin.
 
@@ -429,7 +437,7 @@ public class StepDefinition {
 		con = new Container(CDB , "Beirut");
 		j1.setC(con);
 	}
-	
+
 	@Given("a container with the ID {string}")
 	public void a_container_with_the_ID(String CID) {
 		con = new Container(true , CID);
@@ -642,7 +650,7 @@ public class StepDefinition {
 	}
 
 	//Scenario: Retrieve data from the journey evolution
-		
+
 	/*
 	@Given("a container with a container id {string}")
 	public void a_container_with_a_container_id(String containerID) {
@@ -665,13 +673,4 @@ public class StepDefinition {
 	public void the_system_retrieves_the_location() {
 		assertEquals(historyLocation,retrievedLocation);
 	}
-
-
-
-
-
-
-
-
-
 }
