@@ -1,24 +1,28 @@
 package com.project.repository;
 
-import com.project.dto.Jou;
+import com.project.dto.JourneyEntity;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * The JourneyEntity repository implementation.
  */
-public class JourneyRepository implements Repository<Jou> {
-    final static Logger log = Logger.getLogger(Jou.class);
+public class JourneyRepository implements Repository<JourneyEntity> {
+    final static Logger log = Logger.getLogger(JourneyEntity.class);
 
     @Override
-    public Jou find(String id) {
+    public JourneyEntity find(String id) {
         log.debug("Start method...");
 
-        Jou obj = null;
+        JourneyEntity obj = null;
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
@@ -38,9 +42,9 @@ public class JourneyRepository implements Repository<Jou> {
     }
 
     @Override
-    public ArrayList<Jou> findAll() {
+    public ArrayList<JourneyEntity> findAll() {
         log.debug("Start method...");
-        ArrayList<Jou> users = new ArrayList<>();
+        ArrayList<JourneyEntity> users = new ArrayList<>();
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
@@ -58,22 +62,21 @@ public class JourneyRepository implements Repository<Jou> {
         return users;
     }
 
-
     @Override
-    public Jou create(Jou obj) {
+    public JourneyEntity create(JourneyEntity obj) {
         log.debug("Start method...");
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO journeys (id, origin, destination, company, description, ongoing) " +
+                    " INSERT INTO journeys (id, origin, destination, container_id, company, description) " +
                             " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, obj.getJourneyID());
-            prepared.setString(2, obj.getOriginPort());
+            prepared.setString(1, UUID.randomUUID().toString());
+            prepared.setString(2, obj.getOrigin());
             prepared.setString(3, obj.getDestination());
-            prepared.setString(4, obj.getCompany());
-            prepared.setString(5, obj.getContent());
-            prepared.setBoolean(6, obj.isOnGoing());
+            prepared.setString(4, obj.getContainerId());
+            prepared.setString(5, obj.getCompany());
+            prepared.setString(6, obj.getDescription());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
@@ -83,35 +86,72 @@ public class JourneyRepository implements Repository<Jou> {
         return obj;
     }
 
+
     @Override
-    public void putAllInDatabase(ArrayList<Jou> entitiesList) {
+    public JourneyEntity update(JourneyEntity obj)
+    {
         log.debug("Start method...");
 
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " TRUNCATE TABLE journeys");
-            prepared.executeUpdate();
+                    " UPDATE journeys "
+                            + " SET origin =?, "
+                            + " destination=?, "
+                            + " description=?, "
+                            + " company=?"
+                            + " WHERE ID=? ");
+
+            prepared.setString(1, obj.getOrigin());
+            prepared.setString(2, obj.getDestination());
+            prepared.setString(3, obj.getDescription());
+            prepared.setString(4, obj.getOrigin());
+            prepared.setString(5, obj.getId());
+
+
         } catch (SQLException e)
         {
-            log.error("Error truncating the table: " + e);
+            log.error("Error updating client : " + e);
         }
-
-        entitiesList.forEach(this::create);
 
         log.debug("End method.");
 
+        return obj;
     }
 
 
-    private static Jou map(ResultSet resultSet) throws SQLException {
-        Jou obj = new Jou();
+    @Override
+    public int delete(String id) {
+        log.debug("Start method...");
+        int affectedRows = 0;
+        try {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    " DELETE FROM journeys "
+                    + " WHERE id=? ");
+
+            prepared.setString(1, id);
+
+            // execute query and get the affected rows number :
+            affectedRows = prepared.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error("Error deleting journey : " + e);
+        }
+
+        log.debug("End method.");
+
+        return affectedRows;
+    }
+
+
+    private static JourneyEntity map(ResultSet resultSet) throws SQLException {
+        JourneyEntity obj = new JourneyEntity();
 
         obj.setCompany(resultSet.getString("company"));
-        obj.setContent(resultSet.getString("description"));
-        obj.setOnGoing(resultSet.getBoolean("ongoing"));
+        obj.setDescription(resultSet.getString("description"));
+        obj.setContainerId(resultSet.getString("container_id"));
         obj.setDestination(resultSet.getString("destination"));
-        obj.setOriginPort(resultSet.getString("origin"));
+        obj.setOrigin(resultSet.getString("origin"));
         return obj;
     }
 }
