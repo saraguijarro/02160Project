@@ -32,7 +32,7 @@ public class Controller {
 	static UpdateStatus updateStatus = new UpdateStatus();
 	static Welcome welcome = new Welcome();
 	
-	
+
 	
 	static public void initialize() {
 		//Import all the objects from SQL tables
@@ -56,35 +56,18 @@ public class Controller {
 	    }//GEN-LAST:event_LogIn_ClientActionPerformed
 	        
 	        
-//        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
-//
-//            if (LogIn.loggedIn.equals("client")){
-//                String username = logIn.fieldName.getText();
-//                String password = new String(logIn.fieldPassword.getPassword());
-//
-//                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
-//                if (responseObject == null) {
-//                    ClientMainMenu.newScreen();
-//                    logIn.dispose();
-//                } else {
-//                    logIn.errorLabel.setText(responseObject.getMessage());
-//                    logIn.errorLabel.setVisible(true);
-//                }
-//            }
-//            else if (logIn.loggedIn.equals("company")){
-//                String username = logIn.fieldName.getText();
-//                String password = new String(logIn.fieldPassword.getPassword());
-//
-//                ResponseObject responseObject = logIn.loginCompany(username, password);
-//                if (responseObject == null) {
-//                    CompMainMenu.newScreen();
-//                    logIn.dispose();
-//                } else {
-//                    logIn.errorLabel.setText(responseObject.getMessage());
-//                    logIn.errorLabel.setVisible(true);
-//                }
-//            }
-//    }//GEN-LAST:event_ConfirmActionPerformed
+        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+
+            if (LogIn.loggedIn.equals("client")){
+            	ClientMainMenu.newScreen();
+
+
+            }
+            else if (logIn.loggedIn.equals("company")){
+            	CompMainMenu.newScreen();
+				logIn.dispose();
+            }
+    }//GEN-LAST:event_ConfirmActionPerformed
 	        
 	        
 	    

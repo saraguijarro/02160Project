@@ -54,7 +54,7 @@ public class LogIn extends javax.swing.JFrame {
         errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-//        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
+        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
