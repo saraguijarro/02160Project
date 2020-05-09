@@ -11,12 +11,10 @@ public interface Repository<T> {
 
     T create(T obj);
 
-    T update(T obj);
 
     // TODO: to make it as simple abstract method when all repositories will implement it
     default void putAllInDatabase(ArrayList<T> entitiesList) {
         throw new RuntimeException("Method was not implemented for specific repository");
     }
 
-    int delete(String id);
 }
