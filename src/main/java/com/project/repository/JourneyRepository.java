@@ -14,28 +14,6 @@ import java.util.ArrayList;
 public class JourneyRepository implements Repository<Jou> {
     final static Logger log = Logger.getLogger(Jou.class);
 
-    @Override
-    public Jou find(String id) {
-        log.debug("Start method...");
-
-        Jou obj = null;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM journeys WHERE id=?");
-            prepared.setString(1, id);
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first()) {
-                obj = map(result);
-            }
-        } catch (SQLException e) {
-            log.error("Error finding container : " + e);
-        }
-
-        log.debug("End method.");
-        return obj;
-    }
 
     @Override
     public ArrayList<Jou> findAll() {

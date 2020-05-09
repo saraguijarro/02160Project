@@ -15,12 +15,9 @@ public class ClientDatabase {
 		return clients;
 	}
 
-
-
 	public void setClients(ArrayList<Client> clients) {
 		this.clients = clients;
 	}
-
 
 	public ClientDatabase() {
 		super();

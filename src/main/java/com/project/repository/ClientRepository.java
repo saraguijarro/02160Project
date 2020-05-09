@@ -21,65 +21,6 @@ public class ClientRepository implements Repository<Client>
 {
     final static Logger log = Logger.getLogger(ClientRepository.class);
 
-
-    @Override
-    public Client find(String id)
-    {
-        log.debug("Start method...");
-
-        Client obj = null;
-
-        try
-        {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM client WHERE ID=?");
-
-            prepared.setString(1, id);
-
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first())
-            {
-                obj = map(result);
-            }
-
-        } catch (SQLException e)
-        {
-            log.error("Error finding client : " + e);
-        }
-
-        log.debug("End method.");
-
-        return obj;
-
-    }
-
-    public Client loginUser(String Name, String password) {
-        log.debug("Start method...");
-
-        Client obj = null;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM client WHERE Name=?");
-            prepared.setString(1, Name);
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first()) {
-                obj = map(result);
-            }
-        } catch (SQLException e) {
-            log.error("Error finding user : " + e);
-        }
-
-        if (obj == null || !obj.getPassword().equals(hashString(password))) {
-            return null;
-        }
-
-        log.debug("End method.");
-        return obj;
-    }
-
     @Override
     public ArrayList<Client> findAll()
     {
@@ -146,70 +87,6 @@ public class ClientRepository implements Repository<Client>
         return Hashing.sha256()
                 .hashString(string, StandardCharsets.UTF_8)
                 .toString();
-    }
-
-    @Override
-    public Client update(Client obj)
-    {
-        log.debug("Start method...");
-
-
-        try
-        {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " UPDATE client "
-                    + " SET Name=?, "
-                    + " Address=?, "
-                    + " Reference_person=?, "
-                    + "Email=?," +
-                            "Password=?"
-                    + " WHERE ID=? ");
-
-            prepared.setString(1, obj.getName());
-            prepared.setString(2, String.valueOf(obj.getAddress()));
-            prepared.setString(3, obj.getReferencePerson());
-            prepared.setString(4, obj.getEmail());
-            prepared.setString(5, hashString(obj.getPassword()));
-
-        } catch (SQLException e)
-        {
-            log.error("Error updating client : " + e);
-        }
-
-        log.debug("End method.");
-
-        return obj;
-    }
-
-    /**
-     * Delete a single record.
-     */
-    @Override
-    public int delete(String id)
-    {
-        log.debug("Start method...");
-
-        int affectedRows = 0;
-
-        try
-        {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM client "
-                    + " WHERE ID=? ");
-
-            prepared.setString(1, id);
-
-            // execute query and get the affected rows number :
-            affectedRows = prepared.executeUpdate();
-
-        } catch (SQLException e)
-        {
-            log.error("Error deleting client : " + e);
-        }
-
-        log.debug("End method.");
-
-        return affectedRows;
     }
 
     @Override

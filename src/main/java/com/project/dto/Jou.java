@@ -1,6 +1,5 @@
 package com.project.dto;
 
-import java.util.ArrayList;
 
 public class Jou {
 	
@@ -14,7 +13,7 @@ public class Jou {
 	public String Company;
 	public String JourneyID;
 	private Boolean hasID;
-	
+
 
     public Jou(String op , String dest , String cont , String comp )	{
     	
@@ -70,7 +69,7 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
-	
+
 
 	public Boolean getHasID() {
 		return hasID;
