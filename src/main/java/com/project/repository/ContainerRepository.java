@@ -1,27 +1,27 @@
 package com.project.repository;
 
-import com.project.dto.ContainerEntity;
+import com.project.dto.Container;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The ContainerEntity repository implementation.
  */
-public class ContainerRepository implements Repository<ContainerEntity> {
-    final static Logger log = Logger.getLogger(ContainerEntity.class);
+public class ContainerRepository implements Repository<Container> {
+    final static Logger log = Logger.getLogger(Container.class);
 
     @Override
-    public ContainerEntity find(String id) {
+    public Container find(String id) {
         log.debug("Start method...");
 
-        ContainerEntity obj = null;
+        Container obj = null;
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
@@ -41,9 +41,9 @@ public class ContainerRepository implements Repository<ContainerEntity> {
     }
 
     @Override
-    public ArrayList<ContainerEntity> findAll() {
+    public ArrayList<Container> findAll() {
         log.debug("Start method...");
-        ArrayList<ContainerEntity> users = new ArrayList<>();
+        ArrayList<Container> users = new ArrayList<>();
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
@@ -62,17 +62,20 @@ public class ContainerRepository implements Repository<ContainerEntity> {
     }
 
     @Override
-    public ContainerEntity create(ContainerEntity obj) {
+    public Container create(Container obj) {
         log.debug("Start method...");
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO containers (id, name, description) "
-                    + " VALUES(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO containers (id, position, temperature, humidity, pressure, in_journey) "
+                            + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, UUID.randomUUID().toString());
-            prepared.setString(2, obj.getName());
-            prepared.setString(3, obj.getDescription());
+            prepared.setString(1, obj.getContainerID());
+            prepared.setString(2, obj.getCurrentPosition());
+//            prepared.setString(2, obj.getCurrentPosition());
+//            prepared.setString(2, obj.getCurrentPosition());
+//            prepared.setString(2, obj.getCurrentPosition());
+            prepared.setBoolean(3, obj.getInJourney());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
@@ -83,41 +86,31 @@ public class ContainerRepository implements Repository<ContainerEntity> {
     }
 
     @Override
-    public ContainerEntity update(ContainerEntity obj) {
-        throw new UnsupportedOperationException();
-    }
-
-
-    @Override
-    public int delete(String id) {
+    public void putAllInDatabase(ArrayList<Container> entitiesList) {
         log.debug("Start method...");
-        int affectedRows = 0;
-        try {
+
+        try
+        {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM containers "
-                    + " WHERE id=? ");
-
-            prepared.setString(1, id);
-
-            // execute query and get the affected rows number :
-            affectedRows = prepared.executeUpdate();
-
-        } catch (SQLException e) {
-            log.error("Error deleting container : " + e);
+                    " TRUNCATE TABLE journeys");
+            prepared.executeUpdate();
+        } catch (SQLException e)
+        {
+            log.error("Error truncating the table: " + e);
         }
+
+        entitiesList.forEach(this::create);
 
         log.debug("End method.");
 
-        return affectedRows;
     }
 
+    private static Container map(ResultSet resultSet) throws SQLException {
+        Container obj = new Container();
 
-    private static ContainerEntity map(ResultSet resultSet) throws SQLException {
-        ContainerEntity obj = new ContainerEntity();
-
-        obj.setId(resultSet.getString("id"));
-        obj.setDescription(resultSet.getString("description"));
-        obj.setName(resultSet.getString("name"));
+        obj.setContainerID(resultSet.getString("id"));
+        obj.setCurrentPosition(resultSet.getString("Position"));
+        obj.setInJourney(resultSet.getBoolean("In Journey"));
         return obj;
     }
 }
