@@ -1,11 +1,9 @@
 package com.project.dto.GUI;
 
-import com.project.dto.Application;
-import com.project.dto.LogisticCompany;
-import com.project.dto.User;
+import com.project.dto.*;
+import com.project.repository.ClientDatabase;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Controller {
 	
@@ -21,14 +19,14 @@ public class Controller {
 	static ClientProfile clientProfile = new ClientProfile();
 	static ClientProfileEdit clientProfileEdit= new ClientProfileEdit();
 	static ClientRegister clientRegister = new ClientRegister();
-	static CompClients compClients = new CompClients();
+	static CompClients compClients;
 	static CompJourneyContainer_Details compJourneyContainer_Details = new CompJourneyContainer_Details();
 	static CompMainMenu compMainMenu = new CompMainMenu();
 	static ContainerHistory containerHistory = new ContainerHistory();
 	static ContainerStorage containerStorage = new ContainerStorage();
 	static JourneyRegister journeyRegister = new JourneyRegister();
 	static LogIn logIn = new LogIn();
-	static Saved saved = new Saved();
+	static Warning saved = new Warning();
 	static UpdateStatus updateStatus = new UpdateStatus();
 	static Welcome welcome = new Welcome();
 	
@@ -37,59 +35,67 @@ public class Controller {
 	static public void initialize() {
 		//Import all the objects from SQL tables
 		company = new LogisticCompany("Maersk","0000","details");
+		company.getClientDatabase().registering(new Client("Harry", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
+		company.getClientDatabase().registering(new Client("Jo", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
+
 		Welcome.newScreen();
-				
+
+		//company.getClientDatabase().findAll();
+
 	}
 	
 	
-	public static class Listeners implements ActionListener{
-		
-		static void LogIn_CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_CompanyActionPerformed
-			welcome.dispose();
-	        LogIn.newScreen("company");
-	    }//GEN-LAST:event_LogIn_CompanyActionPerformed    
-	    
+	public static class Requests{
 
-	    static void LogIn_ClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ClientActionPerformed
-	        welcome.dispose();
-	        LogIn.newScreen("client");
-	    }//GEN-LAST:event_LogIn_ClientActionPerformed
-	        
-	        
-        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+		static ClientDatabase CDB = company.getClientDatabase();
+		static ArrayList<Client> clients = CDB.getClients();
 
-            if (LogIn.loggedIn.equals("client")){
-            	ClientMainMenu.newScreen();
+		public static void closure() {
 
 
-            }
-            else if (logIn.loggedIn.equals("company")){
-            	CompMainMenu.newScreen();
-				logIn.dispose();
-            }
-    }//GEN-LAST:event_ConfirmActionPerformed
-	        
-	        
-	    
-
-
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
+
+		public static Object[][] tableClientSetter(String mode, String filter, String searchword) {
+
+			Object[][] finalTable;
+
+			if (mode.equals("all")){
+				clients = CDB.getClients();
+			}
+			else if(mode.equals("filter")) {
+				clients = CDB.searchClient(searchword, filter);
+			}
+
+			finalTable = new String[clients.size()][9];
+
+			for (int i = 0; i<clients.size();i++) {
+				finalTable[i][0] = clients.get(i).getClientID();
+				finalTable[i][1] = clients.get(i).getName();
+				finalTable[i][2] = clients.get(i).getAddress().getCountry();
+				finalTable[i][3] = clients.get(i).getAddress().getCity();
+				finalTable[i][4] = clients.get(i).getAddress().getPostcode();
+				finalTable[i][5] = clients.get(i).getAddress().getStreetName();
+				finalTable[i][6] = clients.get(i).getAddress().getStreetNumber();
+				finalTable[i][7] = clients.get(i).getReferencePerson();
+				finalTable[i][8] = clients.get(i).getEmail();
+
+			}
+			return finalTable;
+		}
+
+		public static ResponseObject registerClient(String name, String country, String city, String postcode, String streetname, String streetnumber, String referenceperson, String email) {
+			Address addr = new Address(country, city, postcode, streetname, streetnumber );
+
+			Client cl = new Client(name, addr, referenceperson, email, "0000");
+			ResponseObject response = CDB.registering(cl);
+
+			return response;
+		}
+
+	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	public static void main(String[] args) {
 		initialize();
 	}

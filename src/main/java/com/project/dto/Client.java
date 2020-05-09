@@ -143,6 +143,7 @@ public class Client extends User{
 				{code = 132;message = "address";}
 		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
 		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}
+		else if(this.clientID.toLowerCase().contains(searchword.toLowerCase())){code = 135; message="id";}
 				
 		ResponseObject isFoundResponse = new ResponseObject(code,message);
 		return isFoundResponse;

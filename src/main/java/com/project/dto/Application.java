@@ -12,15 +12,19 @@ public class Application {
 
         if (loginType.equals("Company")){
             if (username.equals("Maersk")){matchUsername=true;}
+            if (password.equals(company.getPassword())){matchPassword=true;}
+            
         }
-        if (password.equals(company.getPassword())){matchPassword=true;}
+        
 
         else if (loginType.equals("Client")){
-            ArrayList<Client> matchedClients = company.clientDatabase.searchClient(username, "email");
+            ArrayList<Client> matchedClients = company.clientDatabase.searchClient(username, "name");
             int matchSize = matchedClients.size();
             if (matchSize == 1) {
-                if (username.equals(matchedClients.get(0).getEmail())){matchUsername=true;}
+                if (username.equals(matchedClients.get(0).getName())){matchUsername=true;}
                 if (password.equals(matchedClients.get(0).getPassword())){matchPassword=true;}
+                
+                
             }
 
         }

@@ -1,5 +1,6 @@
 package com.project.dto.GUI;
 
+import com.project.dto.ResponseObject;
 
 /**
  *
@@ -29,14 +30,14 @@ public class ClientRegister extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        referencePersonField = new javax.swing.JTextField();
+        countryField = new javax.swing.JTextField();
+        cityField = new javax.swing.JTextField();
+        postcodeField = new javax.swing.JTextField();
+        streetNameField = new javax.swing.JTextField();
+        streetNumberField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -70,27 +71,27 @@ public class ClientRegister extends javax.swing.JFrame {
 
         jLabel4.setText("Reference Person:");
 
-        jTextField1.setText("jTextField1");
+        nameField.setText("");
 
-        jTextField3.setText("jTextField3");
+        emailField.setText("");
 
-        jTextField4.setText("jTextField4");
+        referencePersonField.setText("");
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jTextField5.setText("jTextField2");
+        countryField.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        countryField.setText("");
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jTextField6.setText("jTextField3");
+        cityField.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        cityField.setText("");
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jTextField7.setText("jTextField4");
+        postcodeField.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        postcodeField.setText("");
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jTextField8.setText("jTextField5");
+        streetNameField.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        streetNameField.setText("");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jTextField9.setText("jTextField6");
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        streetNumberField.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        streetNumberField.setText("");
+        streetNumberField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField9ActionPerformed(evt);
             }
@@ -127,10 +128,10 @@ public class ClientRegister extends javax.swing.JFrame {
                                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel4))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField4))
+                                        .addComponent(referencePersonField))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(63, 63, 63)
-                                        .addComponent(jTextField3)))
+                                        .addComponent(emailField)))
                                 .addGap(103, 103, 103))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,7 +143,7 @@ public class ClientRegister extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(149, 149, 149))
@@ -152,7 +153,7 @@ public class ClientRegister extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(streetNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel5)
@@ -161,11 +162,11 @@ public class ClientRegister extends javax.swing.JFrame {
                                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField7)
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(postcodeField)
+                                            .addComponent(cityField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(streetNameField, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(countryField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE)))))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -175,37 +176,37 @@ public class ClientRegister extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(countryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(postcodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(streetNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(streetNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(referencePersonField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,12 +231,34 @@ public class ClientRegister extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        CompClients CompCl = new CompClients();
-        CompCl.newScreen();
-        dispose();
+    	String name = nameField.getText();
+        String email = emailField.getText();
+        String referencePerson = referencePersonField.getText();
+        String country = countryField.getText();
+        String city = cityField.getText();
+        String postcode = postcodeField.getText();
+        String streetName = streetNameField.getText();
+        String streetNumber = streetNumberField.getText();
         
-        Saved save = new Saved();
-        save.newScreen();
+        ResponseObject registerResponse = Controller.Requests.registerClient(name, country, city, postcode, streetName, streetNumber, referencePerson, email);
+    	
+    	
+        if (registerResponse.getCode() == 100 || registerResponse.getCode() == 101) {
+        	CompClients CompCl = new CompClients();
+            CompCl.newScreen();
+            dispose();
+            
+            Warning save = new Warning();
+            save.newScreen(registerResponse.getMessage());
+            
+        } else {
+        	Warning wrong = new Warning();
+            wrong.newScreen(registerResponse.getMessage());
+        }
+    	
+        
+        
+        
     }//GEN-LAST:event_saveActionPerformed
 
     /**
@@ -284,14 +307,14 @@ public class ClientRegister extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JTextField referencePersonField;
+    private javax.swing.JTextField countryField;
+    private javax.swing.JTextField cityField;
+    private javax.swing.JTextField postcodeField;
+    private javax.swing.JTextField streetNameField;
+    private javax.swing.JTextField streetNumberField;
     private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }

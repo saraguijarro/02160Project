@@ -218,7 +218,7 @@ public class StepDefinition {
 
 	@When("Logging-in")
 	public void logging_in() {
-	    loginResponse = app.login(loginType, username, password, company);
+	    loginResponse = Application.login(loginType, username, password, company);
 	}
 
 	@Then("Log-in is succesfull")

@@ -58,10 +58,10 @@ Feature: Loggin in the application
     Then Log-in fails
     
     
-   Scenario: Client succesfull log-in (email)
+   Scenario: Client succesfull log-in (name)
     Given The log-in type "Client"
     And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "miguel@student.dtu.dk"   
+    And The username "Miguel"   
     And The password is "password00"
     And The password "password00"
     When Logging-in
@@ -71,16 +71,16 @@ Feature: Loggin in the application
    Scenario: Client not succesfull log-in (wrong password)
     Given The log-in type "Client"
     And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "miguel@student.dtu.dk"
+    And The username "Miguel"
     And The password is "password00"
     And The password "445"
     When Logging-in
     Then Log-in fails
     
-  Scenario: Client not succesfull log-in (wrong email)
+  Scenario: Client not succesfull log-in (wrong name)
     Given The log-in type "Client"
     And a client database with the client "Sara" "Mihai" "Thomas" and "Miguel"
-    And The username "s18"
+    And The username "George"
     And The password is "password00"
     And The password "password00"
     When Logging-in

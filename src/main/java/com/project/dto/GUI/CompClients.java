@@ -1,5 +1,8 @@
 package com.project.dto.GUI;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Miguel
@@ -23,25 +26,31 @@ public class CompClients extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        filterReferencePerson = new javax.swing.JRadioButton();
         back = new javax.swing.JButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        filterAny = new javax.swing.JRadioButton();
         register_client = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        filterAddress = new javax.swing.JRadioButton();
+        filterName = new javax.swing.JRadioButton();
+        filterEmail = new javax.swing.JRadioButton();
+        filterID = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clients Management");
+        setPreferredSize(new Dimension(900, 340));
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton4.setText("Reference Person");
+        buttonGroup1.add(filterReferencePerson);
+        filterReferencePerson.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterReferencePerson.setText("Reference Person");
+        filterReferencePerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterReferencePersonSelected(evt);
+            }
+        });
 
         back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         back.setText("Back");
@@ -51,9 +60,14 @@ public class CompClients extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton5.setText("Any");
+        buttonGroup1.add(filterAny);
+        filterAny.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterAny.setText("Any");
+        filterAny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterAnySelected(evt);
+            }
+        });
 
         register_client.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         register_client.setText("Register New");
@@ -72,44 +86,51 @@ public class CompClients extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
+
+			
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        Object [][] tableBody = Controller.Requests.tableClientSetter("all", null, null);
+        String [] tableTitles = new String [] {
+                "ID", "Name", "Country", "City", "Postcode", "Street Name", "Street Number", "Reference Person", "Email"
+            };
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
         jScrollPane1.setViewportView(jTable1);
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton2.setText("Address");
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton1.setText("Name");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(filterAddress);
+        filterAddress.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterAddress.setText("Address");
+        filterAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+            	filterAddressSelected(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton3.setText("Email");
-
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton6.setText("ID");
-        jRadioButton6.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(filterName);
+        filterName.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterName.setText("Name");
+        filterName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton6ActionPerformed(evt);
+                filterNameSelected(evt);
+            }
+        });
+
+        buttonGroup1.add(filterEmail);
+        filterEmail.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterEmail.setText("Email");
+        filterEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterEmailSelected(evt);
+            }
+        });
+
+        buttonGroup1.add(filterID);
+        filterID.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterID.setText("ID");
+        filterID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterIDSelected(evt);
             }
         });
 
@@ -131,12 +152,12 @@ public class CompClients extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jRadioButton4)
-                                    .addComponent(jRadioButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(filterEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(filterAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(filterAny, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(filterName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(filterReferencePerson)
+                                    .addComponent(filterID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
@@ -154,17 +175,17 @@ public class CompClients extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton5)
+                        .addComponent(filterAny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(filterName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(filterAddress)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(filterEmail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(filterReferencePerson)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton6)))
+                        .addComponent(filterID)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,30 +198,62 @@ public class CompClients extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void register_clientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_clientActionPerformed
-        // TODO add your handling code here:
+        
         ClientRegister ClReg = new ClientRegister();
         ClReg.newScreen();
         dispose();
     }//GEN-LAST:event_register_clientActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton6ActionPerformed
-
+    
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        // TODO add your handling code here:
+        
         CompMainMenu CoMMenu = new CompMainMenu();
         CoMMenu.newScreen();
         dispose();
     }//GEN-LAST:event_backActionPerformed
+
+    
+    String mode = "all";
+    String filter = null;
+	private void jTextField1ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		Object [][] tableBody = Controller.Requests.tableClientSetter(mode, filter, jTextField1.getText());
+        String [] tableTitles = new String [] {
+                "ID", "Name", "Country", "City", "Postcode", "Street Name", "Street Number", "Reference Person", "Email"
+            };
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
+	}
+
+    private void filterAnySelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        mode = "filter";
+        filter = "None";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterNameSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "name";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterAddressSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "address";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void filterReferencePersonSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "reference person";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void filterEmailSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "email";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterIDSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        mode = "filter";
+        filter = "id";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
 
     /**
      * 
@@ -241,12 +294,12 @@ public class CompClients extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton filterName;
+    private javax.swing.JRadioButton filterAddress;
+    private javax.swing.JRadioButton filterEmail;
+    private javax.swing.JRadioButton filterReferencePerson;
+    private javax.swing.JRadioButton filterAny;
+    private javax.swing.JRadioButton filterID;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

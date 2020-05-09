@@ -14,6 +14,7 @@ public class Jou {
 	public String JourneyID;
 	private Boolean hasID;
 
+
     public Jou(String op , String dest , String cont , String comp )	{
     	
     	this.OriginPort = op;
@@ -68,6 +69,7 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
+
 
 	public Boolean getHasID() {
 		return hasID;

@@ -7,11 +7,11 @@ import com.project.repository.*;
 
 public class LogisticCompany extends User {
 
-	private String id;
+	
 	private String name;
 	private String password;
 	private String details;
-	private Time created;
+	
 	public ClientDatabase clientDatabase = new ClientDatabase();
 	
 	public ClientDatabase getClientDatabase() {
@@ -41,13 +41,6 @@ public class LogisticCompany extends User {
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getPassword() {
 		return password;
@@ -65,12 +58,6 @@ public class LogisticCompany extends User {
 		this.details = details;
 	}
 
-	public Time getCreated() {
-		return created;
-	}
-
-	public void setCreated(Time created) {
-		this.created = created;
-	}
+	
 
 }

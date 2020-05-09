@@ -11,6 +11,7 @@ public class Container {
 	boolean hasID;
 	String containerID;
 	Jou journey;
+	//journey ID
 	
 	public Container() {
 		super();

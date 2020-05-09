@@ -256,8 +256,8 @@ public class ClientProfileEdit extends javax.swing.JFrame {
         ClPro.newScreen();
         dispose();
         
-        Saved save = new Saved();
-        save.newScreen();
+        Warning save = new Warning();
+        save.newScreen("Saved!");
     }//GEN-LAST:event_SaveActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
