@@ -14,9 +14,11 @@ public class Jou {
 	public String Company;
 	public String JourneyID;
 	private Boolean hasID;
-	
+	private String containerID;
 
-    public Jou(String op , String dest , String cont , String comp )	{
+
+
+	public Jou(String op , String dest , String cont , String comp )	{
     	
     	this.OriginPort = op;
     	this.Destination = dest;
@@ -87,6 +89,14 @@ public class Jou {
 		return c;
 	}
 
+	 public String getContainerID() {
+			return containerID;
+		}
+
+	public void setContainerID(String containerID) {
+			this.containerID = containerID;
+		}
+
 	//---------Update Journey Method:------------
 		
 		//updating any field with a string
@@ -99,6 +109,7 @@ public class Jou {
 			updateResponse = new ResponseObject(code, "current position succesfully updated");
 			if(this.c.getCurrentPosition().equals(this.getDestination())) {
 				this.onGoing = false;
+				this.c.setInJourney(false);
 				updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
 			}
 			
