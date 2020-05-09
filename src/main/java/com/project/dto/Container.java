@@ -11,8 +11,16 @@ public class Container {
 	boolean hasID;
 	String containerID;
 	Jou journey;
-	//journey ID
-	
+	ArrayList <String> journeyIDs = new ArrayList<String>();
+
+	public ArrayList<String> getJourneyIDs() {
+		return journeyIDs;
+	}
+
+	public void setJourneys(ArrayList<String> journeyIDs) {
+		this.journeyIDs = journeyIDs;
+	}
+
 	public Container() {
 		super();
 	}
