@@ -418,14 +418,7 @@ public void the_container_is_in_that_journey() {
   	CDB.getContainers().add(con);
   }
 
-  @Given("a container in a journey with destination {string}")
-  public void a_container_in_a_journey_with_destination(String destination) {
-  	Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
-  	con = new Container(CDB , "Beirut");
-  	j1.setC(con);
-  }
 
-//Scenario: The client gives all information about the container's journey, chooses a new container when there is available ones at the port of origin.
 
 //Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
 
@@ -434,9 +427,9 @@ public void the_container_is_in_that_journey() {
 
 	@Given("a container in a journey with destination {string}")
 	public void a_container_in_a_journey_with_destination(String destination) {
-		Jou j1 = new Jou("CPH", destination,"Bananas","NETTO");
-		con = new Container(CDB , "Beirut");
-		j1.setC(con);
+		journey = new Jou("CPH", destination,"Bananas","NETTO");
+		//con = new Container(CDB , "Beirut");
+		journey.setC(con);
 	}
 	@Given("a container with the ID {string}")
 	public void a_container_with_the_ID(String CID) {

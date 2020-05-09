@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Jou {
 	
-	Container c;
+	Container c = new Container();
 	public boolean onGoing = true;
 	public String OriginPort;
 	public String Destination;
@@ -89,9 +89,9 @@ public class Jou {
 			
 			
 			updateResponse = new ResponseObject(code, "current position succesfully updated");
-			if(c.getCurrentPosition().equals(getDestination())) {
+			if(this.c.getCurrentPosition().equals(this.getDestination())) {
 				this.onGoing = false;
-				updateResponse = new ResponseObject(code, "current position succesfully updated and the journey is terminated");
+				updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
 			}
 			
 			return updateResponse;
