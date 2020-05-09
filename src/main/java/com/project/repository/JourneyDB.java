@@ -82,6 +82,8 @@ public class JourneyDB {
 		journeys.add(j); //journey added to the database
 		c.setInJourney(true);
 		CDB.giveID(c);
+		j.setContainerID(c.getContainerID());
+		c.getJourneyIDs().add(j.getJourneyID());
 	}
 
 

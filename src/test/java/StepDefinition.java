@@ -74,6 +74,8 @@ public class StepDefinition {
             	availableContainers = CDB.availableContainerAt(journey.getOriginPort());
             	
             	JDB.registerStep2(journey , selectedContainer);
+            	
+            	
             }
 		}
 	}
