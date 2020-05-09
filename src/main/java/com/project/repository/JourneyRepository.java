@@ -59,26 +59,21 @@ public class JourneyRepository implements Repository<Jou> {
     }
 
 
-//    public void getContainerRepository(){
-//        ContainerRepository containerRepository = new ContainerRepository();
-//        containerRepository.findAll();
-//    }
-
     @Override
     public Jou create(Jou obj) {
         log.debug("Start method...");
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO journeys (id, origin, destination, company, container, description, ongoing) " +
-                            " VALUES(?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO journeys (id, origin, destination, company, description, ongoing) " +
+                            " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, obj.getJourneyID());
             prepared.setString(2, obj.getOriginPort());
             prepared.setString(3, obj.getDestination());
             prepared.setString(4, obj.getCompany());
-            prepared.setString(6, obj.getContent());
-            prepared.setBoolean(7, obj.isOnGoing());
+            prepared.setString(5, obj.getContent());
+            prepared.setBoolean(6, obj.isOnGoing());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
