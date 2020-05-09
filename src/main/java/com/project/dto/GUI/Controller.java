@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import com.project.dto.Application;
 import com.project.dto.LogisticCompany;
+import com.project.dto.ResponseObject;
 import com.project.dto.User;
 
 public class Controller {
@@ -14,23 +15,23 @@ public class Controller {
 	static Application app;
 	
 	
-	static ChooseContainer chooseContainer;
-	static ClientJourney clientJourney;
-	static ClientJourneyContainer_Details clientJourneyContainer_Details;
-	static ClientMainMenu clientMainMenu;
-	static ClientProfile clientProfile;
-	static ClientProfileEdit clientProfileEdit;
-	static ClientRegister clientRegister;
-	static CompClients compClients;
-	static CompJourneyContainer_Details compJourneyContainer_Details;
-	static CompMainMenu compMainMenu;
-	static ContainerHistory containerHistory;
-	static ContainerStorage containerStorage;
-	static JourneyRegister journeyRegister;
-	static LogIn logIn;
-	static Saved saved;
-	static UpdateStatus updateStatus;
-	static Welcome welcome;
+	static ChooseContainer chooseContainer = new ChooseContainer();
+	static ClientJourney clientJourney = new ClientJourney();
+	static ClientJourneyContainer_Details clientJourneyContainer_Details = new ClientJourneyContainer_Details();
+	static ClientMainMenu clientMainMenu = new ClientMainMenu();
+	static ClientProfile clientProfile = new ClientProfile();
+	static ClientProfileEdit clientProfileEdit= new ClientProfileEdit();
+	static ClientRegister clientRegister = new ClientRegister();
+	static CompClients compClients = new CompClients();
+	static CompJourneyContainer_Details compJourneyContainer_Details = new CompJourneyContainer_Details();
+	static CompMainMenu compMainMenu = new CompMainMenu();
+	static ContainerHistory containerHistory = new ContainerHistory();
+	static ContainerStorage containerStorage = new ContainerStorage();
+	static JourneyRegister journeyRegister = new JourneyRegister();
+	static LogIn logIn = new LogIn();
+	static Saved saved = new Saved();
+	static UpdateStatus updateStatus = new UpdateStatus();
+	static Welcome welcome = new Welcome();
 	
 	
 	
@@ -41,22 +42,53 @@ public class Controller {
 				
 	}
 	
+	
 	public static class Listeners implements ActionListener{
+		
 		static void LogIn_CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_CompanyActionPerformed
-	        // TODO add your handling code here:
-	        welcome.dispose();
+			welcome.dispose();
 	        LogIn.newScreen("company");
-	    }//GEN-LAST:event_LogIn_CompanyActionPerformed
-	    
+	    }//GEN-LAST:event_LogIn_CompanyActionPerformed    
 	    
 
 	    static void LogIn_ClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogIn_ClientActionPerformed
-	        // TODO add your handling code here:
 	        welcome.dispose();
 	        LogIn.newScreen("client");
-	        
-	        
 	    }//GEN-LAST:event_LogIn_ClientActionPerformed
+	        
+	        
+        static void LoginConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+            
+            if (LogIn.loggedIn.equals("client")){
+                String username = logIn.fieldName.getText();
+                String password = new String(logIn.fieldPassword.getPassword());
+
+                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
+                if (responseObject == null) {
+                    ClientMainMenu.newScreen();
+                    logIn.dispose();
+                } else {
+                    logIn.errorLabel.setText(responseObject.getMessage());
+                    logIn.errorLabel.setVisible(true);
+                }
+            }
+            else if (logIn.loggedIn.equals("company")){
+                String username = logIn.fieldName.getText();
+                String password = new String(logIn.fieldPassword.getPassword());
+
+                ResponseObject responseObject = logIn.loginService.loginCompany(username, password);
+                if (responseObject == null) {
+                    CompMainMenu.newScreen();
+                    logIn.dispose();
+                } else {
+                    logIn.errorLabel.setText(responseObject.getMessage());
+                    logIn.errorLabel.setVisible(true);
+                }
+            }
+    }//GEN-LAST:event_ConfirmActionPerformed
+	        
+	        
+	    
 
 
 

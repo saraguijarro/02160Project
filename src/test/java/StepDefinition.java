@@ -419,9 +419,6 @@ public class StepDefinition {
 		con = new Container(CDB , "123");
 		CDB.getContainers().add(con);
 	}
-
-//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.
-
 	//Scenario: The client gives all information about the container's journey, chooses a new container when there is available ones at the port of origin.
 
 	//Scenario: The client gives all information about the container's journey, chooses a new container when there is no available ones at the port of origin.

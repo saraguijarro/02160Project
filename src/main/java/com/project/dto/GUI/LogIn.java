@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
  */
 public class LogIn extends javax.swing.JFrame {
 
-    private final LoginService loginService = new LoginService();
+    final LoginService loginService = new LoginService();
     /**
      * Creates new form LogIn
      */
@@ -58,7 +58,7 @@ public class LogIn extends javax.swing.JFrame {
         errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-        Confirm.addActionListener(this::ConfirmActionPerformed);
+        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,35 +109,7 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
     
     static String loggedIn;
-    private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
-                // TODO add your handling code here:
-                if (loggedIn.equals("client")){
-                    String username = fieldName.getText();
-                    String password = new String(fieldPassword.getPassword());
-
-                    ResponseObject responseObject = loginService.loginCompany(username, password);
-                    if (responseObject == null) {
-                        ClientMainMenu.newScreen();
-                        dispose();
-                    } else {
-                        errorLabel.setText(responseObject.getMessage());
-                        errorLabel.setVisible(true);
-                    }
-                }
-                else if (loggedIn.equals("company")){
-                    String username = fieldName.getText();
-                    String password = new String(fieldPassword.getPassword());
-
-                    ResponseObject responseObject = loginService.loginCompany(username, password);
-                    if (responseObject == null) {
-                        CompMainMenu.newScreen();
-                        dispose();
-                    } else {
-                        errorLabel.setText(responseObject.getMessage());
-                        errorLabel.setVisible(true);
-                    }
-                }
-    }//GEN-LAST:event_ConfirmActionPerformed
+    
 
     /**
      * 
@@ -178,8 +150,8 @@ public class LogIn extends javax.swing.JFrame {
     private JButton Confirm;
     private JLabel jLabel1;
     private JLabel jLabel2;
-    private JLabel errorLabel;
-    private JPasswordField fieldPassword;
-    private JTextField fieldName;
+    JLabel errorLabel;
+    JPasswordField fieldPassword;
+    JTextField fieldName;
     // End of variables declaration//GEN-END:variables
 }

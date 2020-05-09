@@ -47,11 +47,11 @@ public class Welcome extends javax.swing.JFrame {
         jLabel1.setName(""); // NOI18N
 
         logIn_Company.setText("Log-In as Logistics Company");
-        //logIn_Company.addActionListener(Controller::LogIn_CompanyActionPerformed);
+        logIn_Company.addActionListener(Controller.Listeners::LogIn_CompanyActionPerformed);
 
         logIn_Client.setText("Log-In as Client");
         logIn_Client.setMaximumSize(new java.awt.Dimension(120, 45));
-        //logIn_Client.addActionListener(Controller::LogIn_CompanyActionPerformed);
+        logIn_Client.addActionListener(Controller.Listeners::LogIn_CompanyActionPerformed);
 
         aboutDialog1.setText("About Software");
         aboutDialog1.addActionListener((ActionEvent ev) -> {
