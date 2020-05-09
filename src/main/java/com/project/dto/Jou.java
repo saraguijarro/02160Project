@@ -1,5 +1,7 @@
 package com.project.dto;
 
+import java.util.ArrayList;
+
 public class Jou {
 	
 	Container c = new Container();
@@ -12,7 +14,7 @@ public class Jou {
 	public String Company;
 	public String JourneyID;
 	private Boolean hasID;
-//	public ArrayList<Container> Container;
+	public ArrayList<Container> Container;
 
     public Jou(String op , String dest , String cont , String comp )	{
     	
@@ -68,14 +70,12 @@ public class Jou {
 	public void setJourneyID(String journeyID) {
 		JourneyID = journeyID;
 	}
-
-//	public ArrayList<Container> getContainer() {
-//		return Container;
-//	}
-//
-//	public void setContainer(ArrayList<Container> container) {
-//		Container = container;
-//	}
+	public ArrayList<Container> getContainer() {
+		return Container;
+	}
+	public void setContainer(ArrayList<Container> container) {
+		Container = container;
+	}
 
 	public Boolean getHasID() {
 		return hasID;

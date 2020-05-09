@@ -149,6 +149,70 @@ public class ClientRepository implements Repository<Client>
     }
 
     @Override
+    public Client update(Client obj)
+    {
+        log.debug("Start method...");
+
+
+        try
+        {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    " UPDATE client "
+                    + " SET Name=?, "
+                    + " Address=?, "
+                    + " Reference_person=?, "
+                    + "Email=?," +
+                            "Password=?"
+                    + " WHERE ID=? ");
+
+            prepared.setString(1, obj.getName());
+            prepared.setString(2, String.valueOf(obj.getAddress()));
+            prepared.setString(3, obj.getReferencePerson());
+            prepared.setString(4, obj.getEmail());
+            prepared.setString(5, hashString(obj.getPassword()));
+
+        } catch (SQLException e)
+        {
+            log.error("Error updating client : " + e);
+        }
+
+        log.debug("End method.");
+
+        return obj;
+    }
+
+    /**
+     * Delete a single record.
+     */
+    @Override
+    public int delete(String id)
+    {
+        log.debug("Start method...");
+
+        int affectedRows = 0;
+
+        try
+        {
+            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+                    " DELETE FROM client "
+                    + " WHERE ID=? ");
+
+            prepared.setString(1, id);
+
+            // execute query and get the affected rows number :
+            affectedRows = prepared.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            log.error("Error deleting client : " + e);
+        }
+
+        log.debug("End method.");
+
+        return affectedRows;
+    }
+
+    @Override
     public void putAllInDatabase(ArrayList<Client> entitiesList) {
         log.debug("Start method...");
 
