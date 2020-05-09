@@ -1,5 +1,6 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Application;
 import com.project.dto.ResponseObject;
 import com.project.service.LoginService;
 
@@ -58,7 +59,7 @@ public class LogIn extends javax.swing.JFrame {
         errorLabel.setVisible(false);
 
         Confirm.setText("Confirm");
-        Confirm.addActionListener(Controller.Listeners::LoginConfirmActionPerformed);
+        Confirm.addActionListener(this::ConfirmActionPerformed);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,13 +104,51 @@ public class LogIn extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+    	
     }//GEN-LAST:event_jTextField1ActionPerformed
     
     static String loggedIn;
     
+    void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+        
+        if (loggedIn.equals("client")){
+            String username = fieldName.getText();
+            String password = new String(fieldPassword.getPassword());
+
+
+            System.out.print(Controller.company.getClientDatabase().searchClient(username, "name").get(0).getName());
+            
+            
+            ResponseObject responseObject = Application.login("Client", username, password, Controller.company);
+            if (responseObject.getCode() == 140) {
+            	Controller.activeUser = Controller.company.getClientDatabase().searchClient(username, "name").get(0);
+                ClientMainMenu.newScreen();
+                dispose();
+            } else {
+                errorLabel.setText(responseObject.getMessage());
+                errorLabel.setVisible(true);
+            }
+        }
+        else if (loggedIn.equals("company")){
+            String username = fieldName.getText();
+            String password = new String(fieldPassword.getPassword());
+            
+           
+
+            ResponseObject responseObject = Application.login("Company", username, password, Controller.company);
+            if (responseObject.getCode() == 140) {
+            	Controller.activeUser = Controller.company;
+                CompMainMenu.newScreen();
+                dispose();
+            } else {
+                errorLabel.setText(responseObject.getMessage());
+                errorLabel.setVisible(true);
+            }
+        }
+}//GEN-LAST:event_ConfirmActionPerformed
 
     /**
      * 

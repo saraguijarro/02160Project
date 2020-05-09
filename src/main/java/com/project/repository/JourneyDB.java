@@ -82,12 +82,14 @@ public class JourneyDB {
 		return false;
 	}
 
+	static int counter = 1;
 	public void giveID(Jou journey) {
 		String prefix = "JO";
-		String number = Integer.toString(this.journeys.size()+1);
+		String number = Integer.toString(counter);
 		String zeroes = "0".repeat(6-number.length());
 		String id = prefix + zeroes + number;
 		journey.setJourneyID(id);			
+		counter++;
 	}
 
 

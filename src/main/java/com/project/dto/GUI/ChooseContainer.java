@@ -160,8 +160,8 @@ public class ChooseContainer extends javax.swing.JFrame {
         ClJo.newScreen();
         dispose();
         
-        Saved save = new Saved();
-        save.newScreen();
+        Warning save = new Warning();
+        save.newScreen("Saved!");
     }//GEN-LAST:event_SaveActionPerformed
 
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed

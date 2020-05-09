@@ -10,12 +10,13 @@ package com.project.dto.GUI;
  *
  * @author Miguel
  */
-public class Saved extends javax.swing.JFrame {
+public class Warning extends javax.swing.JFrame {
 
-    /**
+    static String message;
+	/**
      * Creates new form Saved
      */
-    public Saved() {
+    public Warning() {
         initComponents();
     }
 
@@ -35,7 +36,8 @@ public class Saved extends javax.swing.JFrame {
         setTitle("Warning!");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Succesfully Saved!");
+        
+		jLabel1.setText(message);
 
         OK.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         OK.setText("OK");
@@ -79,12 +81,13 @@ public class Saved extends javax.swing.JFrame {
     /**
      * 
      */
-    public static void newScreen() {
+    public static void newScreen(String Message) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+    	message = Message;
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -93,20 +96,20 @@ public class Saved extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Saved.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Warning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Saved.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Warning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Saved.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Warning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Saved.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Warning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Saved().setVisible(true);
+                new Warning().setVisible(true);
             }
         });
     }

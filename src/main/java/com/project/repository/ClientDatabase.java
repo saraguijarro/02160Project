@@ -26,7 +26,12 @@ public class ClientDatabase {
 		super();
 		clientRepository = new ClientRepository();
 		clients = new ArrayList<Client>();
-		//clients = clientRepository.findAll();
+		//
+	}
+	
+	
+	public void findAll() {
+		clients = clientRepository.findAll();
 	}
 	
 	// this method needs to be called when application will end. For the entities to be written to database
@@ -41,22 +46,22 @@ public class ClientDatabase {
 		String missing = "";
 		int code = 100;
 		
-		if (client.getName()==null) {
+		if (client.getName()==null || client.getName().equals("")) {
 			missing = missing + "Name-";
 			code = 101;
 			client.setName("None");
 		}
-		if (client.getAddress()==null) {
+		if (client.getAddress()==null || client.getAddress().equals("")) {
 			missing = missing + "Address-";
 			code = 101;
 			client.setAddress("None");
 		}
-		if (client.getReferencePerson()==null) {
+		if (client.getReferencePerson()==null || client.getReferencePerson().equals("")) {
 			missing = missing + "Reference Person-";
 			code = 101;
 			client.setReferencePerson("None");
 		}
-		if (client.getEmail()==null) {
+		if (client.getEmail()==null || client.getEmail().equals("")) {
 			missing = missing + "Email-";
 			code = 101;
 			client.setEmail("None");
@@ -111,7 +116,7 @@ public class ClientDatabase {
 
 	public void giveID(Client client) {
 		String prefix = "CL";
-		String number = Integer.toString(this.clients.size()+1);
+		String number = Integer.toString(this.clients.size());
 		String zeroes = "0".repeat(6-number.length());
 		String id = prefix + zeroes + number;
 		client.setClientID(id);
@@ -153,6 +158,11 @@ public class ClientDatabase {
 		else if (filter.equals("email")) {
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getEmail().toLowerCase().contains(searchword)){foundClients.add(this.clients.get(i));}
+			}
+		}
+		else if (filter.equals("id")) {
+			for (int i=0;i<this.clients.size();i++) {
+				if (this.clients.get(i).getClientID().toLowerCase().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
 		}
 		

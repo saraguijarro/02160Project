@@ -152,8 +152,8 @@ public class UpdateStatus extends javax.swing.JFrame {
         CompJCDe.newScreen(previous);
         dispose();
         
-        Saved save = new Saved();
-        save.newScreen();
+        Warning save = new Warning();
+        save.newScreen("Saved!");
     }//GEN-LAST:event_saveActionPerformed
 
     /**
