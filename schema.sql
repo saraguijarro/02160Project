@@ -10,11 +10,11 @@ CREATE TABLE client(
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE company(
-        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
-        name varchar(255) not null,
-        password varchar(255) not null,
-        details varchar(255) ,
-        created timestamp not null default current_timestamp
+                        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
+                        name varchar(255) not null,
+                        password varchar(255) not null,
+                        details varchar(255) ,
+                        created timestamp not null default current_timestamp
 );
 
 
@@ -38,8 +38,12 @@ CREATE TABLE user_actions(
 create table containers
 (
     id VARCHAR(40) PRIMARY KEY NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    description  VARCHAR(255) NOT NULL
+    position VARCHAR(255) NOT NULL ,
+    temperature NUMERIC not null,
+    humidity NUMERIC not null,
+    pressure NUMERIC not null,
+    in_journey BOOLEAN DEFAULT FALSE,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -47,22 +51,25 @@ CREATE TABLE journeys(
                          id VARCHAR(40) PRIMARY KEY NOT NULL,
                          origin VARCHAR(255) NOT NULL,
                          destination VARCHAR (255) NOT NULL,
-                         container_id VARCHAR (255) NOT NULL,
+                         container VARCHAR (255) NOT NULL,
                          description VARCHAR (255) NOT NULL,
                          company VARCHAR (255) NOT NULL,
-                         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                         FOREIGN KEY (container_id) REFERENCES containers(id)
+                         ongoing BOOLEAN DEFAULT FALSE,
+                         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    #FOREIGN KEY (container) REFERENCES containers(id)
+    # FOREIGN KEY (position) REFERENCES containers(position)
 );
 
-CREATE TABLE container_status(
-                                 id VARCHAR(40) PRIMARY KEY NOT NULL,
-                                 temperature NUMERIC not null,
-                                 humidity NUMERIC not null,
-                                 pressure NUMERIC not null,
-                                 journey_id VARCHAR(40) NOT NULL,
-                                 container_id VARCHAR(40) NOT NULL,
-                                 FOREIGN KEY (container_id) REFERENCES containers(id),
-                                 FOREIGN KEY (journey_id) REFERENCES journeys(id)
-);
-
-
+# CREATE TABLE container_status(
+#                                  id VARCHAR(40) PRIMARY KEY NOT NULL,
+#                                  temperature NUMERIC not null,
+#                                  humidity NUMERIC not null,
+#                                  pressure NUMERIC not null,
+#                                  journey_id VARCHAR(40) NOT NULL,
+#                                  container_id VARCHAR(40) NOT NULL,
+#                                  position VARCHAR(255) NOT NULL ,
+#                                  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+#                                  FOREIGN KEY (position) REFERENCES containers(position),
+#                                  FOREIGN KEY (container_id) REFERENCES containers(id),
+#                                  FOREIGN KEY (journey_id) REFERENCES journeys(id)
+# );
