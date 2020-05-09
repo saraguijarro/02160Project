@@ -3,30 +3,18 @@ package com.project.repository;
 import com.project.dto.Container;
 import com.project.dto.Jou;
 import com.project.dto.ResponseObject;
-import com.project.dto.dao.Repository;
 
 import java.util.ArrayList;
 
 public class JourneyDB {
 
-	Repository<Jou> jouRepository;
 	ArrayList<Jou> journeys;
 	public JourneyDB() {
 		super();
 		journeys = new ArrayList<>();
-		jouRepository = new JourneyRepository();
-//		journeys = jouRepository.findAll();
-
-		journeys = new ArrayList<>();
 	}
 
-	// this method needs to be called when application will end. For the entities to be written to database
-	public void writeAllToDatabase() {
-		jouRepository.putAllInDatabase(journeys);
-	}
-
-
-
+	
     public ArrayList<Jou> getJourneys() {
 		return journeys;
 	}
@@ -35,7 +23,7 @@ public class JourneyDB {
 		this.journeys = journeys;
 	}
 
-
+	
 //this is the main method, it does the registration under certain conditions
 	public ResponseObject registerStep1(Jou journey) {
 		ResponseObject response = new ResponseObject(200,"Error");
