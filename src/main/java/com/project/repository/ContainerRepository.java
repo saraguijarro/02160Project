@@ -17,28 +17,28 @@ import java.util.ArrayList;
 public class ContainerRepository implements Repository<Container> {
     final static Logger log = Logger.getLogger(Container.class);
 
-    @Override
-    public Container find(String id) {
-        log.debug("Start method...");
-
-        Container obj = null;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM containers WHERE id=?");
-            prepared.setString(1, id);
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first()) {
-                obj = map(result);
-            }
-        } catch (SQLException e) {
-            log.error("Error finding container : " + e);
-        }
-
-        log.debug("End method.");
-        return obj;
-    }
+//    @Override
+//    public Container find(String id) {
+//        log.debug("Start method...");
+//
+//        Container obj = null;
+//
+//        try {
+//            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
+//                    "SELECT * FROM containers WHERE id=?");
+//            prepared.setString(1, id);
+//            ResultSet result = prepared.executeQuery();
+//
+//            if (result.first()) {
+//                obj = map(result);
+//            }
+//        } catch (SQLException e) {
+//            log.error("Error finding container : " + e);
+//        }
+//
+//        log.debug("End method.");
+//        return obj;
+//    }
 
     @Override
     public ArrayList<Container> findAll() {
@@ -67,15 +67,16 @@ public class ContainerRepository implements Repository<Container> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO containers (id, position, temperature, humidity, pressure, in_journey) "
-                            + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO containers (id, position, journey_id, in_journey) "
+                            + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, obj.getContainerID());
             prepared.setString(2, obj.getCurrentPosition());
+//            prepared.setString(3, obj.get);
 //            prepared.setString(2, obj.getCurrentPosition());
 //            prepared.setString(2, obj.getCurrentPosition());
 //            prepared.setString(2, obj.getCurrentPosition());
-            prepared.setBoolean(3, obj.getInJourney());
+            prepared.setBoolean(4, obj.getInJourney());
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);

@@ -1,7 +1,6 @@
 package com.project.repository;
 
 import com.google.common.hash.Hashing;
-
 import com.project.dto.LogisticCompany;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
@@ -13,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The CompanyRepository repository implementation.
@@ -21,54 +19,6 @@ import java.util.UUID;
 public class CompanyRepository implements Repository<LogisticCompany> {
     final static Logger log = Logger.getLogger(CompanyRepository.class);
 
-    @Override
-    public LogisticCompany find(String id) {
-        log.debug("Start method...");
-
-        LogisticCompany obj = null;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM company WHERE id=?");
-            prepared.setString(1, id);
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first()) {
-                obj = map(result);
-            }
-        } catch (SQLException e) {
-            log.error("Error finding user : " + e);
-        }
-
-        log.debug("End method.");
-        return obj;
-    }
-
-    public LogisticCompany loginUser(String name, String password) {
-        log.debug("Start method...");
-
-        LogisticCompany obj = null;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM company WHERE name=?");
-            prepared.setString(1, name);
-            ResultSet result = prepared.executeQuery();
-
-            if (result.first()) {
-                obj = map(result);
-            }
-        } catch (SQLException e) {
-            log.error("Error finding user : " + e);
-        }
-
-        if (obj == null || !obj.getPassword().equals(hashString(password))) {
-            return null;
-        }
-
-        log.debug("End method.");
-        return obj;
-    }
 
     @Override
     public ArrayList<LogisticCompany> findAll() {
@@ -97,26 +47,21 @@ public class CompanyRepository implements Repository<LogisticCompany> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO company (id, name, password, details) "
-                            + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO company (name, password) "
+                            + " VALUES(?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
-            prepared.setString(1, UUID.randomUUID().toString());
-            prepared.setString(2, obj.getName());
-            prepared.setString(3, hashString(obj.getPassword()));
-            prepared.setString(4, obj.getDetails());
+            prepared.setString(1, obj.getName());
+            prepared.setString(2, hashString(obj.getPassword()));
+//            prepared.setString(4, obj.getDetails());
 
             prepared.executeUpdate();
+
         } catch (SQLException e) {
             log.error("Error creating new user : " + e);
         }
 
         log.debug("End method.");
         return obj;
-    }
-
-    @Override
-    public LogisticCompany update(LogisticCompany obj) {
-        throw new UnsupportedOperationException();
     }
 
     private String hashString(String string) {
@@ -126,36 +71,12 @@ public class CompanyRepository implements Repository<LogisticCompany> {
     }
 
 
-    @Override
-    public int delete(String id) {
-        log.debug("Start method...");
 
-        int affectedRows = 0;
-
-        try {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " DELETE FROM logistic_company "
-                            + " WHERE id=? ");
-
-            prepared.setString(1, id);
-
-            // execute query and get the affected rows number :
-            affectedRows = prepared.executeUpdate();
-
-        } catch (SQLException e) {
-            log.error("Error deleting user : " + e);
-        }
-
-        log.debug("End method.");
-
-        return affectedRows;
-    }
 
 
     private static LogisticCompany map(ResultSet resultSet) throws SQLException {
         LogisticCompany obj = new LogisticCompany();
 
-        obj.setId(resultSet.getString("id"));
         obj.setName(resultSet.getString("name"));
         obj.setPassword(resultSet.getString("password"));
         obj.setDetails(resultSet.getString("details"));

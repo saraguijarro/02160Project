@@ -2,7 +2,6 @@ package com.project.dto.GUI;
 
 import com.project.dto.Application;
 import com.project.dto.ResponseObject;
-import com.project.service.LoginService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,6 @@ import java.awt.event.ActionEvent;
  */
 public class LogIn extends javax.swing.JFrame {
 
-    final LoginService loginService = new LoginService();
     /**
      * Creates new form LogIn
      */
