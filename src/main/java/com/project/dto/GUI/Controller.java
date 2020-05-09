@@ -47,7 +47,7 @@ public class Controller {
 
 		Welcome.newScreen();
 		
-		company.getClientDatabase().findAll();
+		//company.getClientDatabase().findAll();
 				
 	}
 	

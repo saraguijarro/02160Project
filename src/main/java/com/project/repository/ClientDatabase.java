@@ -26,16 +26,12 @@ public class ClientDatabase {
 		super();
 		clientRepository = new ClientRepository();
 		clients = new ArrayList<Client>();
-<<<<<<< HEAD
-		//
+		
 	}
 	
 	
 	public void findAll() {
 		clients = clientRepository.findAll();
-=======
-//		clients = clientRepository.findAll();
->>>>>>> bcb7b7b521a339a52f172fe5a25fe665a1f8b191
 	}
 	
 	// this method needs to be called when application will end. For the entities to be written to database
