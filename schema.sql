@@ -13,11 +13,11 @@ CREATE TABLE client(
                        street_number varchar(255),
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
-CREATE TABLE company(
-        ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-        name varchar(255) not null,
-        password varchar(255) not null
-);
+# CREATE TABLE company(
+#         ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+#         name varchar(255) not null,
+#         password varchar(255) not null
+# );
 
 
 create table containers
@@ -37,7 +37,7 @@ CREATE TABLE journeys(
          id VARCHAR(40) PRIMARY KEY NOT NULL,
          origin VARCHAR(255) NOT NULL,
          destination VARCHAR (255) NOT NULL,
-         container_id VARCHAR (255) NOT NULL,
+         container_id VARCHAR (255) DEFAULT NULL,
          description VARCHAR (255) NOT NULL,
          company VARCHAR (255) NOT NULL,
          ongoing BOOLEAN DEFAULT FALSE,

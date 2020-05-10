@@ -64,11 +64,12 @@ public class Controller {
 		company.getJourneyDatabase().getJourneys().add(jo2);
 		company.getContainerDatabase().getContainers().add(ct);
 		company.getContainerDatabase().getContainers().add(ct2);
+
 		Welcome.newScreen();
 		
 		company.getClientDatabase().findAll();
 		company.getJourneyDatabase().findAll();
-
+		company.getContainerDatabase().findAll();
 	}
 	
 	
@@ -376,7 +377,14 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 
 
 	public static void main(String[] args) {
+
 		initialize();
+//		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+//			company.getClientDatabase().writeAllToDatabase();
+//			company.getContainerDatabase().writeAllToDatabase();
+//			company.getJourneyDatabase().writeAllToDatabase();
+//		}, "Shutdown-thread"));
+
 	}
 	
 	

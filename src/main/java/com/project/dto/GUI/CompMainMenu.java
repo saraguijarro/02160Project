@@ -150,8 +150,13 @@ public class CompMainMenu extends javax.swing.JFrame {
     	Welcome welcomeScreen = new Welcome();
 		welcomeScreen.newScreen();
 		dispose();
-        Controller.Requests.closure();
-    }                                      
+
+//            Runtime.getRuntime().addShutdownHook(new Thread(() ->
+                    Controller.Requests.closure();
+//                    "Shutdown-thread"));
+        }
+
+
 
     /**
      * 
