@@ -47,13 +47,17 @@ public class ContainerRepository implements Repository<Container> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO containers (id, position, journey_id, in_journey) "
-                            + " VALUES(?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO containers (id, position, journey_id, in_journey, humidity, temperature, pressure) "
+                            + " VALUES(?, ?, ?, ?, ?, ? ,?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, obj.getContainerID());
             prepared.setString(2, obj.getCurrentPosition());
             prepared.setString(3, String.join(",", obj.getJourneyIDs()));
             prepared.setBoolean(4, obj.getInJourney());
+            prepared.setString(5, obj.getHumidity().stream().mapToDouble(Double::doubleValue).mapToObj(String::valueOf).collect(Collectors.joining(",")));
+            prepared.setString(6, obj.getTemperature().stream().mapToDouble(Double::doubleValue).mapToObj(String::valueOf).collect(Collectors.joining(",")));
+            prepared.setString(7, obj.getPressure().stream().mapToDouble(Double::doubleValue).mapToObj(String::valueOf).collect(Collectors.joining(",")));
+
 
             prepared.executeUpdate();
 
@@ -92,6 +96,10 @@ public class ContainerRepository implements Repository<Container> {
         obj.setCurrentPosition(resultSet.getString("Position"));
         obj.setInJourney(resultSet.getBoolean("In_Journey"));
         obj.setJourneys(Arrays.stream(resultSet.getString("journey_id").split(",")).collect(Collectors.toCollection(ArrayList::new)));
+        obj.setHumidity(Arrays.stream(resultSet.getString("humidity").split(",")).map(Double::parseDouble).collect(Collectors.toCollection(ArrayList::new)));
+        obj.setTemperature(Arrays.stream(resultSet.getString("temperature").split(",")).map(Double::parseDouble).collect(Collectors.toCollection(ArrayList::new)));
+        obj.setPressure(Arrays.stream(resultSet.getString("pressure").split(",")).map(Double::parseDouble).collect(Collectors.toCollection(ArrayList::new)));
+
         return obj;
     }
 }

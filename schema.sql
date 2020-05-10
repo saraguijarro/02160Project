@@ -26,6 +26,9 @@ create table containers
     position VARCHAR(255),
     journey_id VARCHAR(255),
     in_journey BOOLEAN DEFAULT FALSE,
+    temperature VARCHAR(1000),
+    humidity VARCHAR(1000),
+    pressure VARCHAR(1000),
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -38,14 +41,6 @@ CREATE TABLE journeys(
          description VARCHAR (255) NOT NULL,
          company VARCHAR (255) NOT NULL,
          ongoing BOOLEAN DEFAULT FALSE,
-         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE container_status(
-         temperature NUMERIC not null,
-         humidity NUMERIC not null,
-         pressure NUMERIC not null,
-         container_id VARCHAR(40) NOT NULL,
          created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
