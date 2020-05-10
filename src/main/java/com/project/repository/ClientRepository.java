@@ -69,7 +69,7 @@ public class ClientRepository implements Repository<Client>
             prepared.setString(2, obj.getName());
             prepared.setString(3, obj.getReferencePerson());
             prepared.setString(4, obj.getEmail());
-            prepared.setByte(5, Byte.parseByte(hashPassword(obj.getPassword())));
+            prepared.setString(5, obj.getPassword());
             prepared.setString(6, obj.getAddress().getCountry());
             prepared.setString(7, obj.getAddress().getCity());
             prepared.setString(8, obj.getAddress().getPostcode());
@@ -89,16 +89,11 @@ public class ClientRepository implements Repository<Client>
     }
 
 
-    private String hashString(String string) {
+    public static String hashString(String string) {
         return Hashing.sha256()
                 .hashString(string, StandardCharsets.UTF_8)
                 .toString();
     }
-
-    private String hashPassword(String plainTextPassword){
-        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
-    }
-
 
     @Override
     public void putAllInDatabase(ArrayList<Client> entitiesList) {
@@ -107,9 +102,7 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SET FOREIGN_KEY_CHECKS = 0;\n" +
-                            "TRUNCATE client ;\n" +
-                            "SET FOREIGN_KEY_CHECKS = 1;");
+                    "TRUNCATE client");
             prepared.executeUpdate();
         } catch (SQLException e)
         {

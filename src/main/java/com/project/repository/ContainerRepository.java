@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * The ContainerEntity repository implementation.
@@ -72,11 +75,10 @@ public class ContainerRepository implements Repository<Container> {
 
             prepared.setString(1, obj.getContainerID());
             prepared.setString(2, obj.getCurrentPosition());
-//            prepared.setString(3, obj.get);
-//            prepared.setString(2, obj.getCurrentPosition());
-//            prepared.setString(2, obj.getCurrentPosition());
-//            prepared.setString(2, obj.getCurrentPosition());
+            prepared.setString(3, String.join(",", obj.getJourneyIDs()));
             prepared.setBoolean(4, obj.getInJourney());
+
+            prepared.executeUpdate();
 
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
@@ -111,7 +113,8 @@ public class ContainerRepository implements Repository<Container> {
 
         obj.setContainerID(resultSet.getString("id"));
         obj.setCurrentPosition(resultSet.getString("Position"));
-        obj.setInJourney(resultSet.getBoolean("In Journey"));
+        obj.setInJourney(resultSet.getBoolean("In_Journey"));
+        obj.setJourneys(Arrays.stream(resultSet.getString("journey_id").split(",")).collect(Collectors.toCollection(ArrayList::new)));
         return obj;
     }
 }

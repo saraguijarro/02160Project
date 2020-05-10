@@ -2,6 +2,7 @@ package com.project.dto.GUI;
 
 import com.project.dto.*;
 import com.project.repository.ClientDatabase;
+import com.project.repository.ClientRepository;
 import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
 
@@ -85,6 +86,8 @@ public class Controller {
 
 		public static void closure() {
 			company.getClientDatabase().writeAllToDatabase();
+			company.getContainerDatabase().writeAllToDatabase();
+			company.getJourneyDatabase().writeAllToDatabase();
 
 		}
 
@@ -100,7 +103,7 @@ public class Controller {
 			}
 
 			if (clients.size()==0) {
-				finalTable = new String[1][9];
+				finalTable = new String[9][1];
 				finalTable[0][0]="";
 				finalTable[1][0]="";
 				finalTable[2][0]="";
@@ -241,7 +244,7 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 		public static ResponseObject registerClient(String name, String country, String city, String postcode, String streetname, String streetnumber, String referenceperson, String email) {
 			Address addr = new Address(country, city, postcode, streetname, streetnumber );
 
-			Client cl = new Client(name, addr, referenceperson, email, "0000");
+			Client cl = new Client(name, addr, referenceperson, email, ClientRepository.hashString("0000"));
 			ResponseObject response = CDB.registering(cl);
 
 			return response;
@@ -373,14 +376,7 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 
 
 	public static void main(String[] args) {
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			// saving the information to the database
-			company.getClientDatabase().writeAllToDatabase();
-			company.getJourneyDatabase().writeAllToDatabase();
-			company.getContainerDatabase().writeAllToDatabase();
-		}));
 		initialize();
-
 	}
 	
 	

@@ -2,6 +2,7 @@ package com.project.dto.GUI;
 
 import com.project.dto.Client;
 import com.project.dto.ResponseObject;
+import com.project.repository.ClientRepository;
 
 /**
  *
@@ -268,7 +269,7 @@ public class ClientProfileEdit extends javax.swing.JFrame {
     	String mail = email.getText();
     	String pass = password.getText();
     	
-    	ResponseObject response = Controller.Requests.updateClient(cl, co, ci, pos, sname, snumber, mail, refp, pass);
+    	ResponseObject response = Controller.Requests.updateClient(cl, co, ci, pos, sname, snumber, mail, refp, ClientRepository.hashString(pass));
     	
     	if (response.getCode() == 620) {
     		Warning fail = new Warning();
