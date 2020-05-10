@@ -1,5 +1,8 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Jou;
+import com.project.dto.ResponseObject;
+
 /**
  *
  * @author Miguel
@@ -26,10 +29,10 @@ public class JourneyRegister extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        port = new javax.swing.JTextField();
+        destin = new javax.swing.JTextField();
+        cont = new javax.swing.JTextField();
+        comp = new javax.swing.JTextField();
         Cancel = new javax.swing.JButton();
         Next = new javax.swing.JButton();
 
@@ -44,13 +47,13 @@ public class JourneyRegister extends javax.swing.JFrame {
 
         jLabel4.setText("Company:");
 
-        jTextField1.setText("jTextField1");
+        port.setText("");
 
-        jTextField2.setText("jTextField2");
+        destin.setText("");
 
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
+        cont.setText("");
+        
+        comp.setText("");
 
         Cancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cancel.setText("Cancel");
@@ -83,10 +86,10 @@ public class JourneyRegister extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)))
+                            .addComponent(port)
+                            .addComponent(destin)
+                            .addComponent(cont)
+                            .addComponent(comp)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
@@ -99,19 +102,19 @@ public class JourneyRegister extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(port, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(destin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -132,9 +135,19 @@ public class JourneyRegister extends javax.swing.JFrame {
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
-        ChooseContainer ChoCo = new ChooseContainer();
-        ChoCo.newScreen();
+    	
+    	ResponseObject response = Controller.Requests.register1Journey(port.getText(),destin.getText(), cont.getText(), comp.getText());
+    	
+    	if(response.getCode()==203) {
+    		
+    		Warning.newScreen("Some information was not entered. Try again!");
+    	}
+    	else {
+        Jou J = new Jou(port.getText(),destin.getText(), cont.getText(), comp.getText());
+        
+        ChooseContainer.newScreen(J);
         dispose();
+    	}
     }//GEN-LAST:event_NextActionPerformed
 
     /**
@@ -182,9 +195,9 @@ public class JourneyRegister extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField port;
+    private javax.swing.JTextField destin;
+    private javax.swing.JTextField cont;
+    private javax.swing.JTextField comp;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,9 @@
 package com.project.dto.GUI;
 
+import java.awt.Dimension;
+
+import com.project.dto.Container;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,8 +40,9 @@ public class ContainerStorage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Containers");
+        setPreferredSize(new Dimension(900, 340));
 
-        Object [][] tableBody = Controller.Requests.tableClientSetter("all", null, null);
+        Object [][] tableBody = Controller.Requests.tableContainerSetter("All", "None");
         String [] tableTitles = new String [] {
                 "ID", "Current Position", "Internal Temperature", "Air Humidity", "Atm. Pressure", "Corresponding Journey"
             };
@@ -45,18 +50,7 @@ public class ContainerStorage extends javax.swing.JFrame {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
         jScrollPane1.setViewportView(jTable1);
         
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        
 
         details.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         details.setText("Details");
@@ -81,7 +75,7 @@ public class ContainerStorage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,9 +100,17 @@ public class ContainerStorage extends javax.swing.JFrame {
 
     private void detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsActionPerformed
         // TODO add your handling code here:
-        CompJourneyContainer_Details CompJCDe = new CompJourneyContainer_Details();
-        CompJCDe.newScreen("container");
-        dispose();
+    	int row = jTable1.getSelectedRow();
+    	Container c = Controller.company.getContainerDatabase().getContainers().get(row);
+    	
+    	if (row>-1) {
+	    	
+	    	CompJourneyContainer_Details.newScreen("container", c);
+	        dispose();
+    	}
+        
+        
+        
     }//GEN-LAST:event_detailsActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -121,6 +123,8 @@ public class ContainerStorage extends javax.swing.JFrame {
     /**
      * 
      */
+    
+    
     public static void newScreen() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

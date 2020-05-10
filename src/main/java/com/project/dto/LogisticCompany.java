@@ -11,7 +11,16 @@ public class LogisticCompany extends User {
 	
 	public ClientDatabase clientDatabase = new ClientDatabase();
 	public ContainerDB containerDatabase = new ContainerDB();
+	public JourneyDB journeyDatabase = new JourneyDB();
 	
+	public JourneyDB getJourneyDatabase() {
+		return journeyDatabase;
+	}
+
+	public void setJourneyDatabase(JourneyDB journeyDatabase) {
+		this.journeyDatabase = journeyDatabase;
+	}
+
 	public ContainerDB getContainerDatabase() {
 		return containerDatabase;
 	}

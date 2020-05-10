@@ -92,6 +92,7 @@ public class Container {
                 					 { "Atmospheric Pressure", Double.toString(this.pressure) } }; 
 		return null;
 	}
+	
 
 	public void setTemp(double temperature) {
 		this.temperature = temperature;
@@ -208,5 +209,18 @@ public class Container {
 		locateContainer = new ResponseObject(code, "Tracked location.");
 		
 		return locateContainer;
+	}
+	
+	public ResponseObject trackAll(double tempValue, double humValue, double pressValue) {
+		
+		ResponseObject trackDataAll = null;
+		int code = 350;
+		InternalTemperature.add(tempValue);
+		AirHumidity.add(humValue);
+		AtmosphericPressure.add(pressValue);
+		journeyIDs.add(journeyIDs.get(journeyIDs.size()-1));
+		
+		trackDataAll = new ResponseObject(code, "All tracked informations have been successfully saved.");
+		return trackDataAll;
 	}
 }
