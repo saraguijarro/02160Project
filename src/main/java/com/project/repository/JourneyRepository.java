@@ -53,6 +53,7 @@ public class JourneyRepository implements Repository<Jou> {
             prepared.setString(5, obj.getContent());
             prepared.setBoolean(6, obj.isOnGoing());
 
+            prepared.executeUpdate();
         } catch (SQLException e) {
             log.error("Error creating new container : " + e);
         }
