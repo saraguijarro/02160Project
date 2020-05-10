@@ -71,19 +71,6 @@ public class CompanyRepository implements Repository<LogisticCompany> {
     }
 
 
-    @Override
-    public void putAllInDatabase(ArrayList<LogisticCompany> entitiesList) {
-        log.debug("Start method...");
-
-        try
-        {
-            PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " TRUNCATE TABLE company");
-            prepared.executeUpdate();
-        } catch (SQLException e)
-        {
-            log.error("Error truncating the table: " + e);
-        }
 
         entitiesList.forEach(this::create);
 

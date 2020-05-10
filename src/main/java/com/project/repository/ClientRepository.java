@@ -63,8 +63,8 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO client (ID, Name, Reference_person, Email, Password, country, city, postcode, street_name, street_number ) "
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO client (ID, Name, Reference_person, Email, Password, country, city, postcode, street_name, street_number, keyword ) "
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
             prepared.setString(1, UUID.randomUUID().toString());
             prepared.setString(2, obj.getName());
             prepared.setString(3, obj.getReferencePerson());
@@ -75,7 +75,7 @@ public class ClientRepository implements Repository<Client>
             prepared.setString(8, obj.getAddress().getPostcode());
             prepared.setString(9, obj.getAddress().getStreetName());
             prepared.setString(10, obj.getAddress().getStreetNumber());
-//            prepared.setString(11, obj.getAddress().getKeyWord());
+            //prepared.setString(11, obj.getAddress().getKeyWord());
 
             prepared.executeUpdate();
 
@@ -134,7 +134,7 @@ public class ClientRepository implements Repository<Client>
         Address address = new Address();
         address.setCity(resultSet.getString("city"));
         address.setCountry(resultSet.getString("country"));
-//        address.setKeyWord(resultSet.getString("keyword"));
+        //address.setKeyWord(resultSet.getString("keyword"));
         address.setPostcode(resultSet.getString("postcode"));
         address.setStreetName(resultSet.getString("street_name"));
         address.setStreetNumber(resultSet.getString("street_number"));
