@@ -19,7 +19,6 @@ public class StepDefinition {
 	ClientDatabase CD;
 	ResponseObject registerResponse;
 	LogisticCompany company = new LogisticCompany();
-	Application app = new Application();
 
 	//Background
 
@@ -109,7 +108,6 @@ public class StepDefinition {
 	String updateChoice;
 	String updateContent;
 	ResponseObject updateResponse;
-	Client client2 = new Client();
 
 	//Background:
 	@Given("a client database with the client {string}")
@@ -240,11 +238,6 @@ public class StepDefinition {
 
 
 
-// JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
-// JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
-// JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
-// JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
-// JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY JOURNEY
 
 	//feature: Client search journey
 	//Scenario: The client uses the criteria from an existing journey without filter
@@ -481,11 +474,6 @@ public class StepDefinition {
 		CDB.getContainers().add(container);
 	}
 
-	/*
-	@Given("an update choice {string}")
-	public void an_update_choice(String Choice) {
-    	dataChoice = Choice;
-	}*/
 
 	@When("updating the internal status")
 	public void updating_the_internal_status() {
@@ -498,28 +486,11 @@ public class StepDefinition {
 	}
 
 
-//Feature: Retrieve measurements about the container internal status
-	Container retrieveData;
 	Container initialData;
-	ResponseObject retrieveResponse;
 	double temperature; double humidity; double pressure;
 	double temp; double hum; double press;
 	double retrievedTemp; double retrievedHum; double retrievedPress;
 
-	//Scenario: Retrieve measurements from the system
-
-	/*
-	@Given("a container with a container id {string}")
-	public void a_container_with_a_container_id(String containerID) {
-		Container container = new Container(containerID);
-		CDB.getContainers().add(container);
-	} */
-			
-	/*
-	@Given("an update choice {string}")
-	public void an_update_choice(String Choice) {
-    	dataChoice = Choice;
-	}*/
 
 	@Given("a container with temperature {double} humidity {double} pressure {double}")
 	public void a_container_with_temperature_humidity_pressure(double temp,double hum,double press) {
@@ -549,7 +520,7 @@ public class StepDefinition {
 	Container containerLocation = new Container();
 	ResponseObject trackData;
 	ResponseObject locateContainer;
-	String location;
+
 
 	//Scenario: Tracking the internal status
 
@@ -601,16 +572,6 @@ public class StepDefinition {
 	ArrayList<String> historyLocation = new ArrayList<>();
 	ArrayList<String> retrievedLocation;
 
-	double temp1; double temp2; double temp3;
-
-	//Scenario: Retrieve data about the internal status
-		
-	/*
-	@Given("a container with a container id {string}")
-	public void a_container_with_a_container_id(String containerID) {
-		Container container = new Container(containerID);
-		CDB.getContainers().add(container);
-	} */
 
 	@Given("a container with a temperature history {double}, {double}, {double}")
 	public void a_container_with_a_temperature_history(double temp1, double temp2, double temp3) {

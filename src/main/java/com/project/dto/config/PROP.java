@@ -60,11 +60,4 @@ public class PROP
         return com.project.dto.config.PROP.getInstance().getProperty(key);
     }
 
-    /**
-     * Create the instance for the first time.
-     */
-    public static void init()
-    {
-        com.project.dto.config.PROP.getInstance();
-    }
 }

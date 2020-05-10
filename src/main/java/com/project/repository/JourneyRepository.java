@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * The JourneyEntity repository implementation.
+ * The Journey repository implementation.
  */
 public class JourneyRepository implements Repository<Jou> {
     final static Logger log = Logger.getLogger(Jou.class);
@@ -63,6 +63,8 @@ public class JourneyRepository implements Repository<Jou> {
         log.debug("End method.");
         return obj;
     }
+
+
 
     @Override
     public void putAllInDatabase(ArrayList<Jou> entitiesList) {

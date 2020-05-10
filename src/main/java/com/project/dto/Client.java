@@ -116,11 +116,28 @@ public class Client extends User{
 	public ResponseObject update(String updateChoice, String updateContent) {
 		ResponseObject updateResponse = null;
 		int code=116; //116 = error code by default (it is changed if an update successfully happens)
-		if (updateChoice.equals("name")) {this.setName(updateContent);code=111;}
-		else if (updateChoice.equals("address1")) {this.setAddress(updateContent);code=112;}
-		else if (updateChoice.equals("reference person")) {this.setReferencePerson(updateContent);code=113;}
-		else if (updateChoice.equals("email")) {this.setEmail(updateContent);code=114;}
-		else if (updateChoice.equals("password")) {this.setPassword(updateContent);code=118;}
+		switch (updateChoice) {
+			case "name":
+				this.setName(updateContent);
+				code = 111;
+				break;
+			case "address1":
+				this.setAddress(updateContent);
+				code = 112;
+				break;
+			case "reference person":
+				this.setReferencePerson(updateContent);
+				code = 113;
+				break;
+			case "email":
+				this.setEmail(updateContent);
+				code = 114;
+				break;
+			case "password":
+				this.setPassword(updateContent);
+				code = 118;
+				break;
+		}
 		
 		if (code!=116) {updateResponse = new ResponseObject(code, "Client information succesfully updated");}
 		return updateResponse;
@@ -153,9 +170,8 @@ public class Client extends User{
 		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
 		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}
 		else if(this.clientID.toLowerCase().contains(searchword.toLowerCase())){code = 135; message="id";}
-				
-		ResponseObject isFoundResponse = new ResponseObject(code,message);
-		return isFoundResponse;
+
+		return new ResponseObject(code,message);
 	}
 
 }

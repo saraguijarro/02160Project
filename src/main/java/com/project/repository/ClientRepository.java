@@ -6,7 +6,6 @@ import com.project.dto.Client;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
@@ -52,9 +51,6 @@ public class ClientRepository implements Repository<Client>
         return clients;
     }
 
-    /**
-     * Create new Object and return this new Object if success. Run only on
-     */
     @Override
     public Client create(Client obj)
     {

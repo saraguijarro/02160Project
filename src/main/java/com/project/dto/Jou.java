@@ -1,7 +1,5 @@
 package com.project.dto;
 
-import java.util.ArrayList;
-
 import com.project.repository.ContainerDB;
 
 public class Jou {
@@ -119,7 +117,7 @@ public class Jou {
 		
 		//updating any field with a string
 		public ResponseObject update(String updateContent, ContainerDB CDB) {
-			ResponseObject updateResponse = null;
+			ResponseObject updateResponse;
 			
 			if(!(this.c.getContainerID()==null)) {
 				this.c.setCurrentPosition(updateContent);
@@ -165,9 +163,8 @@ public class Jou {
 			else if(this.Content.toLowerCase().contains(searchword.toLowerCase())){code = 233; message="Content";}
 			else if(this.Company.toLowerCase().contains(searchword.toLowerCase())){code = 234; message="Company";}
 			else if(this.getJourneyID().toLowerCase().contains(searchword.toLowerCase())){code = 234; message="ID";}
-					
-			ResponseObject isFoundResponse = new ResponseObject(code,message);
-			return isFoundResponse;
+
+			return new ResponseObject(code,message);
 		}
 		
 	
