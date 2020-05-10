@@ -6,7 +6,6 @@ public class Jou {
 	
 	Container c = new Container();
 
-
 	public boolean onGoing = true;
 	public String OriginPort;
 	public String Destination;
@@ -17,22 +16,14 @@ public class Jou {
 	private String containerID;
 	public String ClientID;
 
-
-
-
 	public String getClientID() {
 		return ClientID;
 	}
 
 
-
-
 	public void setClientID(String clientID) {
 		ClientID = clientID;
 	}
-
-
-
 
 	public Jou(String op , String dest , String cont , String comp )	{
     	
@@ -43,9 +34,6 @@ public class Jou {
     	
     }
 
-
-
-    
 	public Jou() {
 		super();
 	}
@@ -142,11 +130,6 @@ public class Jou {
 				}
 				}
 			
-			
-			
-			
-			
-			
 			return updateResponse;
 		}
 		
@@ -166,6 +149,5 @@ public class Jou {
 
 			return new ResponseObject(code,message);
 		}
-		
-	
+
 }

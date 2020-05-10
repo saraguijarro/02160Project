@@ -15,18 +15,14 @@ public class ClientDatabase {
 		return clients;
 	}
 
-	public void setClients(ArrayList<Client> clients) {
-		this.clients = clients;
-	}
-
 	public ClientDatabase() {
 		super();
 		clientRepository = new ClientRepository();
-		clients = new ArrayList<Client>();
+		clients = new ArrayList<>();
 
 	}
 
-
+	// load from database
 	public void findAll() {
 		clients = clientRepository.findAll();
 	}
@@ -171,7 +167,7 @@ public class ClientDatabase {
 				break;
 			case "id":
 				for (Client client : this.clients) {
-					if (client.getClientID().toLowerCase().contains(searchword)) {
+					if (client.getClientID().toLowerCase().contains(searchword.toLowerCase())) {
 						foundClients.add(client);
 					}
 				}

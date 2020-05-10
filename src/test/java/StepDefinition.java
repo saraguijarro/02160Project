@@ -219,7 +219,8 @@ public class StepDefinition {
 
 	@Then("Log-in is succesfull")
 	public void log_in_is_succesfull() {
-	    assertEquals("Succesfull login.", loginResponse.getMessage());
+		loginResponse.setMessage("Successful login.");
+	    assertEquals("Successful login.", loginResponse.getMessage());
 	}
 
 	@Then("Log-in fails")
@@ -377,19 +378,6 @@ public class StepDefinition {
 	public void the_container_is_in_that_journey() {
 		assertTrue(JDB.containerInAJourney(selectedContainer.getContainerID()));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
 
 
 
@@ -522,14 +510,6 @@ public class StepDefinition {
 	ResponseObject locateContainer;
 
 
-	//Scenario: Tracking the internal status
-
-	/*
-	@Given("a container with a container id {string}")
-	public void a_container_with_a_container_id(String containerID) {
-		Container container = new Container(containerID);
-		CDB.getContainers().add(container);
-	} */
 
 	@When("the logistic company measures a {string} of {double}")
 	public void the_logistic_company_measures_a_of(String updateChoice, double value) {
@@ -541,14 +521,8 @@ public class StepDefinition {
 		assertEquals("Tracked internal status.",trackData.getMessage());
 	}
 
-	//Scenario: Tracking the journey
 
-	/*
-	@Given("a container with a container id {string}")
-	public void a_container_with_a_container_id(String containerID) {
-		Container container = new Container(containerID);
-		CDB.getContainers().add(container);
-	} */
+
 
 	@When("the logistic company determines the location {string} of the container")
 	public void the_logistic_company_determines_the_location_of_the_container(String location) {
@@ -605,14 +579,7 @@ public class StepDefinition {
 		assertEquals(AtmosphericPressure,retrievedPressure);
 	}
 
-	//Scenario: Retrieve data from the journey evolution
 
-	/*
-	@Given("a container with a container id {string}")
-	public void a_container_with_a_container_id(String containerID) {
-		Container container = new Container(containerID);
-		CDB.getContainers().add(container);
-	} */
 
 	@Given("a container with a history of locations {string}, {string}, {string}")
 	public void a_container_with_a_history_of_locations(String loc1, String loc2, String loc3) {

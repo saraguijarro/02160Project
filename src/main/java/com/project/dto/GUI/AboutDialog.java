@@ -8,6 +8,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.util.Objects;
 
 
 import static javax.swing.GroupLayout.Alignment.CENTER;
@@ -38,7 +39,7 @@ class AboutDialog extends JDialog {
         tPane.setBorder(eb);
         tPane.setMargin(new Insets(5, 5, 5, 5));
 
-        ImageIcon icon = new ImageIcon(new ImageIcon(getClass().getClassLoader().getResource("images/logo.png")).getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("images/logo.png"))).getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH));
 
         var imgLabel = new JLabel(icon);
 
