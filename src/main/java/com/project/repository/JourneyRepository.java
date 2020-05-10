@@ -43,16 +43,17 @@ public class JourneyRepository implements Repository<Jou> {
 
         try {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO journeys (id, origin, destination, company, container_id, description, ongoing) " +
-                            " VALUES(?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO journeys (id, origin, destination, company, container_id, client_id, description, ongoing) " +
+                            " VALUES(?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 
             prepared.setString(1, obj.getJourneyID());
             prepared.setString(2, obj.getOriginPort());
             prepared.setString(3, obj.getDestination());
             prepared.setString(4, obj.getCompany());
             prepared.setString(5, obj.getContainerID());
-            prepared.setString(6, obj.getContent());
-            prepared.setBoolean(7, obj.isOnGoing());
+            prepared.setString(6, obj.getClientID());
+            prepared.setString(7, obj.getContent());
+            prepared.setBoolean(8, obj.isOnGoing());
 
             prepared.executeUpdate();
         } catch (SQLException e) {
@@ -92,6 +93,7 @@ public class JourneyRepository implements Repository<Jou> {
         obj.setContent(resultSet.getString("description"));
         obj.setOnGoing(resultSet.getBoolean("ongoing"));
         obj.setContainerID(resultSet.getString("container_id"));
+        obj.setClientID(resultSet.getString("client_id"));
         obj.setDestination(resultSet.getString("destination"));
         obj.setOriginPort(resultSet.getString("origin"));
         return obj;

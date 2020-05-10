@@ -38,6 +38,7 @@ CREATE TABLE journeys(
          origin VARCHAR(255) NOT NULL,
          destination VARCHAR (255) NOT NULL,
          container_id VARCHAR (255) DEFAULT NULL,
+         client_id VARCHAR(255) DEFAULT Null,
          description VARCHAR (255) NOT NULL,
          company VARCHAR (255) NOT NULL,
          ongoing BOOLEAN DEFAULT FALSE,
