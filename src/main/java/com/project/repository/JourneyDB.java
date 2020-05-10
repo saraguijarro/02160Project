@@ -92,7 +92,7 @@ public class JourneyDB {
 		c.getJourneyIDs().add(j.getJourneyID());
 		j.setClientID(cl.getClientID());
 		LC.getContainerDatabase().containers.add(c);
-		
+		c.setCurrentPosition(j.getOriginPort());
 	}
 
 
