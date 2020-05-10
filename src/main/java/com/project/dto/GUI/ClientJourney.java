@@ -1,11 +1,33 @@
 package com.project.dto.GUI;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import com.project.dto.Client;
+import com.project.dto.Jou;
+import com.project.repository.JourneyDB;
+
 /**
  *
  * @author Miguel
  */
 public class ClientJourney extends javax.swing.JFrame {
 
+	private String mode = "all";
+	private String filter = null;
+	private String searchword;
+	private void jTextField1ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		searchword = jTextField1.getText();
+		Object [][] tableBody = Controller.Requests.tableJourneySetter(mode,"client", filter, searchword);
+        String [] tableTitles = new String [] {
+        		"ID", "Port of Origin", "Destination", "Content", "Company", "Container ID", "Status"
+            };
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
+	}
+	
     /**
      * Creates new form ClientJourney
      */
@@ -27,18 +49,18 @@ public class ClientJourney extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        filterPort = new javax.swing.JRadioButton();
+        filterDestination = new javax.swing.JRadioButton();
+        filterContent = new javax.swing.JRadioButton();
+        filterCompany = new javax.swing.JRadioButton();
+        filterAny = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Back = new javax.swing.JButton();
         Register = new javax.swing.JButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        filterid = new javax.swing.JRadioButton();
         Details = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
@@ -52,31 +74,52 @@ public class ClientJourney extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Journey management");
+        setPreferredSize(new Dimension(900, 340));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton1.setText("Port of Origin");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(filterPort);
+        filterPort.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterPort.setText("Port of Origin");
+        filterPort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+            	filterPortSelected(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton2.setText("Destination");
+        buttonGroup1.add(filterDestination);
+        filterDestination.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterDestination.setText("Destination");
+        filterDestination.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterDestinationSelected(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton3.setText("Content");
+        buttonGroup1.add(filterContent);
+        filterContent.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterContent.setText("Content");
+        filterContent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterContentSelected(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton4.setText("Company");
+        buttonGroup1.add(filterCompany);
+        filterCompany.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterCompany.setText("Company");
+        filterCompany.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterCompanySelected(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton5.setText("Any");
+        buttonGroup1.add(filterAny);
+        filterAny.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterAny.setText("Any");
+        filterAny.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterAnySelected(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 8)); // NOI18N
         jLabel1.setText("Search Filter:");
@@ -90,19 +133,14 @@ public class ClientJourney extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String[]  {
-                        "id", "origin", "destination", "container_id", "description", "company"
-                }
+        		Controller.Requests.tableJourneySetter(mode, "client", filter, jTextField1.getText())
+,
+            new String[]  {
+                "ID", "Port of Origin", "Destination", "Content", "Company", "Container ID", "Status"
+            }
         ));
+        
+        
         jScrollPane1.setViewportView(jTable1);
 
         Back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -121,9 +159,14 @@ public class ClientJourney extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        jRadioButton6.setText("ID");
+        buttonGroup1.add(filterid);
+        filterid.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        filterid.setText("ID");
+        filterid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	filterIDSelected(evt);
+            }
+        });
 
         Details.setText("Journey Details");
         Details.addActionListener(new java.awt.event.ActionListener() {
@@ -146,12 +189,12 @@ public class ClientJourney extends javax.swing.JFrame {
                                 .addGap(13, 13, 13)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(filterContent, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterDestination, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterAny, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterPort, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filterid, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
@@ -173,17 +216,17 @@ public class ClientJourney extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton5)
+                        .addComponent(filterAny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(filterPort)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(filterDestination)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(filterContent)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(filterCompany)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton6)))
+                        .addComponent(filterid)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,10 +243,7 @@ public class ClientJourney extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
+    
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
         // TODO add your handling code here:
         JourneyRegister JoReg = new JourneyRegister();
@@ -213,6 +253,8 @@ public class ClientJourney extends javax.swing.JFrame {
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
+    	   	
+    	
         ClientMainMenu ClMMenu= new ClientMainMenu();
         ClMMenu.newScreen();
         dispose();
@@ -220,11 +262,52 @@ public class ClientJourney extends javax.swing.JFrame {
 
     private void DetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailsActionPerformed
         // TODO add your handling code here:
-        ClientJourneyContainer_Details JouConDe = new ClientJourneyContainer_Details();
-        JouConDe.newScreen();
+    	int row = jTable1.getSelectedRow();
+        ArrayList<Jou> jouz = Controller.company.getJourneyDatabase().searchJourney(((Client) Controller.activeUser).getClientID(), "Client");
+        
+        JourneyDB clientJourneys=new JourneyDB();
+        clientJourneys.setJourneys(jouz);
+        
+        if (mode.equals("filter")) {jouz = clientJourneys.searchJourney(searchword, filter);}
+        Jou J = jouz.get(row);						
+        ClientJourneyContainer_Details.newScreen(J);
+        dispose();
+    	
+        ClientJourneyContainer_Details.newScreen(J);
         dispose();
     }//GEN-LAST:event_DetailsActionPerformed
 
+    private void filterAnySelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        mode = "filter";
+        filter = "None";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterPortSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "Port of Origin";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterDestinationSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "Destination";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void filterContentSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "Content";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void filterCompanySelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    	mode = "filter";
+        filter = "Company";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void filterIDSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        mode = "filter";
+        filter = "ID";
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    
     /**
      * 
      */
@@ -258,6 +341,7 @@ public class ClientJourney extends javax.swing.JFrame {
                 new ClientJourney().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -270,12 +354,12 @@ public class ClientJourney extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton filterPort;
+    private javax.swing.JRadioButton filterDestination;
+    private javax.swing.JRadioButton filterContent;
+    private javax.swing.JRadioButton filterCompany;
+    private javax.swing.JRadioButton filterAny;
+    private javax.swing.JRadioButton filterid;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

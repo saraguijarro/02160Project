@@ -1,5 +1,7 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Container;
+
 /**
  *
  * @author Miguel
@@ -31,15 +33,11 @@ public class ContainerHistory extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Container History");
 
+        Object [][] tableBody = Controller.Requests.tableHistorySetter(C);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            tableBody,
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Journey ID", "Internal Temperature", "Air Humidity", "Atmospheric Pressure"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -47,7 +45,7 @@ public class ContainerHistory extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Container ID:");
 
-        jLabel2.setText("[id]");
+        jLabel2.setText(C.getContainerID());
 
         OK.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         OK.setText("OK");
@@ -68,7 +66,7 @@ public class ContainerHistory extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -105,7 +103,9 @@ public class ContainerHistory extends javax.swing.JFrame {
     /**
      * 
      */
-    public static void newScreen() {
+    static Container C;
+    public static void newScreen(Container CJ) {
+    	C = CJ;
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

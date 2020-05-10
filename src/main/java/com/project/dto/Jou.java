@@ -1,5 +1,8 @@
 package com.project.dto;
 
+import java.util.ArrayList;
+
+import com.project.repository.ContainerDB;
 
 public class Jou {
 	
@@ -14,6 +17,21 @@ public class Jou {
 	public String JourneyID;
 	private Boolean hasID;
 	private String containerID;
+	public String ClientID;
+
+
+
+
+	public String getClientID() {
+		return ClientID;
+	}
+
+
+
+
+	public void setClientID(String clientID) {
+		ClientID = clientID;
+	}
 
 
 
@@ -100,18 +118,36 @@ public class Jou {
 	//---------Update Journey Method:------------
 		
 		//updating any field with a string
-		public ResponseObject update(String updateContent) {
+		public ResponseObject update(String updateContent, ContainerDB CDB) {
 			ResponseObject updateResponse = null;
-			this.c.setCurrentPosition(updateContent);
-			int code=211;
 			
-			
-			updateResponse = new ResponseObject(code, "current position succesfully updated");
-			if(this.c.getCurrentPosition().equals(this.getDestination())) {
-				this.onGoing = false;
-				this.c.setInJourney(false);
-				updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
+			if(!(this.c.getContainerID()==null)) {
+				this.c.setCurrentPosition(updateContent);
+				int code=211;
+				updateResponse = new ResponseObject(code, "current position succesfully updated");
+				
+				if(this.c.getCurrentPosition().equals(this.getDestination())) {
+					this.onGoing = false;
+					this.c.setInJourney(false);
+					updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
+				}
 			}
+			else {
+				CDB.find(this.getContainerID()).setCurrentPosition(updateContent);
+				int code=211;
+				updateResponse = new ResponseObject(code, "current position succesfully updated");
+				
+				if(CDB.find(this.getContainerID()).getCurrentPosition().equals(this.getDestination())) {
+					this.onGoing = false;
+					this.c.setInJourney(false);
+					updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
+				}
+				}
+			
+			
+			
+			
+			
 			
 			return updateResponse;
 		}
@@ -128,6 +164,7 @@ public class Jou {
 			else if(this.Destination.toLowerCase().contains(searchword)){code = 232; message="Destination";}
 			else if(this.Content.toLowerCase().contains(searchword.toLowerCase())){code = 233; message="Content";}
 			else if(this.Company.toLowerCase().contains(searchword.toLowerCase())){code = 234; message="Company";}
+			else if(this.getJourneyID().toLowerCase().contains(searchword.toLowerCase())){code = 234; message="ID";}
 					
 			ResponseObject isFoundResponse = new ResponseObject(code,message);
 			return isFoundResponse;

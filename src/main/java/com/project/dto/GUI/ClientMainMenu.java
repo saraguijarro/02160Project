@@ -33,6 +33,7 @@ public class ClientMainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Menu");
+        
 
         MyProfile.setText("My Profile");
         MyProfile.addActionListener(new java.awt.event.ActionListener() {
@@ -89,8 +90,8 @@ public class ClientMainMenu extends javax.swing.JFrame {
 
     private void MyProfileActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-        ClientProfile ClProf = new ClientProfile();
-        ClProf.newScreen();
+        
+        ClientProfile.newScreen();
         dispose();
     }                                         
 

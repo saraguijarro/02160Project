@@ -6,7 +6,7 @@ import com.project.dto.Container;
 
 public class ContainerDB {
 	
-	public ArrayList<Container> containers;
+	public ArrayList<Container> containers = new ArrayList<Container>();
 	
 	public ContainerDB() {
 		super();
@@ -26,10 +26,14 @@ public class ContainerDB {
 		
 		ArrayList<Container> result = new ArrayList<Container>();
 		for(int i = 0 ; i<containers.size(); i++) {
-			if( this.containers.get(i).getCurrentPosition().equals(portOfOrigin) && this.containers.get(i).getInJourney()==false) {
-				result.add(this.containers.get(i));
+			if (!(this.containers.get(i).getCurrentPosition()==null)) {
+				if( this.containers.get(i).getCurrentPosition().equals(portOfOrigin) && this.containers.get(i).getInJourney()==false) {
+					result.add(this.containers.get(i));
+				
+				}
 			}
 		}
+		
 		return result;
 	 }
 	
@@ -40,5 +44,15 @@ public class ContainerDB {
 		String zeroes = "0".repeat(6-number.length());
 		String id = prefix + zeroes + number;
 		container.setContainerID(id);
+		
+		
+	}
+	public Container find(String ID) {
+		for (int i =0;i<containers.size();i++) {
+			if (ID.equals(containers.get(i).getContainerID())){
+				return containers.get(i);
+			}
+		}
+		return null;
 	}
 }

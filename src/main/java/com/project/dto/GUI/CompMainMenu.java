@@ -30,6 +30,7 @@ public class CompMainMenu extends javax.swing.JFrame {
         Client_info = new javax.swing.JButton();
         Containers_manag = new javax.swing.JButton();
         Functionnalities_tracking = new javax.swing.JButton();
+        Functionnalities_tracking.setVisible(false);
         Journey_manag = new javax.swing.JButton();
         change_password = new javax.swing.JButton();
         LogOut = new javax.swing.JButton();
@@ -119,6 +120,8 @@ public class CompMainMenu extends javax.swing.JFrame {
 
     private void change_passwordActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
+    	CompPassword.newScreen();
+    	dispose();
     }                                               
 
     private void Client_infoActionPerformed(java.awt.event.ActionEvent evt) {                                            
