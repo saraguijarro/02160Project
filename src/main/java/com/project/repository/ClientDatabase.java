@@ -105,6 +105,7 @@ public class ClientDatabase {
 		for (Client value : clients) {
 			if (value.getName().equals(client.getName())) {
 				alreadyRegistered = true;
+
 				break;
 			}
 		}

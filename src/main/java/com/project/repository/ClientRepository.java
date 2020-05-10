@@ -6,6 +6,7 @@ import com.project.dto.Client;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
@@ -13,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The Client repository implementation.
@@ -63,19 +63,18 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO client (ID, Name, Reference_person, Email, Password, country, city, postcode, street_name, street_number, keyword ) "
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
-            prepared.setString(1, UUID.randomUUID().toString());
+                    " INSERT INTO client (ID, Name, Reference_person, Email, Password, country, city, postcode, street_name, street_number ) "
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+            prepared.setString(1, obj.getClientID());
             prepared.setString(2, obj.getName());
             prepared.setString(3, obj.getReferencePerson());
             prepared.setString(4, obj.getEmail());
-            prepared.setString(5, hashString(obj.getPassword()));
+            prepared.setString(5, obj.getPassword());
             prepared.setString(6, obj.getAddress().getCountry());
             prepared.setString(7, obj.getAddress().getCity());
             prepared.setString(8, obj.getAddress().getPostcode());
             prepared.setString(9, obj.getAddress().getStreetName());
             prepared.setString(10, obj.getAddress().getStreetNumber());
-            //prepared.setString(11, obj.getAddress().getKeyWord());
 
             prepared.executeUpdate();
 
@@ -90,12 +89,11 @@ public class ClientRepository implements Repository<Client>
     }
 
 
-    private String hashString(String string) {
+    public static String hashString(String string) {
         return Hashing.sha256()
                 .hashString(string, StandardCharsets.UTF_8)
                 .toString();
     }
-
 
     @Override
     public void putAllInDatabase(ArrayList<Client> entitiesList) {
@@ -104,7 +102,7 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " TRUNCATE TABLE client");
+                    "TRUNCATE client");
             prepared.executeUpdate();
         } catch (SQLException e)
         {
@@ -134,7 +132,6 @@ public class ClientRepository implements Repository<Client>
         Address address = new Address();
         address.setCity(resultSet.getString("city"));
         address.setCountry(resultSet.getString("country"));
-        //address.setKeyWord(resultSet.getString("keyword"));
         address.setPostcode(resultSet.getString("postcode"));
         address.setStreetName(resultSet.getString("street_name"));
         address.setStreetNumber(resultSet.getString("street_number"));

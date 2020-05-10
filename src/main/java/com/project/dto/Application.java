@@ -2,6 +2,8 @@ package com.project.dto;
 
 import java.util.ArrayList;
 import com.project.repository.ClientDatabase;
+import com.project.repository.ClientRepository;
+
 public class Application {
 
     static public ResponseObject login(String loginType, String username, String password, LogisticCompany company) {
@@ -22,7 +24,7 @@ public class Application {
             int matchSize = matchedClients.size();
             if (matchSize == 1) {
                 if (username.equals(matchedClients.get(0).getName())){matchUsername=true;}
-                if (password.equals(matchedClients.get(0).getPassword())){matchPassword=true;}
+                if (ClientRepository.hashString(password).equals(matchedClients.get(0).getPassword())){matchPassword=true;}
                 
                 
             }

@@ -1,16 +1,29 @@
 package com.project.repository;
 
+import com.project.dto.Container;
+import com.project.dto.dao.Repository;
+
 import java.util.ArrayList;
 
-import com.project.dto.Container;
-
 public class ContainerDB {
-	
+
+	Repository<Container> containerRepository;
 	public ArrayList<Container> containers = new ArrayList<Container>();
 	
 	public ContainerDB() {
 		super();
+		containerRepository = new ContainerRepository();
 		containers = new ArrayList<Container>();
+	}
+
+	// load from database
+	public void findAll() {
+		containers = containerRepository.findAll();
+	}
+
+	// this method needs to be called when application will end. For the entities to be written to database
+	public void writeAllToDatabase() {
+		containerRepository.putAllInDatabase(containers);
 	}
 	
 	public ArrayList<Container> getContainers() {

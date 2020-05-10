@@ -1,11 +1,6 @@
 package com.project.repository;
 
-import com.project.dto.Client;
-import com.project.dto.Container;
-import com.project.dto.Jou;
-import com.project.dto.LogisticCompany;
-import com.project.dto.ResponseObject;
-import com.project.dto.GUI.Controller;
+import com.project.dto.*;
 import com.project.dto.dao.Repository;
 
 import java.util.ArrayList;
@@ -18,9 +13,13 @@ public class JourneyDB {
 		super();
 		journeys = new ArrayList<>();
 		jouRepository = new JourneyRepository();
-//		journeys = jouRepository.findAll();
 
 		journeys = new ArrayList<>();
+	}
+
+	// load from database
+	public void findAll() {
+		journeys = jouRepository.findAll();
 	}
 
 	// this method needs to be called when application will end. For the entities to be written to database

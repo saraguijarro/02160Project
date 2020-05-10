@@ -106,6 +106,9 @@ public class ClientMainMenu extends javax.swing.JFrame {
     	Welcome welcomeScreen = new Welcome();
 		welcomeScreen.newScreen();
 		dispose();
+//        Runtime.getRuntime().addShutdownHook(new Thread(() ->
+                Controller.Requests.closure();
+//                        "Shutdown-thread"));
     }                                      
 
     /**
