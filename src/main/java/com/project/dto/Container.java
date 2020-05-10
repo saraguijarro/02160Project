@@ -11,7 +11,7 @@ public class Container {
 	boolean hasID;
 	String containerID;
 	Jou journey;
-	ArrayList <String> journeyIDs = new ArrayList<String>();
+	ArrayList<String> journeyIDs = new ArrayList<String>();
 
 	public ArrayList<String> getJourneyIDs() {
 		return journeyIDs;

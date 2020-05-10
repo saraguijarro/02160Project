@@ -3,10 +3,15 @@
 CREATE TABLE client(
                        ID VARCHAR(255) PRIMARY KEY NOT NULL ,
                        Name VARCHAR(255),
-                       Address VARCHAR(255),
                        Reference_person VARCHAR(255),
                        Email VARCHAR(255),
                        Password VARCHAR(255),
+                       country VARCHAR(255),
+                       city VARCHAR(255),
+                       postcode VARCHAR(255),
+                       street_name varchar(255),
+                       street_number varchar(255),
+                       keyword varchar(255),
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE company(

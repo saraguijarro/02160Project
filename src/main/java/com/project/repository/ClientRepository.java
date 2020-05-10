@@ -1,6 +1,7 @@
 package com.project.repository;
 
 import com.google.common.hash.Hashing;
+import com.project.dto.Address;
 import com.project.dto.Client;
 import com.project.dto.dao.DAOConnection;
 import com.project.dto.dao.Repository;
@@ -62,14 +63,19 @@ public class ClientRepository implements Repository<Client>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " INSERT INTO client (ID, Name, Address, Reference_person, Email, Password) "
-                    + " VALUES(?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
+                    " INSERT INTO client (ID, Name, Reference_person, Email, Password, country, city, postcode, street_name, street_number, keyword ) "
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
             prepared.setString(1, UUID.randomUUID().toString());
             prepared.setString(2, obj.getName());
-            prepared.setString(3, String.valueOf(obj.getAddress()));
-            prepared.setString(4, obj.getReferencePerson());
-            prepared.setString(5, obj.getEmail());
-            prepared.setString(6, hashString(obj.getPassword()));
+            prepared.setString(3, obj.getReferencePerson());
+            prepared.setString(4, obj.getEmail());
+            prepared.setString(5, hashString(obj.getPassword()));
+            prepared.setString(6, obj.getAddress().getCountry());
+            prepared.setString(7, obj.getAddress().getCity());
+            prepared.setString(8, obj.getAddress().getPostcode());
+            prepared.setString(9, obj.getAddress().getStreetName());
+            prepared.setString(10, obj.getAddress().getStreetNumber());
+            prepared.setString(11, obj.getAddress().getKeyWord());
 
             prepared.executeUpdate();
 
@@ -121,10 +127,18 @@ public class ClientRepository implements Repository<Client>
 
         obj.setClientID(resultSet.getString("ID"));
         obj.setName(resultSet.getString("Name"));
-        obj.setAddress(resultSet.getString("Address"));
         obj.setReferencePerson(resultSet.getString("reference_Person"));
         obj.setEmail(resultSet.getString("Email"));
         obj.setPassword(resultSet.getString("Password"));
+
+        Address address = new Address();
+        address.setCity(resultSet.getString("city"));
+        address.setCountry(resultSet.getString("country"));
+        address.setKeyWord(resultSet.getString("keyword"));
+        address.setPostcode(resultSet.getString("postcode"));
+        address.setStreetName(resultSet.getString("street_name"));
+        address.setStreetNumber(resultSet.getString("street_number"));
+        obj.setAddress(address);
 
         return obj;
     }
