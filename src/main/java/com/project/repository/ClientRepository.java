@@ -75,7 +75,7 @@ public class ClientRepository implements Repository<Client>
             prepared.setString(8, obj.getAddress().getPostcode());
             prepared.setString(9, obj.getAddress().getStreetName());
             prepared.setString(10, obj.getAddress().getStreetNumber());
-            prepared.setString(11, obj.getAddress().getKeyWord());
+            //prepared.setString(11, obj.getAddress().getKeyWord());
 
             prepared.executeUpdate();
 
@@ -134,7 +134,7 @@ public class ClientRepository implements Repository<Client>
         Address address = new Address();
         address.setCity(resultSet.getString("city"));
         address.setCountry(resultSet.getString("country"));
-        address.setKeyWord(resultSet.getString("keyword"));
+        //address.setKeyWord(resultSet.getString("keyword"));
         address.setPostcode(resultSet.getString("postcode"));
         address.setStreetName(resultSet.getString("street_name"));
         address.setStreetNumber(resultSet.getString("street_number"));

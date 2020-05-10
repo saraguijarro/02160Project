@@ -79,7 +79,7 @@ public class JourneyDB {
 			
 	public void registerStep2(Jou j , Container c, Client cl, LogisticCompany LC) {
 			
-		ContainerDB CDB = new ContainerDB();
+		ContainerDB CDB = LC.getContainerDatabase();
 			
 		j.setC(c);
 		journeys.add(j); //journey added to the database

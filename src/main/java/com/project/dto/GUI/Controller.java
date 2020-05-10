@@ -201,7 +201,7 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			}
 			
 			if (mode.equals("all")){
-				journeys = journeys;
+				
 			}
 			else if(mode.equals("filter")) {
 				if (mode2.equals("company")) {journeys = JourneyDatabase.searchJourney(searchword, filter);}
