@@ -150,7 +150,7 @@ public class CompMainMenu extends javax.swing.JFrame {
     	Welcome welcomeScreen = new Welcome();
 		welcomeScreen.newScreen();
 		dispose();
-		Controller.Requests.closure();
+        Controller.Requests.closure();
     }                                      
 
     /**

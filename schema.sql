@@ -1,7 +1,7 @@
 # Use these queries to create the tables in the database
 
 CREATE TABLE client(
-                       ID VARCHAR(255) PRIMARY KEY NOT NULL ,
+                       ID VARCHAR(255) PRIMARY KEY NOT NULL,
                        Name VARCHAR(255),
                        Reference_person VARCHAR(255),
                        Email VARCHAR(255),
@@ -11,7 +11,6 @@ CREATE TABLE client(
                        postcode VARCHAR(255),
                        street_name varchar(255),
                        street_number varchar(255),
-                       keyword varchar(255),
                        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
 CREATE TABLE company(
@@ -51,3 +50,8 @@ CREATE TABLE container_status(
                                  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                  FOREIGN KEY (container_id) REFERENCES containers(id)
 );
+
+
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE client;
+SET FOREIGN_KEY_CHECKS = 1

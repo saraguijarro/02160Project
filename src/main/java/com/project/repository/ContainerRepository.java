@@ -93,7 +93,7 @@ public class ContainerRepository implements Repository<Container> {
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    " TRUNCATE TABLE journeys");
+                    " TRUNCATE TABLE containers");
             prepared.executeUpdate();
         } catch (SQLException e)
         {

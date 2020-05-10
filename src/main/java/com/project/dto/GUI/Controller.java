@@ -1,11 +1,6 @@
 package com.project.dto.GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import com.project.dto.*;
-
 import com.project.repository.ClientDatabase;
 import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
@@ -70,8 +65,8 @@ public class Controller {
 		company.getContainerDatabase().getContainers().add(ct2);
 		Welcome.newScreen();
 		
-		//company.getClientDatabase().findAll();
-
+		company.getClientDatabase().findAll();
+		company.getJourneyDatabase().findAll();
 
 	}
 	
@@ -86,8 +81,10 @@ public class Controller {
 		static ArrayList<Jou> journeys = JourneyDatabase.getJourneys();
 		
 
-		public static void closure() {
 
+
+		public static void closure() {
+			company.getClientDatabase().writeAllToDatabase();
 
 		}
 
@@ -376,7 +373,14 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 
 
 	public static void main(String[] args) {
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			// saving the information to the database
+			company.getClientDatabase().writeAllToDatabase();
+			company.getJourneyDatabase().writeAllToDatabase();
+			company.getContainerDatabase().writeAllToDatabase();
+		}));
 		initialize();
+
 	}
 	
 	
