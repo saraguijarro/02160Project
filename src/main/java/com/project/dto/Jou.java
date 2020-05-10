@@ -139,7 +139,7 @@ public class Jou {
 				
 				if(CDB.find(this.getContainerID()).getCurrentPosition().equals(this.getDestination())) {
 					this.onGoing = false;
-					this.c.setInJourney(false);
+					CDB.find(this.getContainerID()).setInJourney(false);
 					updateResponse = new ResponseObject(212, "current position succesfully updated and the journey is terminated");
 				}
 				}

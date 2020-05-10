@@ -16,16 +16,14 @@ public class Address {
 		this.streetName = streetName;
 		this.streetNumber = streetNumber;
 
-		this.keyWord = "None";
+		
 	}
 
 	public Address() {
 
 	}
 
-	public Address(String keyword) {
-		this.keyWord = keyword;
-	}
+	
 
 	public String getCountry() {
 		return country;

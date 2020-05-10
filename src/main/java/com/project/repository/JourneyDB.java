@@ -84,11 +84,13 @@ public class JourneyDB {
 		j.setC(c);
 		journeys.add(j); //journey added to the database
 		c.setInJourney(true);
+		if (c.getJourneyIDs().size()==0) {
 		CDB.giveID(c);
+		}
 		j.setContainerID(c.getContainerID());
+		this.giveID(j);
 		c.getJourneyIDs().add(j.getJourneyID());
 		j.setClientID(cl.getClientID());
-		this.giveID(j);
 		LC.getContainerDatabase().containers.add(c);
 		
 	}
