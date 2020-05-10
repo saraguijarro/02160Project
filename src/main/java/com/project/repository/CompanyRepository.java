@@ -72,6 +72,11 @@ public class CompanyRepository implements Repository<LogisticCompany> {
 
 
 
+        entitiesList.forEach(this::create);
+
+        log.debug("End method.");
+
+    }
 
 
     private static LogisticCompany map(ResultSet resultSet) throws SQLException {
