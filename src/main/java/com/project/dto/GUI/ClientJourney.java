@@ -140,7 +140,7 @@ public class ClientJourney extends javax.swing.JFrame {
             }
         ));
         
-        
+        jTable1.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(jTable1);
 
         Back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

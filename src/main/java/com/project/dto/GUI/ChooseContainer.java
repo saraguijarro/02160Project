@@ -57,6 +57,7 @@ public class ChooseContainer extends javax.swing.JFrame {
             		"ID", "Current Position", "Internal Temperature", "Air Humidity", "Atm. Pressure", "Corresponding Journey"
             }
         ));
+        jTable1.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(jTable1);
 
         buttonGroup1.add(jRadioButton1);
@@ -147,7 +148,7 @@ public class ChooseContainer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        mode = "selected";
+        mode = "select";
     }//GEN-LAST:event_jRadioButton1ActionPerformed
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = "new";
@@ -196,7 +197,7 @@ public class ChooseContainer extends javax.swing.JFrame {
         // TODO add your handling code here:
     	
     	int row = jTable1.getSelectedRow();
-    	Container c = Controller.company.getContainerDatabase().getContainers().get(row);
+    	Container c = Controller.company.getContainerDatabase().availableContainerAt(J.getOriginPort()).get(row);
         ContainerHistory.newScreen(c);
     }//GEN-LAST:event_HistoryActionPerformed
 

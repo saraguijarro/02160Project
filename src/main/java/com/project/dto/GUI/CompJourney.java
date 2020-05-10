@@ -126,7 +126,7 @@ public class CompJourney extends javax.swing.JFrame {
                 "ID", "Port of Origin", "Destination", "Content", "Company", "Container ID", "Status"
             }
         ));
-
+        jTable1.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(jTable1);
 
         buttonGroup1.add(filterDestination);

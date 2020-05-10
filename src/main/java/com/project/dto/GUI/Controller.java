@@ -178,7 +178,7 @@ public class Controller {
 					if(containers.get(i).getTemperature().size()>0) {finalTable[i][2] = Double.toString(containers.get(i).getTemperature().get(containers.get(i).getTemperature().size()-1));}
 					if(containers.get(i).getHumidity().size()>0) {finalTable[i][3] = Double.toString(containers.get(i).getHumidity().get(containers.get(i).getHumidity().size()-1));}
 					if(containers.get(i).getPressure().size()>0) {finalTable[i][4] = Double.toString(containers.get(i).getPressure().get(containers.get(i).getPressure().size()-1));}
-					if (containers.get(i).getInJourney()) {
+					if (containers.get(i).getInJourney()==true) {
 						finalTable[i][5] = containers.get(i).getJourneyIDs().get(containers.get(i).getJourneyIDs().size() -1);
 					}
 					else {
@@ -202,7 +202,7 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			}
 			
 			if (mode.equals("all")){
-				journeys = journeys;
+				
 			}
 			else if(mode.equals("filter")) {
 				if (mode2.equals("company")) {journeys = JourneyDatabase.searchJourney(searchword, filter);}
@@ -260,9 +260,10 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			int counter=0;
 			int code = 600;
 			ResponseObject updatePosResponse = null;
-			
 			if (JourneyDatabase.getJourneys().size()>0){
+				
 				J=JourneyDatabase.find(C.getJourneyIDs().get(C.getJourneyIDs().size()-1));
+				
 			} else {J = new Jou();}
 			
 			try {Temp = Double.parseDouble(temp);updated = updated + ", Internal Temperature";

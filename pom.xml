@@ -5,6 +5,7 @@
   <version>1.0.0-INITIAL</version>
   <properties><maven.compiler.source>1.8</maven.compiler.source><maven.compiler.target>1.8</maven.compiler.target></properties>
 
+
   <dependencies>
       <dependency>
           <groupId>io.cucumber</groupId>
@@ -17,6 +18,8 @@
           <artifactId>cucumber-junit</artifactId>
           <version>5.4.1</version>
       </dependency>
+      
+     
 
       <dependency>
           <groupId>io.cucumber</groupId>
@@ -107,6 +110,21 @@
                 <target>11</target>
             </configuration>
         </plugin>
+        
+      <plugin>
+  			<artifactId>maven-assembly-plugin</artifactId>
+  			<configuration>
+  				<archive>
+  					<manifest>
+  						<mainClass>com.project.dto.GUI.Controller</mainClass>
+  					</manifest>
+  				</archive>
+  				<descriptorRefs>
+  					<descriptorRef>jar-with-dependencies</descriptorRef>
+  				</descriptorRefs>
+  			</configuration>
+  		</plugin>
+		
     </plugins>
   </build>
 
