@@ -41,29 +41,29 @@ public class Controller {
 		company = new LogisticCompany("Maersk","0000","details");
 		
 		//Test data
-		company.getClientDatabase().registering(new Client("Harry", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
-		company.getClientDatabase().registering(new Client("Jo", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
-		Container ct = new Container();
-		ct.setContainerID("CON21");
-		Container ct2 = new Container();
-		ct2.setContainerID("CON22");
-		ct2.getJourneyIDs().add("JOU000004");ct2.setInJourney(true);
-		ct.getTemperature().add(22.5);ct.getHumidity().add(40.5);ct.getPressure().add(0.02);
-		ct.getJourneyIDs().add("JOU000002");ct.setInJourney(true);
-		Jou jo = new Jou();
-		jo.setJourneyID("JOU000002");jo.setDestination("Hawai");jo.setCompany("Netto");jo.setContent("Bananas");jo.setOriginPort("BEY");
-		jo.setContainerID("CON21");
-		jo.setClientID(company.getClientDatabase().getClients().get(0).getClientID());
-		Jou jo2 = new Jou();
-		jo2.setJourneyID("JOU000004");jo2.setDestination("France");jo2.setCompany("Netto");jo2.setContent("Furniture");jo2.setOriginPort("BEY");
-		jo2.setContainerID("CON24");
-		jo2.setContainerID("CON22");
-		jo2.setClientID(company.getClientDatabase().getClients().get(1).getClientID());
-
-		company.getJourneyDatabase().getJourneys().add(jo);
-		company.getJourneyDatabase().getJourneys().add(jo2);
-		company.getContainerDatabase().getContainers().add(ct);
-		company.getContainerDatabase().getContainers().add(ct2);
+//		company.getClientDatabase().registering(new Client("Harry", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
+//		company.getClientDatabase().registering(new Client("Jo", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
+//		Container ct = new Container();
+//		ct.setContainerID("CON21");
+//		Container ct2 = new Container();
+//		ct2.setContainerID("CON22");
+//		ct2.getJourneyIDs().add("JOU000004");ct2.setInJourney(true);
+//		ct.getTemperature().add(22.5);ct.getHumidity().add(40.5);ct.getPressure().add(0.02);
+//		ct.getJourneyIDs().add("JOU000002");ct.setInJourney(true);
+//		Jou jo = new Jou();
+//		jo.setJourneyID("JOU000002");jo.setDestination("Hawai");jo.setCompany("Netto");jo.setContent("Bananas");jo.setOriginPort("BEY");
+//		jo.setContainerID("CON21");
+//		jo.setClientID(company.getClientDatabase().getClients().get(0).getClientID());
+//		Jou jo2 = new Jou();
+//		jo2.setJourneyID("JOU000004");jo2.setDestination("France");jo2.setCompany("Netto");jo2.setContent("Furniture");jo2.setOriginPort("BEY");
+//		jo2.setContainerID("CON24");
+//		jo2.setContainerID("CON22");
+//		jo2.setClientID(company.getClientDatabase().getClients().get(1).getClientID());
+//
+//		company.getJourneyDatabase().getJourneys().add(jo);
+//		company.getJourneyDatabase().getJourneys().add(jo2);
+//		company.getContainerDatabase().getContainers().add(ct);
+//		company.getContainerDatabase().getContainers().add(ct2);
 
 		Welcome.newScreen();
 		
@@ -380,11 +380,11 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 	public static void main(String[] args) {
 
 		initialize();
-//		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//			company.getClientDatabase().writeAllToDatabase();
-//			company.getContainerDatabase().writeAllToDatabase();
-//			company.getJourneyDatabase().writeAllToDatabase();
-//		}, "Shutdown-thread"));
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			company.getClientDatabase().writeAllToDatabase();
+			company.getContainerDatabase().writeAllToDatabase();
+			company.getJourneyDatabase().writeAllToDatabase();
+		}, "Shutdown-thread"));
 
 	}
 	
