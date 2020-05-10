@@ -40,6 +40,7 @@ public class ContainerHistory extends javax.swing.JFrame {
                 "Journey ID", "Internal Temperature", "Air Humidity", "Atmospheric Pressure"
             }
         ));
+        jTable1.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

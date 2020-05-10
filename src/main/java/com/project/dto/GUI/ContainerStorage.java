@@ -48,6 +48,7 @@ public class ContainerStorage extends javax.swing.JFrame {
             };
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
+        jTable1.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(jTable1);
         
         
