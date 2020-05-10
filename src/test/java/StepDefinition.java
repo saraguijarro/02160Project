@@ -1,18 +1,15 @@
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-
 import com.project.dto.*;
 import com.project.repository.ClientDatabase;
 import com.project.repository.ContainerDB;
 import com.project.repository.JourneyDB;
-
-import com.project.dto.Client;
-import com.project.dto.Container;
-import com.project.dto.ResponseObject;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StepDefinition {
 
@@ -385,7 +382,7 @@ public class StepDefinition {
 
 	@Then("the container is in that journey")
 	public void the_container_is_in_that_journey() {
-		assertEquals( JDB.containerInAJourney(selectedContainer.getContainerID()) , true);
+		assertTrue(JDB.containerInAJourney(selectedContainer.getContainerID()));
 	}
 	
 	
@@ -593,15 +590,15 @@ public class StepDefinition {
 	}
 
 //Feature: Retrieve info about each container
-	ArrayList<Double> InternalTemperature = new ArrayList<Double>();
-	ArrayList<Double> AirHumidity = new ArrayList<Double>();
-	ArrayList<Double> AtmosphericPressure = new ArrayList<Double>();
+	ArrayList<Double> InternalTemperature = new ArrayList<>();
+	ArrayList<Double> AirHumidity = new ArrayList<>();
+	ArrayList<Double> AtmosphericPressure = new ArrayList<>();
 
 	ArrayList<Double> retrievedTemperature;
 	ArrayList<Double> retrievedHumidity;
 	ArrayList<Double> retrievedPressure;
 
-	ArrayList<String> historyLocation = new ArrayList<String>();
+	ArrayList<String> historyLocation = new ArrayList<>();
 	ArrayList<String> retrievedLocation;
 
 	double temp1; double temp2; double temp3;

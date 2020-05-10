@@ -101,9 +101,9 @@ public class ClientDatabase {
 
 	private boolean clientAlreadyRegistered(Client client) {
 		boolean alreadyRegistered = false;
-		
-		for (int i=0; i<clients.size();i++) {
-			if(clients.get(i).getName().equals(client.getName())) {
+
+		for (Client value : clients) {
+			if (value.getName().equals(client.getName())) {
 				alreadyRegistered = true;
 			}
 		}
@@ -124,6 +124,58 @@ public class ClientDatabase {
 //----2 methods used to find a client in the database by search word, and a potential filter-----------
 	//-------n�1 returns a list with the found clients
 	public ArrayList<Client> searchClient(String searchword, String filter) {
+<<<<<<< HEAD
+		ArrayList<Client> foundClients = new ArrayList<>();
+
+		switch (filter) {
+			case "None":  //search everything because no filter
+				for (Client client : this.clients) {
+					if (client.isFound(searchword).getCode() != 130) {
+						foundClients.add(client);
+					}
+				}
+				break;
+			case "name":  //search only name
+				for (Client client : this.clients) {
+					if (client.getName().toLowerCase().contains(searchword.toLowerCase())) {
+						foundClients.add(client);
+					}
+				}
+				break;
+			case "address":  //search only in the address
+				for (Client client : this.clients) {
+					if (client.getAddress().getCity().toLowerCase().contains(searchword.toLowerCase())
+							|| client.getAddress().getCountry().toLowerCase().contains(searchword.toLowerCase())
+							|| client.getAddress().getPostcode().toLowerCase().contains(searchword.toLowerCase())
+							|| client.getAddress().getStreetName().toLowerCase().contains(searchword.toLowerCase())
+							|| client.getAddress().getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
+							|| client.getAddress().getKeyWord().toLowerCase().contains(searchword.toLowerCase())) {
+						foundClients.add(client);
+					}
+				}
+				break;
+			case "reference person":
+				for (Client client : this.clients) {
+					if (client.getReferencePerson().toLowerCase().contains(searchword.toLowerCase())) {
+						foundClients.add(client);
+					}
+				}
+				break;
+			case "email":
+				for (Client client : this.clients) {
+					if (client.getEmail().toLowerCase().contains(searchword)) {
+						foundClients.add(client);
+					}
+				}
+				break;
+			case "id":
+				for (Client client : this.clients) {
+					if (client.getClientID().toLowerCase().contains(searchword)) {
+						foundClients.add(client);
+					}
+				}
+				break;
+=======
 		ArrayList<Client> foundClients = new ArrayList<Client>();
 		
 		if (filter.equals("None")) { //search everything because no filter
@@ -161,6 +213,7 @@ public class ClientDatabase {
 			for (int i=0;i<this.clients.size();i++) {
 				if (this.clients.get(i).getClientID().toLowerCase().contains(searchword)){foundClients.add(this.clients.get(i));}
 			}
+>>>>>>> master
 		}
 		
 		
@@ -174,11 +227,9 @@ public class ClientDatabase {
 		ArrayList<Client> foundClients = searchClient(searchword, filter);
 		int numberOfClients = foundClients.size();
 		if (numberOfClients>0) {code = 135;}
-		String message = Integer.toString(numberOfClients) + " clients found with the searchword: ["+searchword+"] and the filter: ["+filter+"]";
-		
-		ResponseObject searchClientResponse = new ResponseObject(code, message);
-		
-		return searchClientResponse;
+		String message = numberOfClients + " clients found with the searchword: ["+searchword+"] and the filter: ["+filter+"]";
+
+		return new ResponseObject(code, message);
 	}
 	
 	
