@@ -87,7 +87,7 @@ public class JourneyRepository implements Repository<Jou> {
     private static Jou map(ResultSet resultSet) throws SQLException {
         Jou obj = new Jou();
 
-        obj.setJourneyID(resultSet.getString("journey_id"));
+        obj.setJourneyID(resultSet.getString("id"));
         obj.setCompany(resultSet.getString("company"));
         obj.setContent(resultSet.getString("description"));
         obj.setOnGoing(resultSet.getBoolean("ongoing"));
