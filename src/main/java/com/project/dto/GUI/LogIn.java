@@ -1,6 +1,7 @@
 package com.project.dto.GUI;
 
 import com.project.dto.Application;
+import com.project.dto.Client;
 import com.project.dto.ResponseObject;
 
 import javax.swing.*;
@@ -115,9 +116,6 @@ public class LogIn extends javax.swing.JFrame {
         if (loggedIn.equals("client")){
             String username = fieldName.getText();
             String password = new String(fieldPassword.getPassword());
-
-
-            System.out.print(Controller.company.getClientDatabase().searchClient(username, "name").get(0).getName());
 
 
             ResponseObject responseObject = Application.login("Client", username, password, Controller.company);

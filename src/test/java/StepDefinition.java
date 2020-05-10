@@ -18,7 +18,7 @@ public class StepDefinition {
 	Client client = new Client();
 	ClientDatabase CD;
 	ResponseObject registerResponse;
-	LogisticCompany company;
+	LogisticCompany company = new LogisticCompany();
 	Application app = new Application();
 
 	//Background
@@ -69,8 +69,7 @@ public class StepDefinition {
             if(registerResponse.getCode()==200) {
             	
             	availableContainers = CDB.availableContainerAt(journey.getOriginPort());
-            	
-            	JDB.registerStep2(journey , selectedContainer);
+            	JDB.registerStep2(journey , selectedContainer, client, company);
             	
             	
             }
@@ -276,9 +275,9 @@ public class StepDefinition {
 		con2 = new Container(CDB , poo3);
 		CDB.getContainers().add(con2);
 	
-		JDB.registerStep2(j1 , con);
-		JDB.registerStep2(j2 , con1);
-		JDB.registerStep2(j3 , con2);	
+		JDB.registerStep2(j1 , con, client, company);
+		JDB.registerStep2(j2 , con1, client, company);
+		JDB.registerStep2(j3 , con2, client, company);	
 	}
 
 	@When("searching for journey")
@@ -305,6 +304,8 @@ public class StepDefinition {
 	//Background
 	@Given("a client {string}")
 	public void a_client(String name) {
+		CD = new ClientDatabase();
+		client = new Client(CD);
 		client.setName(name);
 	}
 
@@ -441,7 +442,7 @@ public class StepDefinition {
 
 	@When("Update current position to {string}")
 	public void update_current_position(String updateContent) {
-		updateResponse = journey.update(updateContent);
+		updateResponse = journey.update(updateContent, CDB);
 	}
 
 	@Then("the current position is updated")

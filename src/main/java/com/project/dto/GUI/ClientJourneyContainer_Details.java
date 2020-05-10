@@ -1,12 +1,16 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Container;
+import com.project.dto.Jou;
+
 /**
  *
  * @author Miguel
  */
 public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
-    /**
+    private static Container C;
+	/**
      * Creates new form ClientJourneyContainer_Details
      */
     public ClientJourneyContainer_Details() {
@@ -52,11 +56,11 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
         jLabel10.setText("Journey ID:");
 
-        jLabel11.setText("[jou id]");
+        jLabel11.setText(J.getJourneyID());
 
         jLabel12.setText("Container ID:");
 
-        jLabel13.setText("[cont id]");
+        jLabel13.setText(C.getContainerID());
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Container:");
@@ -70,9 +74,15 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Journey");
 
-        jLabel18.setText("[int T]");
+        
+        if (C.getTemperature().size()==0) {jLabel18.setText("NA");}
+        else{jLabel18.setText(Double.toString(C.getTemperature().get(C.getTemperature().size()-1)));}
 
-        jLabel19.setText("[air hum]");
+
+        
+        if (C.getHumidity().size()==0) {jLabel19.setText("NA");}
+        else{jLabel19.setText(Double.toString(C.getHumidity().get(C.getHumidity().size()-1)));}
+        
 
         jLabel3.setText("Port of origin:");
 
@@ -82,15 +92,18 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
         jLabel6.setText("Company:");
 
-        jLabel2.setText("[p of o]");
+        jLabel2.setText(J.getOriginPort());
 
-        jLabel7.setText("[dest]");
+        jLabel7.setText(J.getDestination());
 
-        jLabel8.setText("[cont]");
+        jLabel8.setText(J.getContent());
 
-        jLabel9.setText("[company]");
+        jLabel9.setText(J.getCompany());
 
-        jLabel20.setText("[atm press]");
+        
+        if (C.getPressure().size()==0) {jLabel20.setText("NA");}
+        else{jLabel20.setText(Double.toString(C.getPressure().get(C.getPressure().size()-1)));}
+
 
         Back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Back.setText("Back");
@@ -102,7 +115,9 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
         jLabel21.setText("Current Position:");
 
-        jLabel22.setText("[posi]");
+        
+        if (C.getCurrentPosition()==null) {jLabel22.setText("NA");}
+        else{jLabel22.setText(C.getCurrentPosition());}
 
         History.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         History.setText("Container History");
@@ -225,19 +240,22 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed
         // TODO add your handling code here:
-        ContainerHistory CoHis = new ContainerHistory();
-        CoHis.newScreen();
+         
+         ContainerHistory.newScreen(C);
     }//GEN-LAST:event_HistoryActionPerformed
 
     /**
      * 
      */
-    public static void newScreen() {
+    static public Jou J;
+    public static void newScreen(Jou CJ) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+    	J = CJ;
+        C = Controller.company.getContainerDatabase().find(J.getContainerID());
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

@@ -7,7 +7,6 @@ public class Address {
 	private String postcode;
 	private String streetName;
 	private String streetNumber;
-	private String keyWord;
 	
 	public Address(String country, String city, String postcode, String streetName, String streetNumber) {
 		super();
@@ -16,16 +15,17 @@ public class Address {
 		this.postcode = postcode;
 		this.streetName = streetName;
 		this.streetNumber = streetNumber;
-		this.keyWord = "None";
+
+//		this.keyWord = "None";
 	}
 
 	public Address() {
 
 	}
 
-	public Address(String keyword) {
-		this.keyWord = keyword;
-	}
+//	public Address(String keyword) {
+//		this.keyWord = keyword;
+//	}
 
 	public String getCountry() {
 		return country;
@@ -67,12 +67,5 @@ public class Address {
 		this.streetNumber = streetNumber;
 	}
 	
-	public String getKeyWord() {
-		return keyWord;
-	}
-
-	public void setKeyWord(String keyWord) {
-		this.keyWord = keyWord;
-	}
 	
 }

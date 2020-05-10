@@ -1,5 +1,8 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Container;
+import com.project.dto.Jou;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -49,14 +52,9 @@ public class ChooseContainer extends javax.swing.JFrame {
         jLabel1.setText("Available Containers:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            Controller.Requests.tableContainerSetter("POO", J.getOriginPort()),
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+            		"ID", "Current Position", "Internal Temperature", "Air Humidity", "Atm. Pressure", "Corresponding Journey"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -71,6 +69,11 @@ public class ChooseContainer extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Generate new container");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         Cancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cancel.setText("Cancel");
@@ -144,8 +147,11 @@ public class ChooseContainer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+        mode = "selected";
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        mode = "new";
+    }
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:
@@ -154,26 +160,53 @@ public class ChooseContainer extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_CancelActionPerformed
 
+    static String mode = "none";
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
-        ClientJourney ClJo = new ClientJourney();
-        ClJo.newScreen();
-        dispose();
-        
-        Warning save = new Warning();
-        save.newScreen("Saved!");
+    	if (mode.equals("select")){
+    		int row = jTable1.getSelectedRow();
+        	Container c = Controller.company.getContainerDatabase().availableContainerAt(J.getOriginPort()).get(row);
+        	Controller.Requests.register2Journey(J, c);
+            
+            ClientJourney.newScreen();
+            dispose();
+            
+            Warning.newScreen("Container selected and Journey registered!");
+    	}
+    	else if (mode.equals("new")) {
+    		Container c = new Container();
+    		Controller.Requests.register2Journey(J, c);
+    		
+            ClientJourney.newScreen();
+            dispose();
+            
+            Warning.newScreen("New container generated and Journey registered!");
+    		
+    	}
+    	else if (mode.equals("none")) {
+    		Warning.newScreen("Error. Please choose a container and try again.");
+    	}
+    	
+    	
+         
+    	
     }//GEN-LAST:event_SaveActionPerformed
 
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed
         // TODO add your handling code here:
-        ContainerHistory CoHis = new ContainerHistory();
-        CoHis.newScreen();
+    	
+    	int row = jTable1.getSelectedRow();
+    	Container c = Controller.company.getContainerDatabase().getContainers().get(row);
+        ContainerHistory.newScreen(c);
     }//GEN-LAST:event_HistoryActionPerformed
 
     /**
      * 
      */
-    public static void newScreen() {
+    static Jou J;
+    
+    public static void newScreen(Jou CJ) {
+    	J=CJ;
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

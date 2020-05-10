@@ -1,5 +1,9 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Container;
+import com.project.dto.Jou;
+import com.project.dto.ResponseObject;
+
 /**
  *
  * @author Miguel
@@ -26,12 +30,12 @@ public class UpdateStatus extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        id = new javax.swing.JLabel();
+        temperature = new javax.swing.JTextField();
+        humidity = new javax.swing.JTextField();
+        pressure = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        position = new javax.swing.JTextField();
         back = new javax.swing.JButton();
         save = new javax.swing.JButton();
 
@@ -47,17 +51,17 @@ public class UpdateStatus extends javax.swing.JFrame {
 
         jLabel17.setText("Internal Temperature:");
 
-        jLabel2.setText("[id]");
+        id.setText(C.getContainerID());
 
-        jTextField1.setText("jTextField1");
+        temperature.setText("");
 
-        jTextField2.setText("jTextField2");
+        humidity.setText("");
 
-        jTextField3.setText("jTextField3");
+        pressure.setText("");
 
         jLabel21.setText("Current Position:");
 
-        jTextField4.setText("jTextField4");
+        position.setText("");
 
         back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         back.setText("Back");
@@ -85,7 +89,7 @@ public class UpdateStatus extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -95,10 +99,10 @@ public class UpdateStatus extends javax.swing.JFrame {
                             .addComponent(jLabel21))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)))
+                            .addComponent(position)
+                            .addComponent(pressure)
+                            .addComponent(humidity)
+                            .addComponent(temperature)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
@@ -111,23 +115,23 @@ public class UpdateStatus extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel2))
+                    .addComponent(id))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(temperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(humidity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pressure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
@@ -141,26 +145,43 @@ public class UpdateStatus extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        CompJourneyContainer_Details CompJCDe = new CompJourneyContainer_Details();
-        CompJCDe.newScreen(previous);
+        
+    	if (previous.contentEquals("container")){CompJourneyContainer_Details.newScreen(previous,C);}
+        else {CompJourneyContainer_Details.newScreen(previous,J);}
+    	
         dispose();
     }//GEN-LAST:event_backActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        CompJourneyContainer_Details CompJCDe = new CompJourneyContainer_Details();
-        CompJCDe.newScreen(previous);
-        dispose();
         
-        Warning save = new Warning();
-        save.newScreen("Saved!");
+    	ResponseObject response = Controller.Requests.ContainerUpdate(C, temperature.getText(),humidity.getText(), pressure.getText(), position.getText());
+    	
+    	if (response.getCode()==600) {
+	    	if (previous.contentEquals("container")){CompJourneyContainer_Details.newScreen(previous,C);}
+	        else {CompJourneyContainer_Details.newScreen(previous,J);}
+	    	
+	    	dispose();
+	        	        
+	        Warning save = new Warning();
+	        save.newScreen(response.getMessage());
+    	}
+    	else {
+    		Warning error = new Warning();
+	        error.newScreen(response.getMessage());
+    	}
+    	
+        
     }//GEN-LAST:event_saveActionPerformed
 
     /**
      * 
      */
     static String previous;
-    public static void newScreen(String input) {
+    static Container C;
+    static Jou J;
+    
+    public static void newScreen(String input, Container CJ) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -184,6 +205,42 @@ public class UpdateStatus extends javax.swing.JFrame {
         }
         //</editor-fold>
         previous = input;
+        C = CJ;
+        if (C.getInJourney()) {J = Controller.company.getJourneyDatabase().find(C.getJourneyIDs().get(C.getJourneyIDs().size()-1));}
+        else {J = null;}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new UpdateStatus().setVisible(true);
+            }
+        });
+    }
+    public static void newScreen(String input, Jou CJ) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UpdateStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UpdateStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UpdateStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UpdateStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        previous = input;
+        J = CJ;
+        C = Controller.company.getContainerDatabase().find(J.getContainerID());
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -198,12 +255,12 @@ public class UpdateStatus extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField temperature;
+    private javax.swing.JTextField humidity;
+    private javax.swing.JTextField pressure;
+    private javax.swing.JTextField position;
     private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }

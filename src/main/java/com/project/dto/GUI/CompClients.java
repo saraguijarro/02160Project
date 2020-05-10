@@ -42,6 +42,7 @@ public class CompClients extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clients Management");
         setPreferredSize(new Dimension(900, 340));
+       
 
         buttonGroup1.add(filterReferencePerson);
         filterReferencePerson.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
@@ -59,6 +60,8 @@ public class CompClients extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
+        
+        
 
         buttonGroup1.add(filterAny);
         filterAny.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
@@ -97,6 +100,7 @@ public class CompClients extends javax.swing.JFrame {
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(tableBody,tableTitles));
         jScrollPane1.setViewportView(jTable1);
+        
 
         buttonGroup1.add(filterAddress);
         filterAddress.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N

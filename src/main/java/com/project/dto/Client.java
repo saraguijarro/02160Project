@@ -1,5 +1,6 @@
 package com.project.dto;
 
+import com.project.repository.ClientDatabase;
 import com.project.repository.JourneyDB;
 
 public class Client extends User{
@@ -16,7 +17,14 @@ public class Client extends User{
 
 	public Client(){
 	super();
+	
 	}
+	
+	public Client(ClientDatabase CDB){
+		super();
+		CDB.giveID(this);
+		
+		}
 
 	public Client(String name, Address address, String referencePerson, String email, String password) {
 		super();
@@ -63,7 +71,7 @@ public class Client extends User{
 	
 	public void setAddress(String add) {
 		if (add.equals("None")) {this.setAddress(new Address("None","None","None","None","None"));}
-		else {this.setAddress(new Address(add));}
+		
 	}
 	
 	public String getName() {
@@ -112,6 +120,7 @@ public class Client extends User{
 		else if (updateChoice.equals("address1")) {this.setAddress(updateContent);code=112;}
 		else if (updateChoice.equals("reference person")) {this.setReferencePerson(updateContent);code=113;}
 		else if (updateChoice.equals("email")) {this.setEmail(updateContent);code=114;}
+		else if (updateChoice.equals("password")) {this.setPassword(updateContent);code=118;}
 		
 		if (code!=116) {updateResponse = new ResponseObject(code, "Client information succesfully updated");}
 		return updateResponse;
@@ -139,7 +148,7 @@ public class Client extends User{
 			   ||this.address.getPostcode().toLowerCase().contains(searchword.toLowerCase())
 			   ||this.address.getStreetName().toLowerCase().contains(searchword.toLowerCase())
 			   ||this.address.getStreetNumber().toLowerCase().contains(searchword.toLowerCase())
-			   ||this.address.getKeyWord().toLowerCase().contains(searchword.toLowerCase()))
+			    )
 				{code = 132;message = "address";}
 		else if(this.referencePerson.toLowerCase().contains(searchword.toLowerCase())){code = 133; message="reference person";}
 		else if(this.email.toLowerCase().contains(searchword.toLowerCase())){code = 134; message="email";}

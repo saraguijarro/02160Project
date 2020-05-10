@@ -1,5 +1,8 @@
 package com.project.dto.GUI;
 
+import com.project.dto.Container;
+import com.project.dto.Jou;
+
 /**
  *
  * @author Miguel
@@ -27,26 +30,26 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        portoforigin = new javax.swing.JLabel();
+        destination = new javax.swing.JLabel();
+        content = new javax.swing.JLabel();
+        company = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        journeyid = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        containerid = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        temperature = new javax.swing.JLabel();
+        humidity = new javax.swing.JLabel();
+        pressure = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         update_info = new javax.swing.JButton();
         history = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        position = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Journey & Container Information");
@@ -62,22 +65,38 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
 
         jLabel6.setText("Company:");
 
-        jLabel2.setText("[p of o]");
+        if (J==null) {
+        	portoforigin.setText("NA");
 
-        jLabel7.setText("[dest]");
+            destination.setText("NA");
 
-        jLabel8.setText("[cont]");
+            content.setText("NA");
 
-        jLabel9.setText("[company]");
+            company.setText("NA");
+            
+            journeyid.setText("NA");
+        }
+        else {
+        	portoforigin.setText(J.getOriginPort());
+
+            destination.setText(J.getDestination());
+
+            content.setText(J.getContent());
+
+            company.setText(J.getCompany());
+            
+            journeyid.setText(J.getJourneyID());
+        }
+        
 
         jLabel10.setText("Journey ID:");
 
-        jLabel11.setText("[jou id]");
+        
 
         jLabel12.setText("Container ID:");
 
-        jLabel13.setText("[cont id]");
-
+        containerid.setText(C.getContainerID());
+        
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Container:");
 
@@ -86,12 +105,15 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
         jLabel16.setText("Atmospheric Pressure:");
 
         jLabel17.setText("Internal Temperature:");
+        
+        if (C.getTemperature().size()==0) {temperature.setText("NA");}
+        else{temperature.setText(Double.toString(C.getTemperature().get(C.getTemperature().size()-1)));}
 
-        jLabel18.setText("[int T]");
-
-        jLabel19.setText("[air hum]");
-
-        jLabel20.setText("[atm press]");
+        if (C.getHumidity().size()==0) {humidity.setText("NA");}
+        else{humidity.setText(Double.toString(C.getHumidity().get(C.getHumidity().size()-1)));}
+        
+        if (C.getPressure().size()==0) {pressure.setText("NA");}
+        else{pressure.setText(Double.toString(C.getPressure().get(C.getPressure().size()-1)));}
 
         back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         back.setText("Back");
@@ -119,7 +141,9 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
 
         jLabel21.setText("Current Position:");
 
-        jLabel22.setText("[posi]");
+        if (C.getCurrentPosition()==null) {position.setText("NA");}
+        else{position.setText(C.getCurrentPosition());}
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,12 +164,12 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(portoforigin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(destination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(company, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(containerid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(journeyid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -154,17 +178,17 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel20)
+                                .addComponent(pressure)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(humidity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(temperature, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(update_info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(history, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel21))
                 .addContainerGap())
         );
@@ -178,44 +202,44 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(portoforigin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel7))
+                    .addComponent(destination))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel8))
+                    .addComponent(content))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel9)
+                    .addComponent(company)
                     .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel22))
+                    .addComponent(journeyid)
+                    .addComponent(position))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13))
+                            .addComponent(containerid))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jLabel18))
+                            .addComponent(temperature))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jLabel19))
+                            .addComponent(humidity))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel20)))
+                            .addComponent(pressure)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(history)
@@ -230,8 +254,9 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
 
     private void update_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_infoActionPerformed
         // TODO add your handling code here:
-        UpdateStatus UpdS = new UpdateStatus();
-        UpdS.newScreen(previous);
+        
+        if (previous.contentEquals("container")){UpdateStatus.newScreen(previous,C);}
+        else {UpdateStatus.newScreen(previous,J);}
         dispose();
     }//GEN-LAST:event_update_infoActionPerformed
 
@@ -251,8 +276,8 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
 
     private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
         // TODO add your handling code here:
-        ContainerHistory ConHis = new ContainerHistory();
-        ConHis.newScreen();
+        
+        ContainerHistory.newScreen(C);
         
     }//GEN-LAST:event_historyActionPerformed
 
@@ -260,13 +285,11 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
      * 
      */
     static String previous;
-    
-    public static void newScreen(String input) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    static Container C;
+    static Jou J;
+    public static void newScreen(String input, Jou CJ) {
+        
+    	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -288,6 +311,45 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         previous = input;
+        J = CJ;
+        C = Controller.company.getContainerDatabase().find(J.getContainerID());
+        
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CompJourneyContainer_Details().setVisible(true);
+            }
+        });
+    }
+    public static void newScreen(String input, Container CJ) {
+        
+    	
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CompJourneyContainer_Details.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CompJourneyContainer_Details.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CompJourneyContainer_Details.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CompJourneyContainer_Details.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        previous = input;
+        C = CJ;
+        if (C.getInJourney()) {J = Controller.company.getJourneyDatabase().find(C.getJourneyIDs().get(C.getJourneyIDs().size()-1));}
+        else {J = null;}
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -301,26 +363,26 @@ public class CompJourneyContainer_Details extends javax.swing.JFrame {
     private javax.swing.JButton history;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel journeyid;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel containerid;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel temperature;
+    private javax.swing.JLabel humidity;
+    private javax.swing.JLabel portoforigin;
+    private javax.swing.JLabel pressure;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel position;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel destination;
+    private javax.swing.JLabel content;
+    private javax.swing.JLabel company;
     private javax.swing.JButton update_info;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,11 @@
 package com.project.repository;
 
+import com.project.dto.Client;
 import com.project.dto.Container;
 import com.project.dto.Jou;
+import com.project.dto.LogisticCompany;
 import com.project.dto.ResponseObject;
+import com.project.dto.GUI.Controller;
 import com.project.dto.dao.Repository;
 
 import java.util.ArrayList;
@@ -66,7 +69,7 @@ public class JourneyDB {
 				
 			//journeys.add(journey); //journey added to the database
 				
-			this.giveID(journey); //ID added to the journey
+			
 			journey.setHasID(true);
 		}
 					
@@ -74,7 +77,7 @@ public class JourneyDB {
 	}
 			
 			
-	public void registerStep2(Jou j , Container c) {
+	public void registerStep2(Jou j , Container c, Client cl, LogisticCompany LC) {
 			
 		ContainerDB CDB = new ContainerDB();
 			
@@ -84,6 +87,10 @@ public class JourneyDB {
 		CDB.giveID(c);
 		j.setContainerID(c.getContainerID());
 		c.getJourneyIDs().add(j.getJourneyID());
+		j.setClientID(cl.getClientID());
+		this.giveID(j);
+		LC.getContainerDatabase().containers.add(c);
+		
 	}
 
 
@@ -137,9 +144,20 @@ public class JourneyDB {
 			for (int i=0;i<this.journeys.size();i++) {
 				if (this.journeys.get(i).getCompany().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
 			}
-		}						
+		}		
+		else if (filter.equals("ID")) { //search only for port of company
+			for (int i=0;i<this.journeys.size();i++) {
+				if (this.journeys.get(i).getJourneyID().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
+			}
+		}
+		else if (filter.equals("Client")) { //search only for port of company
+			for (int i=0;i<this.journeys.size();i++) {
+				if (this.journeys.get(i).getClientID().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
+			}
+		}
 		return foundJourneys;
 	}
+	
 
 
 	//returns a ResponseObject with information about the search
@@ -153,5 +171,14 @@ public class JourneyDB {
 		ResponseObject searchJourneyResponse = new ResponseObject(code, message);
 				
 		return searchJourneyResponse;
+	}
+	
+	public Jou find(String ID) {
+		for (int i =0;i<journeys.size();i++) {
+			if (ID.equals(journeys.get(i).getJourneyID())){
+				return journeys.get(i);
+			}
+		}
+		return null;
 	}
 }
