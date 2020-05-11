@@ -87,31 +87,32 @@ public class JourneyDB {
 		CDB.giveID(c);
 		}
 		j.setContainerID(c.getContainerID());
-		this.giveID(j);
+		this.giveID(j, LC);
 		c.getJourneyIDs().add(j.getJourneyID());
 		j.setClientID(cl.getClientID());
-		LC.getContainerDatabase().containers.add(c);
+		if(c.getJourneyIDs().size() == 1){LC.getContainerDatabase().containers.add(c);}
+
 		c.setCurrentPosition(j.getOriginPort());
 	}
 
 
 	public boolean containerInAJourney(String containerID) {
-		for(int i = 0 ; i<journeys.size() ; i++) {
-			if(journeys.get(i).getC().getContainerID().equals(containerID)) {
+		for (Jou journey : journeys) {
+			if (journey.getC().getContainerID().equals(containerID)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	static int counter = 1;
-	public void giveID(Jou journey) {
+	public void giveID(Jou journey, LogisticCompany LC) {
+		JourneyDB JDB = LC.getJourneyDatabase();
 		String prefix = "JO";
-		String number = Integer.toString(counter);
+		String number = Integer.toString(JDB.getJourneys().size());
 		String zeroes = "0".repeat(6-number.length());
 		String id = prefix + zeroes + number;
 		journey.setJourneyID(id);			
-		counter++;
+
 	}
 
 
@@ -119,42 +120,58 @@ public class JourneyDB {
 
 	//returns a list with the found clients
 	public ArrayList<Jou> searchJourney(String searchword, String filter) {
-		ArrayList<Jou> foundJourneys = new ArrayList<Jou>();
-				
-		if (filter.equals("None")) { //search everything because no filter
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).isFound(searchword).getCode()!=230) {foundJourneys.add(this.journeys.get(i));}
-			}	
-		}
-		else if (filter.equals("Port of Origin")) { //search only for port of origin
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getOriginPort().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
-		}
-		else if (filter.equals("Destination")) { //search only for destination
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getDestination().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
-		}
-		else if (filter.equals("Content")) { //search only for port of content
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getContent().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
-		}
-		else if (filter.equals("Company")) { //search only for port of company
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getCompany().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
-		}		
-		else if (filter.equals("ID")) { //search only for port of company
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getJourneyID().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
-		}
-		else if (filter.equals("Client")) { //search only for port of company
-			for (int i=0;i<this.journeys.size();i++) {
-				if (this.journeys.get(i).getClientID().toLowerCase().contains(searchword.toLowerCase())){foundJourneys.add(this.journeys.get(i));}
-			}
+		ArrayList<Jou> foundJourneys = new ArrayList<>();
+
+		switch (filter) {
+			case "None":  //search everything because no filter
+				for (Jou journey : this.journeys) {
+					if (journey.isFound(searchword).getCode() != 230) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "Port of Origin":  //search only for port of origin
+				for (Jou journey : this.journeys) {
+					if (journey.getOriginPort().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "Destination":  //search only for destination
+				for (Jou journey : this.journeys) {
+					if (journey.getDestination().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "Content":  //search only for port of content
+				for (Jou journey : this.journeys) {
+					if (journey.getContent().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "Company":  //search only for port of company
+				for (Jou journey : this.journeys) {
+					if (journey.getCompany().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "ID":  //search only for port of company
+				for (Jou journey : this.journeys) {
+					if (journey.getJourneyID().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
+			case "Client":  //search only for port of company
+				for (Jou journey : this.journeys) {
+					if (journey.getClientID().toLowerCase().contains(searchword.toLowerCase())) {
+						foundJourneys.add(journey);
+					}
+				}
+				break;
 		}
 		return foundJourneys;
 	}
@@ -167,17 +184,15 @@ public class JourneyDB {
 		ArrayList<Jou> foundJourneys = searchJourney(searchword, filter);
 		int numberOfJourneys = foundJourneys.size();
 		if (numberOfJourneys>0) {code = 135;}
-		String message = Integer.toString(numberOfJourneys) + " journeys found with the searchword: ["+searchword+"] and the filter: ["+filter+"]";
-			
-		ResponseObject searchJourneyResponse = new ResponseObject(code, message);
-				
-		return searchJourneyResponse;
+		String message = numberOfJourneys + " journeys found with the searchword: ["+searchword+"] and the filter: ["+filter+"]";
+
+		return new ResponseObject(code, message);
 	}
 	
 	public Jou find(String ID) {
-		for (int i =0;i<journeys.size();i++) {
-			if (ID.equals(journeys.get(i).getJourneyID())){
-				return journeys.get(i);
+		for (Jou journey : journeys) {
+			if (ID.equals(journey.getJourneyID())) {
+				return journey;
 			}
 		}
 		return null;

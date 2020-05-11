@@ -17,24 +17,12 @@ public class LogisticCompany extends User {
 		return journeyDatabase;
 	}
 
-	public void setJourneyDatabase(JourneyDB journeyDatabase) {
-		this.journeyDatabase = journeyDatabase;
-	}
-
 	public ContainerDB getContainerDatabase() {
 		return containerDatabase;
 	}
 
-	public void setContainerDatabase(ContainerDB containerDatabase) {
-		this.containerDatabase = containerDatabase;
-	}
-
 	public ClientDatabase getClientDatabase() {
 		return clientDatabase;
-	}
-
-	public void setClientDatabase(ClientDatabase ClientDatabase) {
-		clientDatabase = ClientDatabase;
 	}
 
 	public  LogisticCompany(){

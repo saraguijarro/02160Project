@@ -233,9 +233,9 @@ public class ClientJourneyContainer_Details extends javax.swing.JFrame {
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-        ClientJourney ClJo = new ClientJourney();
-        ClJo.newScreen();
-        dispose();
+
+        ClientJourney.newScreen();
+        this.dispose();
     }//GEN-LAST:event_BackActionPerformed
 
     private void HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryActionPerformed

@@ -106,14 +106,6 @@ public class Welcome extends javax.swing.JFrame {
     }//GEN-LAST:event_LogIn_ClientActionPerformed
 
 
-    
-    /**
-     * 
-     */
-    public void disposeme() {
-    	dispose();
-    }
-    
     public static void newScreen() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

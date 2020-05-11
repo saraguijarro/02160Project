@@ -12,58 +12,11 @@ public class Controller {
 	
 	static User activeUser;
 	static LogisticCompany company;
-	static Application app;
-	
-	
-	
-	static ChooseContainer chooseContainer;
-	static ClientJourney clientJourney;
-	static ClientJourneyContainer_Details clientJourneyContainer_Details;
-	static ClientMainMenu clientMainMenu = new ClientMainMenu();
-	static ClientProfile clientProfile;
-	static ClientProfileEdit clientProfileEdit;
-	static ClientRegister clientRegister = new ClientRegister();
-	static CompClients compClients;
-	static CompJourneyContainer_Details compJourneyContainer_Details;
-	static CompMainMenu compMainMenu = new CompMainMenu();
-	static ContainerHistory containerHistory;
-	static ContainerStorage containerStorage;
-	static JourneyRegister journeyRegister = new JourneyRegister();
-	static LogIn logIn = new LogIn();
-	static Warning saved = new Warning();
-	static UpdateStatus updateStatus;
-	static Welcome welcome = new Welcome();
-	
 
-	
 	static public void initialize() {
 		//Import all the objects from SQL tables
 		company = new LogisticCompany("Maersk","0000","details");
-		
-		//Test data
-//		company.getClientDatabase().registering(new Client("Harry", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
-//		company.getClientDatabase().registering(new Client("Jo", new Address("DK", "CPH", "2800", "Fysikvej", "200"), "Harry 2", "@dtu", "0000"));
-//		Container ct = new Container();
-//		ct.setContainerID("CON21");
-//		Container ct2 = new Container();
-//		ct2.setContainerID("CON22");
-//		ct2.getJourneyIDs().add("JOU000004");ct2.setInJourney(true);
-//		ct.getTemperature().add(22.5);ct.getHumidity().add(40.5);ct.getPressure().add(0.02);
-//		ct.getJourneyIDs().add("JOU000002");ct.setInJourney(true);
-//		Jou jo = new Jou();
-//		jo.setJourneyID("JOU000002");jo.setDestination("Hawai");jo.setCompany("Netto");jo.setContent("Bananas");jo.setOriginPort("BEY");
-//		jo.setContainerID("CON21");
-//		jo.setClientID(company.getClientDatabase().getClients().get(0).getClientID());
-//		Jou jo2 = new Jou();
-//		jo2.setJourneyID("JOU000004");jo2.setDestination("France");jo2.setCompany("Netto");jo2.setContent("Furniture");jo2.setOriginPort("BEY");
-//		jo2.setContainerID("CON24");
-//		jo2.setContainerID("CON22");
-//		jo2.setClientID(company.getClientDatabase().getClients().get(1).getClientID());
-//
-//		company.getJourneyDatabase().getJourneys().add(jo);
-//		company.getJourneyDatabase().getJourneys().add(jo2);
-//		company.getContainerDatabase().getContainers().add(ct);
-//		company.getContainerDatabase().getContainers().add(ct2);
+
 
 		Welcome.newScreen();
 		
@@ -178,7 +131,7 @@ public class Controller {
 					if(containers.get(i).getTemperature().size()>0) {finalTable[i][2] = Double.toString(containers.get(i).getTemperature().get(containers.get(i).getTemperature().size()-1));}
 					if(containers.get(i).getHumidity().size()>0) {finalTable[i][3] = Double.toString(containers.get(i).getHumidity().get(containers.get(i).getHumidity().size()-1));}
 					if(containers.get(i).getPressure().size()>0) {finalTable[i][4] = Double.toString(containers.get(i).getPressure().get(containers.get(i).getPressure().size()-1));}
-					if (containers.get(i).getInJourney()==true) {
+					if (containers.get(i).getInJourney()) {
 						finalTable[i][5] = containers.get(i).getJourneyIDs().get(containers.get(i).getJourneyIDs().size() -1);
 					}
 					else {
@@ -246,9 +199,8 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			Address addr = new Address(country, city, postcode, streetname, streetnumber );
 
 			Client cl = new Client(name, addr, referenceperson, email, ClientRepository.hashString("0000"));
-			ResponseObject response = CDB.registering(cl);
 
-			return response;
+			return CDB.registering(cl);
 		}
 
 		public static ResponseObject ContainerUpdate(Container C, String temp, String hum, String press, String pos) {
@@ -259,7 +211,7 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			Jou J;
 			int counter=0;
 			int code = 600;
-			ResponseObject updatePosResponse = null;
+			ResponseObject updatePosResponse;
 			if (JourneyDatabase.getJourneys().size()>0){
 				
 				J=JourneyDatabase.find(C.getJourneyIDs().get(C.getJourneyIDs().size()-1));
@@ -289,7 +241,9 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 	        	else{Press = 0;}counter++;
 	            } 
 			
-			if (counter<3) {ResponseObject responseTrackAll = C.trackAll(Temp, Hum, Press);}
+			if (counter<3) {
+				C.trackAll(Temp, Hum, Press);
+			}
 			
 			if (pos.equals("")) {}	
 			else {
@@ -300,24 +254,21 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 					updated = updated + ". Journey has reached its destination!";
 				}
 			}
-			
-			if(updated.equals("Succesfully updated") && pos.equals("")) {
+
+			if(updated.equals("Successfully updated")) {
 				updated = "The update has failed! Incorrect or empty values";
 				code = 604;
 			}
-			ResponseObject finalResponse = new ResponseObject(code, updated);
-			
-			
-			
-			
-			return finalResponse;
+
+
+			return new ResponseObject(code, updated);
 		}
 		
 		public static ResponseObject updateClient(Client cl,
 				String country, String city, String postcode, String streetname, String streetnumber,
 				String email, String referenceperson, String password) {
 			
-			ResponseObject response = null;
+			ResponseObject response;
 			int counter = 0;
 			String cou;
 			String ci;
@@ -361,10 +312,9 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 			else {Comp = comp;}
 			
 			Jou journey = new Jou(Port, Destin, Cont, Comp);
-			ResponseObject response1 = JourneyDatabase.registerStep1(journey);
-				
-			
-			return response1;
+
+
+			return JourneyDatabase.registerStep1(journey);
 		}
 
 		public static void register2Journey(Jou j, Container c) {
@@ -378,8 +328,10 @@ public static Object[][] tableJourneySetter(String mode, String mode2, String fi
 
 
 	public static void main(String[] args) {
-
+//		method to initialize the program
 		initialize();
+
+//		Writes all the data to database upon closing the program
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			company.getClientDatabase().writeAllToDatabase();
 			company.getContainerDatabase().writeAllToDatabase();

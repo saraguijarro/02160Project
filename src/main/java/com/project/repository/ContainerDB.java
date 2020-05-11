@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public class ContainerDB {
 
 	Repository<Container> containerRepository;
-	public ArrayList<Container> containers = new ArrayList<Container>();
+	public ArrayList<Container> containers;
 	
 	public ContainerDB() {
 		super();
 		containerRepository = new ContainerRepository();
-		containers = new ArrayList<Container>();
+		containers = new ArrayList<>();
 	}
 
 	// load from database
@@ -30,19 +30,15 @@ public class ContainerDB {
 		return containers;
 	}
 
-	public void setContainers(ArrayList<Container> containers) {
-		this.containers = containers;
-	}
-	
-	
+
 	public ArrayList<Container> availableContainerAt (String portOfOrigin){
 		
-		ArrayList<Container> result = new ArrayList<Container>();
-		for(int i = 0 ; i<containers.size(); i++) {
-			if (!(this.containers.get(i).getCurrentPosition()==null)) {
-				if( this.containers.get(i).getCurrentPosition().equals(portOfOrigin) && this.containers.get(i).getInJourney()==false) {
-					result.add(this.containers.get(i));
-				
+		ArrayList<Container> result = new ArrayList<>();
+		for (Container container : containers) {
+			if (!(container.getCurrentPosition() == null)) {
+				if (container.getCurrentPosition().equals(portOfOrigin) && !container.getInJourney()) {
+					result.add(container);
+
 				}
 			}
 		}
@@ -61,9 +57,9 @@ public class ContainerDB {
 		
 	}
 	public Container find(String ID) {
-		for (int i =0;i<containers.size();i++) {
-			if (ID.equals(containers.get(i).getContainerID())){
-				return containers.get(i);
+		for (Container container : containers) {
+			if (ID.equals(container.getContainerID())) {
+				return container;
 			}
 		}
 		return null;
