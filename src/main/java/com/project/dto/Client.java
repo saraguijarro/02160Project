@@ -17,7 +17,6 @@ public class Client extends User{
 
 	public Client(){
 	super();
-	
 	}
 	
 	public Client(ClientDatabase CDB){
@@ -148,7 +147,7 @@ public class Client extends User{
 		ResponseObject updateResponse = null;
 		int code=116;
 		if (updateChoice.equals("address2")) {this.setAddress(updateContent);code=115;}
-		if (code!=116) {updateResponse = new ResponseObject(code, "Client information succesfully updated");}
+		if (code!=116) {updateResponse = new ResponseObject(code, "Client information successfully updated");}
 		return updateResponse;
 	}
 //------------end of Update Client method--------------

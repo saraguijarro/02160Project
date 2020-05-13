@@ -6,15 +6,15 @@ public class Jou {
 	
 	Container c = new Container();
 
-	public boolean onGoing = true;
-	public String OriginPort;
-	public String Destination;
-	public String Content;
-	public String Company;
-	public String JourneyID;
+	private boolean onGoing = true;
+	private String OriginPort;
+	private String Destination;
+	private String Content;
+	private String Company;
+	private String JourneyID;
 	private Boolean hasID;
 	private String containerID;
-	public String ClientID;
+	private String ClientID;
 
 	public String getClientID() {
 		return ClientID;

@@ -8,7 +8,7 @@ public class Container {
 	
 	private String currentPosition;
 	private boolean inJourney;
-	String containerID;
+	private String containerID;
 	Jou journey;
 	ArrayList<String> journeyIDs = new ArrayList<>();
 
@@ -75,9 +75,9 @@ public class Container {
 
 //Code regarding the current internal status of the container, instantaneous data
 	
-	double temperature;
-	double humidity;
-	double pressure;
+	private double temperature;
+	private double humidity;
+	private double pressure;
 
 
 	public void setTemp(double temperature) {
@@ -208,7 +208,7 @@ public class Container {
 		AtmosphericPressure.add(pressValue);
 		journeyIDs.add(journeyIDs.get(journeyIDs.size()-1));
 		
-		trackDataAll = new ResponseObject(code, "All tracked informations have been successfully saved.");
+		trackDataAll = new ResponseObject(code, "All tracked information have been successfully saved.");
 		return trackDataAll;
 	}
 }

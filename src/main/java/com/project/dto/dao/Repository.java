@@ -12,7 +12,6 @@ public interface Repository<T> {
 //    method to insert the data inside the tables
     T create(T obj);
 
-
     // TODO: to make it as simple abstract method when all repositories will implement it
     // method to save all the data in the database from the classes
     default void putAllInDatabase(ArrayList<T> entitiesList) {
