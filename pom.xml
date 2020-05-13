@@ -116,7 +116,7 @@
   			<configuration>
   				<archive>
   					<manifest>
-  						<mainClass>com.project.dto.GUI.Controller</mainClass>
+  						<mainClass>com.project.GUI.Controller</mainClass>
   					</manifest>
   				</archive>
   				<descriptorRefs>

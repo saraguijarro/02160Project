@@ -12,13 +12,13 @@ public class DAOConnection
 {
     final static Logger log = Logger.getLogger(DAOConnection.class);
 
-    private static String driver = PROP.getProperty("db.driver");
+    private static final String driver = PROP.getProperty("db.driver");
 
-    private static String url = PROP.getProperty("db.url");
+    private static final String url = PROP.getProperty("db.url");
 
-    private static String user = PROP.getProperty("db.user");
+    private static final String user = PROP.getProperty("db.user");
 
-    private static String password = PROP.getProperty("db.password");
+    private static final String password = PROP.getProperty("db.password");
 
     private static Connection connection;
 

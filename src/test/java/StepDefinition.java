@@ -349,7 +349,7 @@ public class StepDefinition {
 	@Given("an available container at the port of origin")
 	public void an_available_container_at_the_port_of_origin() {
 
-		con = new Container(CDB , journey.OriginPort);
+		con = new Container(CDB , journey.getOriginPort());
 		CDB.getContainers().add(con);
 	
 		con1 = new Container(CDB , "Beirut");
@@ -391,7 +391,7 @@ public class StepDefinition {
 
 	@Given("a new generated container")
 	public void a_new_generated_container() {
-		selectedContainer = new Container(CDB , journey.OriginPort);
+		selectedContainer = new Container(CDB , journey.getOriginPort());
 		CDB.getContainers().add(selectedContainer);
 	}
 

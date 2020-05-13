@@ -17,11 +17,11 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Add measurements about the containerâ€™s internal status
+Feature: Add measurements about the container’s internal status
   Add the collected measurements to the system
 
   @tag1
-  Scenario: Update measurements about the containerâ€™s internal status
+  Scenario: Update measurements about the container’s internal status
 		Given a container with a container id "J02061"
 		And a logistic company "Maersk"
 		And an update choice "humidity"

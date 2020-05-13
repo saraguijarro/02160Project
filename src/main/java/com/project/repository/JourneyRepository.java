@@ -57,7 +57,7 @@ public class JourneyRepository implements Repository<Jou> {
 
             prepared.executeUpdate();
         } catch (SQLException e) {
-            log.error("Error creating new container : " + e);
+            log.error("Error creating new journey : " + e);
         }
 
         log.debug("End method.");
@@ -85,9 +85,12 @@ public class JourneyRepository implements Repository<Jou> {
         log.debug("End method.");
 
     }
+    /**
+     * Map the current row of the given ResultSet to an Object.
+     *
+     */
 
-
-    private static Jou map(ResultSet resultSet) throws SQLException {
+    public static Jou map(ResultSet resultSet) throws SQLException {
         Jou obj = new Jou();
 
         obj.setJourneyID(resultSet.getString("id"));
