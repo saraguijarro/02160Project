@@ -7,6 +7,9 @@ A Sample Swing Database / CRUD Application.
 This is the first version of our Remote Container Management System. Its purpose is to provide the client a platform 
 for shipping goods overseas using containers.
 
+## Warning UML
+Here in the repository you can find the correct UML class diagram, please consider this one.
+
 ## Dev tools
 * Java
 * JDK 1.8
