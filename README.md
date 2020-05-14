@@ -8,7 +8,7 @@ This is the first version of our Remote Container Management System. Its purpose
 for shipping goods overseas using containers.
 
 ## Warning UML
-Here in the repository you can find the correct UML class diagram, please consider this one.
+Here in the repository you can find the correct UML_DIAGRAM.png, please consider this one.
 
 ## Dev tools
 * Java
